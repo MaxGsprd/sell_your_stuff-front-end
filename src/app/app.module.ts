@@ -5,12 +5,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PostingCardComponent } from './components/posting/posting-card/posting-card/posting-card.component';
 import { PostingDetailComponent } from './components/posting/posting-detail/posting-detail/posting-detail.component';
+import { PostingListComponent } from './components/posting/posting-list/posting-list/posting-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PostingCardComponent,
-    PostingDetailComponent
+    PostingDetailComponent,
+    PostingListComponent
   ],
   imports: [
     BrowserModule,
