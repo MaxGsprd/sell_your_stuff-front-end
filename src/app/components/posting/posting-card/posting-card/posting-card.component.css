@@ -1,0 +1,14 @@
+.card {
+    /* background-color: pink; */
+}
+
+.card-infos {
+    display: flex;
+    justify-content: space-between;
+}
+
+.card-img {
+    object-fit: contain;
+    height: 250px;
+    background-color: #f6f6f6;
+}

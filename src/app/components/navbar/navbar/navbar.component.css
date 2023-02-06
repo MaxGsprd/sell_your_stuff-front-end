@@ -1,3 +1,7 @@
+.navbar {
+    background-color: #fff !important;
+}
+
 .container-fluid {
     max-width: 1066px;
 }
