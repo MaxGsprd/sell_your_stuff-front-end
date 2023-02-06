@@ -1,0 +1,8 @@
+.container-fluid {
+    max-width: 1066px;
+}
+
+a, button {
+    display: flex;
+}
+
