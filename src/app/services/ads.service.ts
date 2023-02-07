@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { catchError, retry } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { IAd } from '../components/ads/IAd.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +10,10 @@ export class AdsService {
 
   constructor(private http: HttpClient) { }
 
-  public getAllAds() 
+  public getAllAds() :Observable<IAd[]>
   {
-    return this.http.get('data/mock-items.json');
+    return this.http.get<IAd[]>('data/mock-items.json');
   }
 }
+
+

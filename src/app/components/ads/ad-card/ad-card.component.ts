@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { IAd } from '../IAd.interface';
 
 @Component({
   selector: 'app-ad-card',
@@ -6,5 +7,5 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./ad-card.component.css']
 })
 export class AdCardComponent {
-  @Input() item : any;
+  @Input() ad!: IAd;
 }

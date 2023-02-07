@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AdsService } from 'src/app/services/ads.service';
+import { IAd } from '../IAd.interface';
 
 @Component({
   selector: 'app-ads-list',
@@ -7,14 +8,14 @@ import { AdsService } from 'src/app/services/ads.service';
   styleUrls: ['./ads-list.component.css']
 })
 export class AdsListComponent {
-  
-  public Items: any;
 
-  constructor(private adsService: AdsService){  }
+  public Ads: Array<IAd> = [];
+
+  constructor(private adsService: AdsService) {}
 
   ngOnInit() : void {
     this.adsService.getAllAds().subscribe({
-      next: (response) => this.Items = response,
+      next: (response) => this.Ads = response,
       error: (error) => console.error(error)
     });
   }
