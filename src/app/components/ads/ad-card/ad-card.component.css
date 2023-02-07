@@ -1,7 +1,3 @@
-.card {
-    /* background-color: pink; */
-}
-
 .card-infos {
     display: flex;
     justify-content: space-between;

@@ -7,13 +7,17 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar/navbar.component';
 import { AdCardComponent } from './components/ads/ad-card/ad-card.component';
 import { AdsListComponent } from './components/ads/ads-list/ads-list.component';
+import { PostAdComponent } from './components/ads/post-ad/post-ad.component';
+import { AdDetailComponent } from './components/ads/ad-detail/ad-detail.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     AdCardComponent,
-    AdsListComponent
+    AdsListComponent,
+    PostAdComponent,
+    AdDetailComponent
   ],
   imports: [
     BrowserModule,

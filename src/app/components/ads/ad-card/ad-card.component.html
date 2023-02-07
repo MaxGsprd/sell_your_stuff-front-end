@@ -3,13 +3,10 @@
     <div class="card-body">
       <h5 class="card-title">{{ad.Name}}</h5>
       <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-      
       <div class="card-infos">
           <p class="card-text">{{ad.Price | currency:'CAD':'symbol-narrow'}}</p>
           <p class="card-text">Category : {{ad.Category}}</p>
-      </div>
-      <div class="m-auto">
-          <a href="#" class="btn btn-primary">See more</a>
-      </div>
+        </div>
+        <a routerLink="/ad-detail/{{ad.Id}}" class="stretched-link"></a>
     </div>
   </div>
