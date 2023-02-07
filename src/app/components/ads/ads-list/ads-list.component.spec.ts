@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PostingDetailComponent } from './posting-detail.component';
+import { AdsListComponent } from './ads-list.component';
 
-describe('PostingDetailComponent', () => {
-  let component: PostingDetailComponent;
-  let fixture: ComponentFixture<PostingDetailComponent>;
+describe('AdsListComponent', () => {
+  let component: AdsListComponent;
+  let fixture: ComponentFixture<AdsListComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PostingDetailComponent ]
+      declarations: [ AdsListComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(PostingDetailComponent);
+    fixture = TestBed.createComponent(AdsListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

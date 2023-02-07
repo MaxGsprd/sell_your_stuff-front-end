@@ -1,23 +1,23 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { PostingCardComponent } from './components/posting/posting-card/posting-card/posting-card.component';
-import { PostingDetailComponent } from './components/posting/posting-detail/posting-detail/posting-detail.component';
-import { PostingListComponent } from './components/posting/posting-list/posting-list/posting-list.component';
 import { NavbarComponent } from './components/navbar/navbar/navbar.component';
+import { AdCardComponent } from './components/ads/ad-card/ad-card.component';
+import { AdsListComponent } from './components/ads/ads-list/ads-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    PostingCardComponent,
-    PostingDetailComponent,
-    PostingListComponent,
-    NavbarComponent
+    NavbarComponent,
+    AdCardComponent,
+    AdsListComponent
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule
   ],
   providers: [],
