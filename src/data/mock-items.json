@@ -2,37 +2,38 @@
     {
       "Id":1,
       "Name":"Default product A",
-      "Category":"Clothe",
+      "Category":"Clothing",
       "Price":5
     },
     {
       "Id":2,
-      "Name":"Default product B",
-      "Category":"Clothe",
-      "Price":70
+      "Name":"Dragon Ball - Tome 2",
+      "Category":"Book",
+      "Price":6,
+      "Image":"dbz.jpg"
     },
     {
       "Id":3,
       "Name":"Default product C",
-      "Category":"Clothe",
+      "Category":"Clothing",
       "Price":99
     },
     {
       "Id":4,
       "Name":"Default product D",
-      "Category":"Clothe",
+      "Category":"Clothing",
       "Price":8
     },
     {
       "Id":5,
       "Name":"Default product E",
-      "Category":"Clothe",
+      "Category":"Clothing",
       "Price":62
     },
     {
       "Id":6,
       "Name":"Default product F",
-      "Category":"Clothe",
+      "Category":"Clothing",
       "Price":102
     }
   ] 

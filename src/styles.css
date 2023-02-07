@@ -4,3 +4,8 @@ html {
     background-color: rgb(241, 233, 223);
 }
 
+.back-link {
+    display: flex;
+    text-decoration: none;
+}
+

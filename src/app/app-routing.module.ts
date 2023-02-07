@@ -7,7 +7,8 @@ import { PostAdComponent } from './components/ads/post-ad/post-ad.component';
 const routes: Routes = [
   {path: '', component: AdsListComponent},
   {path: 'post-ad', component: PostAdComponent},
-  {path: 'ad-detail/:id', component: AdDetailComponent}
+  {path: 'ad-detail/:id', component: AdDetailComponent},
+  {path: '**', component: AdsListComponent}
 ];
 
 @NgModule({

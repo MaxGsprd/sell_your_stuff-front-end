@@ -4,7 +4,7 @@
 }
 
 .card-img {
-    object-fit: contain;
+    object-fit: cover;
     height: 250px;
     background-color: #f6f6f6;
 }
