@@ -5,4 +5,31 @@
     </a>
 </div>
 
-<h2>Wanna post an ad ?</h2>
+<div class="card">
+    <div class="card-header">
+        add new ad
+    </div>
+    <div class="card-body">
+        <form (ngSubmit)="onSubmit(Form)" #Form="ngForm">
+            <div class="form-group col-12">
+                <label for="name" class="form-control">Name</label>
+                <input type="text" class="form-control">
+            </div>
+
+            <div class="form-group col-12">
+                <label for="category" class="form-control">Category</label>
+                <input type="text" class="form-control">
+            </div>
+
+            <div class="form-group col-12">
+                <label for="name" class="form-control">Price</label>
+                <input type="text" class="form-control">
+            </div>
+
+            <div class="form-group col-12">
+                <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                <button type="reset" class="btn btn-primary">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>

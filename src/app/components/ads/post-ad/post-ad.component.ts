@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-post-ad',
@@ -7,4 +8,8 @@ import { Component } from '@angular/core';
 })
 export class PostAdComponent {
 
+  onSubmit(Form :NgForm) {
+    console.log('congrats form submitted');
+    console.log(Form);
+  }
 }
