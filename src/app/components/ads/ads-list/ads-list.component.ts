@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AdsService } from 'src/app/services/ads.service';
+import { AdService } from 'src/app/services/ad.service';
 import { IAd } from '../IAd.interface';
 
 @Component({
@@ -11,10 +11,10 @@ export class AdsListComponent implements OnInit {
 
   public Ads: Array<IAd> = [];
 
-  constructor(private adsService: AdsService) {}
+  constructor(private adService: AdService) {}
 
   ngOnInit() : void {
-    this.adsService.getAllAds().subscribe({
+    this.adService.getAllAds().subscribe({
       next: (response) => this.Ads = response,
       error: (error) => console.error(error)
     });

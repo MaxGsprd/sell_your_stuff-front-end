@@ -6,7 +6,7 @@ import { IAd } from '../components/ads/IAd.interface';
 @Injectable({
   providedIn: 'root'
 })
-export class AdsService {
+export class AdService {
 
   constructor(private http: HttpClient) { }
 
