@@ -1,1 +1,66 @@
-<p>user-registration works!</p>
+<div class="wrapper row">
+    <div class="col-6 m-auto">
+        <div class="card m-auto">
+            <div class="card-header">Register</div>
+            <div class="card-body">
+                <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+                    <div class="form-group col-12 mb-4">
+                        <label for="name" class="form-label">Name</label>
+                        <input type="text" id="name-input" placeholder="Your name" formControlName="name" class="form-control">
+                        <span *ngIf="name?.invalid && (name?.dirty || name?.touched)" class="alert alert-danger">Name is required.</span>
+                    </div>
+                    <div class="form-group col-12 mb-4">
+                        <label for="birthdate" class="form-label">Date of birth</label>
+                        <input type="date" id="birthdate-input" placeholder="Your date of birth" formControlName="birthdate" class="form-control">
+                        <span *ngIf="birthdate?.invalid && (birthdate?.dirty || birthdate?.touched)" class="alert alert-danger">Date of birth is required.</span>
+                    </div>
+                    <div class="form-group col-12 mb-4">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" id="email-input" placeholder="Your email" formControlName="email" class="form-control">
+                        <span *ngIf="email?.invalid && (email?.dirty || email?.touched)" class="alert alert-danger">
+                            <span *ngIf="email?.errors?.['required']">
+                                Email is required.
+                            </span>
+                            <span *ngIf="email?.errors?.['email']">
+                                Email is not valid.
+                            </span>
+                        </span>
+                    </div>
+                    <div class="form-group col-12 mb-4">
+                        <label for="phone" class="form-label">Phone number</label>
+                        <input type="tel" id="phone-input" placeholder="Your phone number" formControlName="phone" class="form-control">
+                        <span *ngIf="phone?.invalid && (phone?.dirty || phone?.touched)" class="alert alert-danger">Phone number is required.</span>
+                    </div>
+                    <div class="form-group col-12 mb-4">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" id="password-input" formControlName="password" class="form-control">
+                        <span *ngIf="password?.invalid && (password?.dirty || password?.touched)" class="alert alert-danger">
+                            <span *ngIf="password?.errors?.['required']">
+                                Password is required.
+                            </span>
+                            <span *ngIf="password?.errors?.['minlength']">
+                                Password should be at least 8 characters long.
+                            </span>
+                        </span>
+                    </div>
+                    <div class="form-group col-12 mb-4">
+                        <label for="confirm-password" class="form-label">Confirm Password</label>
+                        <input type="password" id="confirm-password-input" formControlName="confirmPassword" class="form-control">
+                        <span *ngIf="confirmPassword?.invalid && (confirmPassword?.dirty || confirmPassword?.touched)" class="alert alert-danger">
+                            <span *ngIf="confirmPassword?.errors?.['required']">
+                                Please confirm password
+                            </span>
+                        </span>
+                        <span *ngIf="registrationForm.hasError('passwordsMismatch') && confirmPassword?.valid" class="alert alert-danger">
+                            Passwords do not match.
+                        </span>
+                    </div>
+                    <div class="form-group col-12 form-buttons mt-5">
+                        <button type="reset" class="btn btn-secondary">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Create account</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

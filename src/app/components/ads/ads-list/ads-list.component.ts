@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AdsService } from 'src/app/services/ads.service';
 import { IAd } from '../IAd.interface';
 
@@ -7,7 +7,7 @@ import { IAd } from '../IAd.interface';
   templateUrl: './ads-list.component.html',
   styleUrls: ['./ads-list.component.css']
 })
-export class AdsListComponent {
+export class AdsListComponent implements OnInit {
 
   public Ads: Array<IAd> = [];
 

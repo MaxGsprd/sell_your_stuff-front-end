@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -6,7 +6,7 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './ad-detail.component.html',
   styleUrls: ['./ad-detail.component.css']
 })
-export class AdDetailComponent {
+export class AdDetailComponent implements OnInit {
 
   public adId!: number;
 
