@@ -2,6 +2,7 @@ import { Component, ComponentRef, OnInit, ViewChild, ViewContainerRef } from '@a
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { CustomAlertComponent } from 'src/app/components/custom-alert/custom-alert.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-login',
@@ -12,7 +13,7 @@ export class UserLoginComponent implements OnInit {
   loginForm!: FormGroup;
   userSubmitted!:boolean;
 
-  constructor(private authenticationService: AuthenticationService) { }
+  constructor(private authenticationService: AuthenticationService, private router: Router) { }
 
   ngOnInit(): void {
     this.createLoginForm();
@@ -37,7 +38,7 @@ export class UserLoginComponent implements OnInit {
         localStorage.setItem('token', token.name);
         this.userSubmitted = false;
         this.loginForm.reset();
-        // @later : add redirection
+        this.router.navigate(['/']);
       } else {
         this.throwAlert();
         console.log('name password mismatch');
