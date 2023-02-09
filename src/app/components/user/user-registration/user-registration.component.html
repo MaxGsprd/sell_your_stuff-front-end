@@ -8,11 +8,19 @@
             </p>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
+        <div class="welcome-banner hidden" id="welcome-banner">
+            <img src="assets/welcome-image.jpg" alt="welcome image" style="width: 500px;">
+            <p>Now you can post ad and buy anything !</p>
+            <a routerLink="/">
+                Go to the main page&nbsp;
+                <span class="material-symbols-outlined">arrow_forward</span>
+            </a>
+        </div>
         <div class="alert alert-warning alert-dismissible fade hidden" role="alert" id="form-invalid-alert">
             <strong>Warning :</strong> The form is missing some informations.
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
-        <div class="card m-auto">
+        <div class="card m-auto" id="form-card">
             <div class="card-header"><h4>Register</h4></div>
             <div class="card-body">
                 <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">

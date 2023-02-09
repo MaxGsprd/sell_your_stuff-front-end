@@ -17,6 +17,11 @@ export class UserRegistrationComponent implements OnInit {
 
   ngOnInit(): void {
     this.createRegistrationForm();
+
+    const alertSuccess =  document.getElementById('form-valid-alert');
+    const alertDanger =  document.getElementById('form-invalid-alert');
+    const formCard = document.getElementById('form-card');
+    const welcomeBanner = document.getElementById('welcome-banner');
   }
 
   createRegistrationForm(): void {
@@ -33,18 +38,27 @@ export class UserRegistrationComponent implements OnInit {
 
   onSubmit() {
     console.log(this.registrationForm); // to be removed
+    const alertSuccess =  document.getElementById('form-valid-alert');
+    const alertDanger =  document.getElementById('form-invalid-alert');
     this.userSubmitted = true;
+
     if (this.registrationForm.valid) {
+      const formCard = document.getElementById('form-card');
+      const welcomeBanner = document.getElementById('welcome-banner');
+
       this.userService.registerUser(this.userData());
       this.registrationForm.reset();
       this.userSubmitted = false;
-      let alert =  document.getElementById('form-valid-alert');
-      alert?.classList.remove('hidden');
-      alert?.classList.add('show');
+
+      alertDanger?.classList.add('hidden');
+      alertSuccess?.classList.remove('hidden');
+      alertSuccess?.classList.add('show');
+
+      formCard?.classList.add('hidden');
+      welcomeBanner?.classList.remove('hidden')
     } else {
-      let alert =  document.getElementById('form-invalid-alert');
-      alert?.classList.remove('hidden');
-      alert?.classList.add('show');
+      alertDanger?.classList.remove('hidden');
+      alertDanger?.classList.add('show');
     }
   }
 

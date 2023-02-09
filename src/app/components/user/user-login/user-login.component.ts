@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -11,7 +12,7 @@ export class UserLoginComponent implements OnInit {
   loginForm!: FormGroup;
   userSubmitted!:boolean;
 
-  constructor(private userService: UserService) { }
+  constructor(private authenticationService: AuthenticationService) { }
 
   ngOnInit(): void {
     this.createLoginForm();
@@ -29,6 +30,7 @@ export class UserLoginComponent implements OnInit {
     this.userSubmitted = true;
     if (this.loginForm.valid) {
       this.loginForm.reset();
+      // this.authenticationService.authenticateUser(this.loginForm.value);
       this.userSubmitted = false;
       let alert =  document.getElementById('form-valid-alert');
       alert?.classList.remove('hidden');
@@ -40,9 +42,9 @@ export class UserLoginComponent implements OnInit {
     }
   }
 
-    /**
-   * Getter methods for form controls
-   */
-    get name() { return this.loginForm.get('name'); }
-    get password() { return this.loginForm.get('password'); }
+/**
+ * Getter methods for form controls
+ */
+get name() { return this.loginForm.get('name'); }
+get password() { return this.loginForm.get('password'); }
 }
