@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ComponentRef, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService } from 'src/app/services/authentication.service';
-import { UserService } from 'src/app/services/user.service';
+import { CustomAlertComponent } from 'src/app/components/custom-alert/custom-alert.component';
 
 @Component({
   selector: 'app-user-login',
@@ -26,25 +26,41 @@ export class UserLoginComponent implements OnInit {
   }
 
   onLogin(): void {
-    console.log(this.loginForm);
-    this.userSubmitted = true;
+    this.userSubmitted = true;    
+    // console.log(this.loginForm);
+    // console.log(this.loginForm.value);
     if (this.loginForm.valid) {
-      this.loginForm.reset();
-      // this.authenticationService.authenticateUser(this.loginForm.value);
-      this.userSubmitted = false;
-      let alert =  document.getElementById('form-valid-alert');
-      alert?.classList.remove('hidden');
-      alert?.classList.add('show');
+      const token = this.authenticationService.authenticateUser(this.loginForm.value);
+      if (token) {
+        console.log('login succesfull');
+        console.log(token);
+        localStorage.setItem('token', token.name);
+        this.userSubmitted = false;
+        this.loginForm.reset();
+        // @later : add redirection
+      } else {
+        this.throwAlert();
+        console.log('name password mismatch');
+      }
     } else {
-      let alert =  document.getElementById('form-invalid-alert');
-      alert?.classList.remove('hidden');
-      alert?.classList.add('show');
+      this.throwAlert();
+      console.log('form invalid');
     }
   }
 
-/**
- * Getter methods for form controls
- */
-get name() { return this.loginForm.get('name'); }
-get password() { return this.loginForm.get('password'); }
+  /**
+   * The lines below allows for the custom-alert component to appear and disappear
+   */
+  @ViewChild("viewContainerRef", { read: ViewContainerRef }) vcr!: ViewContainerRef;
+  ref!: ComponentRef<CustomAlertComponent>
+
+  throwAlert() {
+    this.ref = this.vcr.createComponent(CustomAlertComponent);
+  }
+
+  /**
+   * Getter methods for form controls
+   */
+  get name() { return this.loginForm.get('name'); }
+  get password() { return this.loginForm.get('password'); }
 }
