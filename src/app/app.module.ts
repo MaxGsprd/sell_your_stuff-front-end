@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,6 +13,8 @@ import { PostAdComponent } from './components/ads/post-ad/post-ad.component';
 import { AdDetailComponent } from './components/ads/ad-detail/ad-detail.component';
 import { UserLoginComponent } from './components/user/user-login/user-login.component';
 import { UserRegistrationComponent } from './components/user/user-registration/user-registration.component';
+import { ToastrModule } from 'ngx-toastr';
+import { CustomAlertComponent } from './components/custom-alert/custom-alert.component';
 
 @NgModule({
   declarations: [
@@ -22,14 +25,17 @@ import { UserRegistrationComponent } from './components/user/user-registration/u
     PostAdComponent,
     AdDetailComponent,
     UserLoginComponent,
-    UserRegistrationComponent
+    UserRegistrationComponent,
+    CustomAlertComponent
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     HttpClientModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ToastrModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]
