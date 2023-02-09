@@ -16,11 +16,15 @@
     border-color: #28a745;
 }
 
-.alert {
+.alert-span {
     background-color: transparent;
     border: none;
     padding: 0;
     display: block;
     margin-top: 5px;
     color: #dc3545;
+}
+
+.hidden {
+    display: none;
 }

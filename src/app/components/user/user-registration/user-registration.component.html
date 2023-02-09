@@ -1,5 +1,17 @@
 <div class="wrapper row">
     <div class="col-6 m-auto">
+        <div class="alert alert-success alert-dismissible fade hidden" role="alert" id="form-valid-alert">
+            <p>
+                <strong>Thank you for signing up !</strong>
+                <br>
+                Welcome to our community, be free to buy or sell your stuff !
+            </p>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <div class="alert alert-warning alert-dismissible fade hidden" role="alert" id="form-invalid-alert">
+            <strong>Warning :</strong> The form is missing some informations.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
         <div class="card m-auto">
             <div class="card-header">Register</div>
             <div class="card-body">
@@ -7,17 +19,17 @@
                     <div class="form-group col-12 mb-4">
                         <label for="name" class="form-label">Name</label>
                         <input type="text" id="name-input" placeholder="Your name" formControlName="name" class="form-control">
-                        <span *ngIf="name?.invalid && (name?.dirty || name?.touched)" class="alert alert-danger">Name is required.</span>
+                        <span *ngIf="name?.invalid && (name?.dirty || name?.touched || userSubmitted)" class="alert-span alert-danger">Name is required.</span>
                     </div>
                     <div class="form-group col-12 mb-4">
                         <label for="birthdate" class="form-label">Date of birth</label>
                         <input type="date" id="birthdate-input" placeholder="Your date of birth" formControlName="birthdate" class="form-control">
-                        <span *ngIf="birthdate?.invalid && (birthdate?.dirty || birthdate?.touched)" class="alert alert-danger">Date of birth is required.</span>
+                        <span *ngIf="birthdate?.invalid && (birthdate?.dirty || birthdate?.touched || userSubmitted)" class="alert-span alert-danger">Date of birth is required.</span>
                     </div>
                     <div class="form-group col-12 mb-4">
                         <label for="email" class="form-label">Email</label>
                         <input type="email" id="email-input" placeholder="Your email" formControlName="email" class="form-control">
-                        <span *ngIf="email?.invalid && (email?.dirty || email?.touched)" class="alert alert-danger">
+                        <span *ngIf="email?.invalid && (email?.dirty || email?.touched || userSubmitted)" class="alert-span alert-danger">
                             <span *ngIf="email?.errors?.['required']">
                                 Email is required.
                             </span>
@@ -29,12 +41,12 @@
                     <div class="form-group col-12 mb-4">
                         <label for="phone" class="form-label">Phone number</label>
                         <input type="tel" id="phone-input" placeholder="Your phone number" formControlName="phone" class="form-control">
-                        <span *ngIf="phone?.invalid && (phone?.dirty || phone?.touched)" class="alert alert-danger">Phone number is required.</span>
+                        <span *ngIf="phone?.invalid && (phone?.dirty || phone?.touched || userSubmitted)" class="alert-span alert-danger">Phone number is required.</span>
                     </div>
                     <div class="form-group col-12 mb-4">
                         <label for="password" class="form-label">Password</label>
                         <input type="password" id="password-input" formControlName="password" class="form-control">
-                        <span *ngIf="password?.invalid && (password?.dirty || password?.touched)" class="alert alert-danger">
+                        <span *ngIf="password?.invalid && (password?.dirty || password?.touched || userSubmitted)" class="alert-span alert-danger">
                             <span *ngIf="password?.errors?.['required']">
                                 Password is required.
                             </span>
@@ -46,12 +58,12 @@
                     <div class="form-group col-12 mb-4">
                         <label for="confirm-password" class="form-label">Confirm Password</label>
                         <input type="password" id="confirm-password-input" formControlName="confirmPassword" class="form-control" >
-                        <span *ngIf="confirmPassword?.invalid && (confirmPassword?.dirty || confirmPassword?.touched)" class="alert alert-danger">
+                        <span *ngIf="confirmPassword?.invalid && (confirmPassword?.dirty || confirmPassword?.touched || userSubmitted)" class="alert-span alert-danger">
                             <span *ngIf="confirmPassword?.errors?.['required']">
                                 Please confirm password
                             </span>
                         </span>
-                        <span *ngIf="registrationForm.hasError('passwordsMismatch') && confirmPassword?.valid" class="alert alert-danger">
+                        <span *ngIf="registrationForm.hasError('passwordsMismatch') && confirmPassword?.valid" class="alert-span alert-danger">
                             Passwords do not match.
                         </span>
                     </div>
