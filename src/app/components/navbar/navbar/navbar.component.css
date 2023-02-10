@@ -20,3 +20,7 @@ a, button {
 .dropdown-toggle:hover {
     color: #333;
 }
+
+.dropdown-item:active {
+    background-color: #1e2125;
+}
