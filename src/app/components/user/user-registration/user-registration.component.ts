@@ -17,11 +17,6 @@ export class UserRegistrationComponent implements OnInit {
 
   ngOnInit(): void {
     this.createRegistrationForm();
-
-    const alertSuccess =  document.getElementById('form-valid-alert');
-    const alertDanger =  document.getElementById('form-invalid-alert');
-    const formCard = document.getElementById('form-card');
-    const welcomeBanner = document.getElementById('welcome-banner');
   }
 
   createRegistrationForm(): void {

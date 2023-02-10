@@ -1,6 +1,6 @@
-<div class="card shadow-sm">
+<div class="card shadow">
   <img *ngIf="ad.Image" src="assets/{{ad.Image}}" class="card-img" alt="default_image">
-  <img *ngIf="!ad.Image" src="assets/default_image.png" class="card-img" alt="default_image">
+  <img *ngIf="!ad.Image" src="assets/placeholder_img.png" class="card-img" alt="default_image">
   <div class="card-body">
     <h5 class="card-title">{{ad.Name}}</h5>
     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>

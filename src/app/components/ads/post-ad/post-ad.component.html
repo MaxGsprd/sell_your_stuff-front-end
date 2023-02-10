@@ -1,34 +1,74 @@
-<div>
-    <a routerLink="/" class="back-link">
-        <span class="material-symbols-outlined">arrow_back</span>
-        &nbsp;Back to ads
-    </a>
-</div>
-<div class="card">
-    <div class="card-header">
-        add new ad
+<div class="wrapper">
+    <div class="form-zone shadow-sm card m-auto" id="form-card">
+        <div class="card-header"><h4>Post your ad</h4></div>
+        <div class="card-body">
+            <form [formGroup]="postAdForm" (ngSubmit)="onSubmit()">
+                <div class="form-group row">
+                  <label for="title" class="col-sm-3 col-form-label">Ad Title</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control" id="title" formControlName="title" placeholder="Title">
+                    <span *ngIf="title?.invalid && (title?.dirty || title?.touched || userSubmitted)" class="alert-span alert-danger">
+                        <span *ngIf="title?.errors?.['required']">
+                            Title is required.
+                        </span>
+                        <span *ngIf="title?.errors?.['minlength']">
+                            The title should be at least 8 characters long.
+                        </span>
+                    </span>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="price" class="col-sm-3 col-form-label">Price ($)</label>
+                  <div class="col-sm-3">
+                    <input type="number" class="form-control" id="inputPrice" formControlName="price" placeholder="Price">
+                    <span *ngIf="price?.invalid && (price?.dirty || price?.touched || userSubmitted)" class="alert-span alert-danger">Price is required.</span>
+                  </div>
+                </div>
+                <div class="form-group row">
+                    <label for="category" class="col-sm-3 col-form-label">Ad category</label>
+                    <div class="col-sm-3">
+                        <select formControlName="category" id="category" class="form-select">
+                            <option value="art">Art</option>
+                            <option value="book">Book</option>
+                            <option value="clothing">Clothing</option>
+                            <option value="videogame">Video game</option>
+                            <option value="car">Car</option>
+                          </select>
+                          <span *ngIf="category?.invalid && (category?.dirty || category?.touched || userSubmitted)" class="alert-span alert-danger">Category is required.</span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="condition" class="col-sm-3 col-form-label">Condition (optional)</label>
+                    <div class="col-sm-3">
+                        <select formControlName="condition" id="condition" class="form-select">
+                            <option value="new">New</option>
+                            <option value="likeNew">Used - like new</option>
+                            <option value="good">Used - good </option>
+                            <option value="fair">Used - fair</option>
+                            <option value="poor">Used - poor</option>
+                          </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="description" class="col-sm-3 col-form-label">Description</label>
+                    <div class="col-sm-9">
+                        <textarea type="text" id="description-input" placeholder="Description" formControlName="description" class="form-control"></textarea>
+                        <span *ngIf="description?.invalid && (description?.dirty || description?.touched || userSubmitted)" class="alert-span alert-danger">
+                            <span *ngIf="description?.errors?.['required']">
+                                Description is required.
+                            </span>
+                            <span *ngIf="description?.errors?.['minlength']">
+                                The description should be at least 10 characters long.
+                            </span>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group col-12 form-buttons mt-5">
+                    <button type="reset" class="btn btn-secondary" routerLink="/">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Post ad</button>
+                </div>
+            </form>
+        </div>
     </div>
-    <div class="card-body">
-        <form (ngSubmit)="onSubmit()">
-            <div class="form-group col-12">
-                <label for="name" class="form-control">Name</label>
-                <input type="text" class="form-control">
-            </div>
-
-            <div class="form-group col-12">
-                <label for="category" class="form-control">Category</label>
-                <input type="text" class="form-control">
-            </div>
-
-            <div class="form-group col-12">
-                <label for="name" class="form-control">Price</label>
-                <input type="text" class="form-control">
-            </div>
-
-            <div class="form-group col-12">
-                <button type="submit" class="btn btn-primary">Submit</button>
-                <button type="reset" class="btn btn-primary">Cancel</button>
-            </div>
-        </form>
-    </div>
 </div>
+
