@@ -10,3 +10,13 @@ a, button {
     display: flex;
 }
 
+.dropdown-toggle {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #65686a
+}
+
+.dropdown-toggle:hover {
+    color: #333;
+}

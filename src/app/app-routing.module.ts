@@ -10,7 +10,7 @@ const routes: Routes = [
   {path: '', component: AdsListComponent},
   {path: 'post-ad', component: PostAdComponent},
   {path: 'ad-detail/:id', component: AdDetailComponent},
-  {path: 'login', component: UserLoginComponent},
+  {path: 'signin', component: UserLoginComponent},
   {path: 'register', component: UserRegistrationComponent},
   {path: '**', component: AdsListComponent}
 ];
