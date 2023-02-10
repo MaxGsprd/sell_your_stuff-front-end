@@ -16,6 +16,8 @@ import { UserRegistrationComponent } from './components/user/user-registration/u
 import { ToastrModule } from 'ngx-toastr';
 import { CustomAlertComponent } from './components/custom-alert/custom-alert.component';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { UserDashboardComponent } from './components/user/user-dashboard/user-dashboard.component';
+import { TabsModule } from 'ngx-bootstrap/tabs';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,8 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
     AdDetailComponent,
     UserLoginComponent,
     UserRegistrationComponent,
-    CustomAlertComponent
+    CustomAlertComponent,
+    UserDashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -38,6 +41,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
     ReactiveFormsModule,
     ToastrModule.forRoot(),
     BsDropdownModule.forRoot(),
+    TabsModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]
