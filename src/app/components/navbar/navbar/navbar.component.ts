@@ -16,4 +16,5 @@ export class NavbarComponent {
   signOut(): void {
     localStorage.removeItem('token');
   }
+
 }

@@ -18,6 +18,7 @@ import { CustomAlertComponent } from './components/custom-alert/custom-alert.com
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { UserDashboardComponent } from './components/user/user-dashboard/user-dashboard.component';
 import { TabsModule } from 'ngx-bootstrap/tabs';
+import { UserAdsComponent } from './components/user/user-ads/user-ads.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
     UserLoginComponent,
     UserRegistrationComponent,
     CustomAlertComponent,
-    UserDashboardComponent
+    UserDashboardComponent,
+    UserAdsComponent
   ],
   imports: [
     BrowserModule,

@@ -6,6 +6,7 @@ import { PostAdComponent } from './components/ads/post-ad/post-ad.component';
 import { UserLoginComponent } from './components/user/user-login/user-login.component';
 import { UserRegistrationComponent } from './components/user/user-registration/user-registration.component';
 import { UserDashboardComponent } from './components/user/user-dashboard/user-dashboard.component';
+import { UserAdsComponent } from './components/user/user-ads/user-ads.component';
 
 const routes: Routes = [
   {path: '', component: AdsListComponent},
@@ -14,6 +15,7 @@ const routes: Routes = [
   {path: 'signin', component: UserLoginComponent},
   {path: 'register', component: UserRegistrationComponent},
   {path: 'myDashboard', component: UserDashboardComponent},
+  {path: 'myAds', component: UserAdsComponent},
   {path: '**', component: AdsListComponent}
 ];
 
