@@ -2,11 +2,18 @@
   <img *ngIf="ad.Image" src="assets/{{ad.Image}}" class="card-img" alt="default_image">
   <img *ngIf="!ad.Image" src="assets/placeholder_img.png" class="card-img" alt="default_image">
   <div class="card-body">
-    <h5 class="card-title">{{ad.Name}}</h5>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    <h5 class="card-title">{{ad.Title}}</h5>
+    <p class="card-text">
+      <span *ngIf="ad.Description">
+          {{ad.Description}}
+      </span>
+      <span *ngIf="!ad.Description">
+          Some quick example text to build on the card title and make up the bulk of the card's content.
+      </span>
+    </p>
     <div class="card-infos">
-        <p class="card-text">{{ad.Price | currency:'CAD':'symbol-narrow'}}</p>
         <p class="card-text">Category : {{ad.Category}}</p>
+        <p class="card-text">{{ad.Price | currency:'CAD':'symbol-narrow'}}</p>
       </div>
       <a routerLink="/ad-detail/{{ad.Id}}" class="stretched-link"></a>
   </div>
