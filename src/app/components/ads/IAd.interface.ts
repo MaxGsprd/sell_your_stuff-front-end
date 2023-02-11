@@ -1,6 +1,7 @@
 export interface IAd {
     Id: number,
-    Name: string,
+    Title: string,
+    Description: string,
     Category: string,
     Price: number,
     Image?: string
