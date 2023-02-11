@@ -9,13 +9,21 @@ import { IAd } from '../IAd.interface';
 })
 export class AdsListComponent implements OnInit {
 
-  public Ads: Array<IAd> = [];
+  public ads: Array<IAd> = [];
 
   constructor(private adService: AdService) {}
 
   ngOnInit() : void {
     this.adService.getAllAds().subscribe({
-      next: (response) => this.Ads = response,
+      next: (response) => {
+        this.ads = response;
+        // console.log(response)
+        const newAd = JSON.parse(localStorage.getItem('newAd') as string);
+
+        if (newAd) {
+          this.ads = [newAd, ...this.ads];
+        }
+      },
       error: (error) => console.error(error)
     });
   }
