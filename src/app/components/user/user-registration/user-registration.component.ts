@@ -31,7 +31,7 @@ export class UserRegistrationComponent implements OnInit {
     {validators: this.passwordMatchingValidator});
   }
 
-  onSubmit() {
+  onSubmit(): void {
     console.log(this.registrationForm); // to be removed
     const alertSuccess =  document.getElementById('form-valid-alert');
     const alertDanger =  document.getElementById('form-invalid-alert');
@@ -58,7 +58,7 @@ export class UserRegistrationComponent implements OnInit {
   }
 
   /**
-   * Maps submitted form values to user model
+   * This method maps form submitted values into user model
    * @returns user model
    */
   userData(): User {
