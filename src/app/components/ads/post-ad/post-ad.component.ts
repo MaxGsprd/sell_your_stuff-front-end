@@ -1,6 +1,8 @@
 import { Component, OnInit} from '@angular/core';
 import { FormGroup, Validators, AbstractControl, ValidationErrors, FormBuilder } from '@angular/forms';
+import { Ad } from 'src/app/models/ad';
 import { AdService } from 'src/app/services/ad.service';
+import { IAd } from '../IAd.interface';
 
 @Component({
   selector: 'app-post-ad',
@@ -10,6 +12,15 @@ import { AdService } from 'src/app/services/ad.service';
 export class PostAdComponent implements OnInit {
   postAdForm!: FormGroup;
   userSubmitted!:boolean;
+  conditions: Array<string> = ["New","Used - like new", "Used - good", "Used - fair", "Used - poor"];
+  adCardPreview: IAd = {
+    Id: 0,
+    Title: 'Title',
+    Category: 'other',
+    Price: 0,
+    Description: '',
+  };
+  ad = new Ad();
 
   constructor (private formBuilder: FormBuilder, private adService: AdService) { }
 
@@ -33,9 +44,20 @@ export class PostAdComponent implements OnInit {
 
     if (this.postAdForm.valid) {
       console.log('form valid');
+      this.mapAd();
+      this.adService.postAd(this.ad);
       this.postAdForm.reset();
       this.userSubmitted = false;
     }
+  }
+
+  mapAd(): void {
+    this.ad.Title = this.title?.value;
+    this.ad.Date = new Date();
+    this.ad.Price = +this.price?.value;
+    this.ad.Description = this.description?.value;
+    this.ad.Category = this.category?.value;
+    this.ad.Condition = this.condition?.value;
   }
 
   /**

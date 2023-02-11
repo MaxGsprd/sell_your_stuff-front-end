@@ -1,7 +1,13 @@
 .wrapper {
     margin-top: 5vh;
     padding-bottom: 10vh;
-    width: 100%;
+    width: 70%;
+}
+
+.wrapper-2 {
+    margin: auto;
+    margin-top: 5vh;
+    width: 30%;
 }
 
 .form-zone {
@@ -28,4 +34,16 @@
    margin: auto;
    margin-bottom: 5vh;
 }
+
+.card-infos {
+    display: flex;
+    justify-content: space-between;
+}
+
+.card-img {
+    object-fit: cover;
+    height: 250px;
+    background-color: #f6f6f6;
+}
+
 
