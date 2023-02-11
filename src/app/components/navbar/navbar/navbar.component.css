@@ -2,6 +2,16 @@
     background-color: #fff !important;
 }
 
+.navbar-brand {
+    color: #5a5a5a;
+}
+.navbar-brand:hover {
+    color: #1e2125;
+}
+.nav-link:hover {
+    color: #1e2125;
+}
+
 .container-fluid {
     max-width: 1066px;
 }
