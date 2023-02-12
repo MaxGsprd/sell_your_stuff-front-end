@@ -17,8 +17,8 @@ export class AdService {
     return this.http.get<IAd[]>('data/mock-items.json');
   }
 
-  public getAd(id: number) :Observable<Ad> {
-    return this.http.get<Ad>('data/mock-items.json');
+  public getAd(id: number) :Observable<any> {
+    return this.http.get<any>('https://localhost:7230/WeatherForecast');
   }
 
   public postAd(ad: Ad) {
