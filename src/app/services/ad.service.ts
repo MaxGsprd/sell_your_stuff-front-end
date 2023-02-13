@@ -17,13 +17,13 @@ export class AdService {
     return this.http.get<IAd[]>('data/mock-items.json');
   }
 
-  public getAd(id: number) :Observable<any> {
-    return this.http.get<any>('https://localhost:7230/WeatherForecast');
-  }
+  // public getAd(id: number) :Observable<any> {
+  //   // return this.http.get<any>('https://localhost:7230/api/Ads/5');
+  // }
 
-  public postAd(ad: Ad) {
-    window.alert('feature à implémenter !');
-  }
+  // public postAd(ad: Ad) {
+  //   window.alert('feature à implémenter !');
+  // }
 }
 
 

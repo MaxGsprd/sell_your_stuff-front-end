@@ -17,7 +17,7 @@ export class AdsListComponent implements OnInit {
     this.adService.getAllAds().subscribe({
       next: (response) => {
         this.ads = response;
-        // console.log(response)
+        console.log(response)
         const newAd = JSON.parse(localStorage.getItem('newAd') as string);
 
         if (newAd) {
