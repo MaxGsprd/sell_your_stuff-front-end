@@ -10,7 +10,6 @@ export class AdCardComponent implements OnInit {
   @Input() ad!: IAd;
 
   ngOnInit(): void {
-    console.log(this.ad);
   }
 
 }

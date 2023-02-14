@@ -18,9 +18,9 @@ export class AdService {
     return this.http.get<Array<IAd>>(`${environment.apiUrl}/${this.url}`);
   }
 
-  // public getAd(id: number) :Observable<any> {
-  //   // return this.http.get<any>('https://localhost:7230/api/Ads/5');
-  // }
+  public getAd(id: number) :Observable<IAd> {
+    return this.http.get<IAd>(`${environment.apiUrl}/${this.url}/${id}`);
+  }
 
   public postAd(ad: Ad) {
     window.alert('feature à implémenter !');
