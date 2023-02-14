@@ -13,18 +13,19 @@ export class PostAdComponent implements OnInit {
   postAdForm!: FormGroup;
   userSubmitted!:boolean;
   conditions: Array<string> = ["New","Used - like new", "Used - good", "Used - fair", "Used - poor"];
-  adCardPreview: IAd = {
-    id: 0,
-    author: 0,
+  adCardPreview: any = {
+    // id: 0,
+    // author: 0,
     title: "Ad preview title",
     description: "A description of the ad. The more precise the better !",
     category: 0,
     price: 0,
     publicationDate: new Date(),
-    condition: 0,
-    location: 0,
-    Image: [new Object()]
+    // condition: 0,
+    // location: 0,
+    Image: null
   };
+
   ad = new Ad();
 
   constructor (private formBuilder: FormBuilder, private adService: AdService) { }
