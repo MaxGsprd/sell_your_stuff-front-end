@@ -1,14 +1,14 @@
-import { IAd } from "../components/ads/IAd.interface"
+import { IAd } from "./IAd.interface"
 
 export class Ad implements IAd {
-    Id!: number;
-    Author!: number;
-    Title!: string;
-    Location?: number;
-    Description!: string;
-    Condition!: number;
-    Category!: string;
-    Price!: number;
-    Date!: Date;
-    Image?: string
+    id!: number;
+    author!: number;
+    title!: string;
+    description!: string;
+    category!: number;
+    price!: number;
+    publicationDate!: Date;
+    condition?: number | undefined;
+    location?: number | undefined;
+    Image?: Object[] | undefined;
 }
