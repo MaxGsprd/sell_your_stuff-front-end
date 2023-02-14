@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AdService } from 'src/app/services/ad.service';
 import { CategoryService } from 'src/app/services/category.service';
-import { IAd } from '../IAd.interface';
+import { IAd } from '../../../models/IAd.interface';
 import { Category } from 'src/app/models/category';
 
 @Component({
@@ -19,11 +19,7 @@ export class AdsListComponent implements OnInit {
     this.adService.getAllAds().subscribe({
       next: (response) => {
         this.ads = response;
-        // console.log(response)
-        const newAd = JSON.parse(localStorage.getItem('newAd') as string);
-        if (newAd) {
-          this.ads = [newAd, ...this.ads];
-        }
+        console.log(this.ads);
       },
       error: (error) => console.error(error)
     });

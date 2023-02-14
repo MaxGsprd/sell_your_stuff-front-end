@@ -1,20 +1,21 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { IAd } from '../components/ads/IAd.interface';
+import { IAd } from '../models/IAd.interface';
 import { Ad } from '../models/ad';
+import { environment } from '../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AdService {
   
-  // private url: string = HOST.apiUrl;
+  private url: string = "Ads";
 
   constructor(private http: HttpClient) { }
 
-  public getAllAds() :Observable<IAd[]> {
-    return this.http.get<IAd[]>('data/mock-items.json');
+  public getAllAds() :Observable<Array<IAd>> {
+    return this.http.get<Array<IAd>>(`${environment.apiUrl}/${this.url}`);
   }
 
   // public getAd(id: number) :Observable<any> {

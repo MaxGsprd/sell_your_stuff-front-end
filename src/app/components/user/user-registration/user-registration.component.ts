@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, AbstractControl, ValidationErrors, FormBuilder } from '@angular/forms';
-import { User } from 'src/app/models/user';
+import { IUser } from 'src/app/models/Iuser';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -10,7 +10,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class UserRegistrationComponent implements OnInit {
   registrationForm!: FormGroup;
-  user!: User;
+  user!: IUser;
   userSubmitted!:boolean;
 
   constructor(private formBuilder: FormBuilder, private userService: UserService) { }
@@ -58,10 +58,10 @@ export class UserRegistrationComponent implements OnInit {
   }
 
   /**
-   * This method maps form submitted values into user model
+   * This method maps form submitted values into user interface
    * @returns user model
    */
-  userData(): User {
+  userData(): IUser {
     return this.user = {
       name: this.name?.value,
       birthdate: this.birthdate?.value,

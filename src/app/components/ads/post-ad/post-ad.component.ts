@@ -2,7 +2,7 @@ import { Component, OnInit} from '@angular/core';
 import { FormGroup, Validators, AbstractControl, ValidationErrors, FormBuilder } from '@angular/forms';
 import { Ad } from 'src/app/models/ad';
 import { AdService } from 'src/app/services/ad.service';
-import { IAd } from '../IAd.interface';
+import { IAd } from '../../../models/IAd.interface';
 
 @Component({
   selector: 'app-post-ad',
@@ -14,11 +14,16 @@ export class PostAdComponent implements OnInit {
   userSubmitted!:boolean;
   conditions: Array<string> = ["New","Used - like new", "Used - good", "Used - fair", "Used - poor"];
   adCardPreview: IAd = {
-    Id: 0,
-    Title: 'Title',
-    Category: 'other',
-    Price: 0,
-    Description: '',
+    id: 0,
+    author: 0,
+    title: "Ad preview title",
+    description: "A description of the ad. The more precise the better !",
+    category: 0,
+    price: 0,
+    publicationDate: new Date(),
+    condition: 0,
+    location: 0,
+    Image: [new Object()]
   };
   ad = new Ad();
 
@@ -44,20 +49,21 @@ export class PostAdComponent implements OnInit {
 
     if (this.postAdForm.valid) {
       console.log('form valid');
-      this.mapAd();
-      this.adService.postAd(this.ad);
-      this.postAdForm.reset();
-      this.userSubmitted = false;
+      // this.mapAd();
+      // this.adService.postAd(this.ad);
+      // this.postAdForm.reset();
+      // this.userSubmitted = false;
     }
   }
 
   mapAd(): void {
-    this.ad.Title = this.title?.value;
-    this.ad.Date = new Date();
-    this.ad.Price = +this.price?.value;
-    this.ad.Description = this.description?.value;
-    this.ad.Category = this.category?.value;
-    this.ad.Condition = this.condition?.value;
+    // this.ad.Title = this.title?.value;
+    // this.ad.Date = new Date();
+    // this.ad.Price = +this.price?.value;
+    // this.ad.Description = this.description?.value;
+    // this.ad.Category = this.category?.value;
+    // this.ad.Condition = this.condition?.value;
+
   }
 
   /**

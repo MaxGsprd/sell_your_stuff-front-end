@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { User } from '../models/user';
+import { IUser } from '../models/Iuser';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +8,7 @@ export class UserService {
 
   constructor() { }
 
-  registerUser(user: User) {
+  registerUser(user: IUser) {
     let users = [];
     if (localStorage.getItem('Users')) {
       users = JSON.parse(localStorage.getItem('Users') as string);

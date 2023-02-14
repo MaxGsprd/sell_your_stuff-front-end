@@ -9,7 +9,7 @@ import { Category } from '../models/category';
 })
 export class CategoryService {
 
-  private url: string = "Category";
+  private url: string = "Categories";
 
   constructor(private http: HttpClient) { }
 
