@@ -1,4 +1,21 @@
 <div class="container">
+  <div class="hero-banner card shadow">
+    <h1 class="welcome-msg">Welcome to SellYourStuff. What are you looking to buy ? Or sell maybe ?</h1>
+    <div class="search-section">
+      <form [formGroup]="searchAdForm" (ngSubmit)="onSubmit()">
+        <div class="form-group row" id="categoryFormGroup">
+          <div class="col-sm-3 p-0">
+              <select formControlName="category" id="categorySelectInput" class="form-select">
+                <option [ngValue]="null" disabled>Categories</option>
+                <option *ngFor="let answer of categories; let i = index" [value]="answer" [selected]="i == 0">
+                    {{answer.name}}
+                </option>
+              </select>
+          </div>
+        </div>
+      </form>
+    </div>
+   </div>
     <div class="row row-cols-3 justify-content-center">
       <div *ngFor="let ad of ads" class="col p-3">
         <app-ad-card [ad]="ad"></app-ad-card>
