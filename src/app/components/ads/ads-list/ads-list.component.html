@@ -7,8 +7,8 @@
           <div class="col-sm-3 p-0">
               <select formControlName="category" id="categorySelectInput" class="form-select">
                 <option [ngValue]="null" disabled>Categories</option>
-                <option *ngFor="let answer of categories; let i = index" [value]="answer" [selected]="i == 0">
-                    {{answer.name}}
+                <option *ngFor="let category of categories" value={{category.id}}>
+                    {{category.name}}
                 </option>
               </select>
           </div>
