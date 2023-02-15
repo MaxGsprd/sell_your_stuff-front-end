@@ -1,8 +1,11 @@
 import { Component, OnInit} from '@angular/core';
-import { FormGroup, Validators, AbstractControl, ValidationErrors, FormBuilder } from '@angular/forms';
-import { Ad } from 'src/app/models/ad';
+import { FormGroup, Validators, ValidationErrors, FormBuilder, FormControl } from '@angular/forms';
 import { AdService } from 'src/app/services/ad.service';
+import { ConditionService } from 'src/app/services/condition.service';
 import { IAd } from '../../../models/IAd.interface';
+import { ICondition } from 'src/app/models/ICondition.interface';
+import { ICategory } from 'src/app/models/ICategory.interface';
+import { CategoryService } from 'src/app/services/category.service';
 
 @Component({
   selector: 'app-post-ad',
@@ -11,36 +14,35 @@ import { IAd } from '../../../models/IAd.interface';
 })
 export class PostAdComponent implements OnInit {
   postAdForm!: FormGroup;
-  userSubmitted!:boolean;
-  conditions: Array<string> = ["New","Used - like new", "Used - good", "Used - fair", "Used - poor"];
-  adCardPreview: any = {
-    // id: 0,
-    // author: 0,
+  adCardPreview: IAd = {
+    id: 0,
+    author: 0,
     title: "Ad preview title",
     description: "A description of the ad. The more precise the better !",
     category: 0,
     price: 0,
     publicationDate: new Date(),
-    // condition: 0,
-    // location: 0,
-    Image: null
   };
+  conditions: ICondition[] = [];
+  categories: ICategory[] = [];
+  
+  userSubmitted!:boolean;
 
-  ad = new Ad();
-
-  constructor (private formBuilder: FormBuilder, private adService: AdService) { }
+  constructor (private formBuilder: FormBuilder, 
+                private adService: AdService, 
+                private conditionService: ConditionService,
+                private categoryService: CategoryService) { }
 
   ngOnInit(): void {
-    this.createPostAdForm();
-  }
+    this.getCategories();
+    this.getConditions();
 
-  createPostAdForm(): void {
     this.postAdForm = this.formBuilder.group({
       title: [null, [Validators.required, Validators.minLength(8)]],
       price: [null, Validators.required],
       description: [null, [Validators.required, Validators.minLength(10)]],
       category: [null, Validators.required],
-      condition: [null, ''],
+      condition: [null, '']
     });
   }
 
@@ -48,23 +50,27 @@ export class PostAdComponent implements OnInit {
     console.log(this.postAdForm.value);
     this.userSubmitted = true;
 
-    if (this.postAdForm.valid) {
-      console.log('form valid');
-      this.mapAd();
-      // this.adService.postAd(this.ad);
-      // this.postAdForm.reset();
-      this.userSubmitted = false;
-    }
+    // if (this.postAdForm.valid) {
+    //   console.log('form valid');
+    //   // this.mapAd();
+    //   this.adService.postAd(this.ad);
+    //   this.postAdForm.reset();
+    //   this.userSubmitted = false;
+    // }
   }
 
-  mapAd(): void {
-    this.ad.title = this.title?.value;
-    this.ad.publicationDate = new Date();
-    this.ad.price = +this.price?.value;
-    this.ad.description = this.description?.value;
-    this.ad.category = this.category?.value;
-    this.ad.condition = this.condition?.value;
+  getConditions(): void {
+    this.conditionService.getConditions().subscribe({
+      next: (res) => this.conditions = res,
+      error: (err) => console.log(err)
+    });
+  }
 
+  getCategories(): void {
+    this.categoryService.getCategories().subscribe({
+      next: (res) => this.categories = res,
+      error: (err) => console.log(err)
+    });
   }
 
   /**

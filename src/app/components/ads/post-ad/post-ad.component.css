@@ -1,49 +1,16 @@
-.wrapper {
-    margin-top: 5vh;
-    padding-bottom: 10vh;
-    width: 70%;
-}
-
-.wrapper-2 {
-    margin: auto;
-    margin-top: 5vh;
-    width: 30%;
-}
-
-.form-zone {
-    margin-bottom: 2vh;
-    width: 90%;
-    border-radius: 4px;
-    border-color: #eee;
-}
-
-.card-header {
-    border-bottom: 2px solid #eee;
-}
-
-.card-body {
-    margin-top: 3vh;
-}
-
 .form-group {
-    margin-bottom: 4vh;
+    margin-bottom: 1.5em;
 }
 
 .form-buttons {
    width: 70%;
-   margin: auto;
-   margin-bottom: 5vh;
 }
 
-.card-infos {
-    display: flex;
-    justify-content: space-between;
+.card-preview {
+    padding-top: 5%;
 }
 
-.card-img {
-    object-fit: cover;
-    height: 250px;
-    background-color: #f6f6f6;
+.customPlaceholder {
+    color: red !important;
 }
-
 
