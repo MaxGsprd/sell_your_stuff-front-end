@@ -19,6 +19,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { UserDashboardComponent } from './components/user/user-dashboard/user-dashboard.component';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { UserAdsComponent } from './components/user/user-ads/user-ads.component';
+import { TruncateTextPipe } from './pipes/truncateText.pipe';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { UserAdsComponent } from './components/user/user-ads/user-ads.component'
     UserRegistrationComponent,
     CustomAlertComponent,
     UserDashboardComponent,
-    UserAdsComponent
+    UserAdsComponent,
+    TruncateTextPipe
   ],
   imports: [
     BrowserModule,

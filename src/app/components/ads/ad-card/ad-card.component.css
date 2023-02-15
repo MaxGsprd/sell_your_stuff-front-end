@@ -1,6 +1,15 @@
+
+.description{
+    min-height: 90px;
+}
+
 .card-infos {
     display: flex;
     justify-content: space-between;
+    height: 1.5em;
+}
+.card-text {
+    height: 100%;
 }
 
 .card-img {
@@ -14,4 +23,5 @@
     justify-content: end;
     font-size: 0.7em;
     color: #969495;
+    margin-top: 0.3em;
 }

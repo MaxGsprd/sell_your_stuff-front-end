@@ -3,14 +3,16 @@
   <img *ngIf="!ad.Image" src="assets/placeholder_img.png" class="card-img" alt="default_image">
   <div class="card-body">
     <h5 class="card-title">{{ad.title}}</h5>
-    <p class="card-text">
-      <span *ngIf="ad.description">
-          {{ad.description}}
-      </span>
-      <span *ngIf="!ad.description">
-          Some quick example text to build on the card title and make up the bulk of the card's content.
-      </span>
-    </p>
+    <div class="description">
+      <p class="card-text">
+        <span *ngIf="ad.description">
+            {{ad.description | truncateText}}
+        </span>
+        <span *ngIf="!ad.description">
+            Some quick example text to build on the card title and make up the bulk of the card's content.
+        </span>
+      </p>
+    </div>
     <div class="card-infos">
         <p class="card-text">Category : {{ad.category}}</p>
         <p class="card-text">{{ad.price | currency:'CAD':'symbol-narrow'}}</p>
