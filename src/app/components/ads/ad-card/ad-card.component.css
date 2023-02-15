@@ -8,3 +8,10 @@
     height: 250px;
     background-color: #f6f6f6;
 }
+
+.publicationDate {
+    display: flex;
+    justify-content: end;
+    font-size: 0.7em;
+    color: #969495;
+}

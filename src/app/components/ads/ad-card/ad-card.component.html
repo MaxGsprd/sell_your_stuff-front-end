@@ -14,7 +14,8 @@
     <div class="card-infos">
         <p class="card-text">Category : {{ad.category}}</p>
         <p class="card-text">{{ad.price | currency:'CAD':'symbol-narrow'}}</p>
-      </div>
-      <a routerLink="/ad-detail/{{ad.id}}" class="stretched-link"></a>
+    </div>
+    <span class="publicationDate">{{ad.publicationDate | date:'medium'}}</span>
+    <a [routerLink]="['/ad-detail', ad.id]" class="stretched-link"></a>
   </div>
 </div>
