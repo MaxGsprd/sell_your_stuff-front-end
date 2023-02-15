@@ -1,6 +1,6 @@
-<div class="wrapper row">
-    <div class="col-6 m-auto">
-        <div class="alert alert-success alert-dismissible fade hidden" role="alert" id="form-valid-alert">
+<div class="row">
+    <div class="col-6 m-auto mb-5">
+        <div class="alert alert-success alert-dismissible fade hidden mt-5" role="alert" id="form-valid-alert">
             <p>
                 <strong>Thank you for signing up !</strong>
                 <br>
@@ -16,11 +16,11 @@
                 <span class="material-symbols-outlined">arrow_forward</span>
             </a>
         </div>
-        <div class="alert alert-warning alert-dismissible fade hidden" role="alert" id="form-invalid-alert">
+        <div class="alert alert-warning alert-dismissible fade hidden mt-5" role="alert" id="form-invalid-alert">
             <strong>Warning :</strong> The form is missing some informations.
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
-        <div class="card m-auto" id="form-card">
+        <div class="card mt-5" id="form-card">
             <div class="card-header"><h4>Register</h4></div>
             <div class="card-body">
                 <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
