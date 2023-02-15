@@ -4,6 +4,7 @@ import { AdService } from 'src/app/services/ad.service';
 import { CategoryService } from 'src/app/services/category.service';
 import { IAd } from '../../../models/IAd.interface';
 import { ICategory } from 'src/app/models/ICategory.interface';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-ads-list',
@@ -12,7 +13,7 @@ import { ICategory } from 'src/app/models/ICategory.interface';
 })
 export class AdsListComponent implements OnInit {
 
-  ads: Array<IAd> = [];
+  ads: IAd[] = [];
   categories: ICategory[] = [];
   userSubmitted!:boolean;
   searchAdForm!: FormGroup;
@@ -20,27 +21,32 @@ export class AdsListComponent implements OnInit {
   constructor(private adService: AdService, private categoryService: CategoryService, private formBuilder: FormBuilder) {}
 
   ngOnInit() : void {
-    this.adService.getAllAds().subscribe({
-      next: (response) => this.ads = response,
-      error: (error) => console.error(error)
-    });
+    this.getAds();
+    this.getCategories();
 
-    this.categoryService.getCategories().subscribe({
-      next: (res: ICategory[]) => this.categories = res,
-      error: (err) => console.log(err)
-    });
-
-    this.createSearchForm();
-  }
-
-  createSearchForm(): void {
     this.searchAdForm = this.formBuilder.group({
       category: [null, null],
     });
+
+    
   }
 
   onSubmit() {
     console.log(this.searchAdForm);
+  }
+
+  getAds(): void {
+    this.adService.getAllAds().subscribe({
+      next: (res) => this.ads = res,
+      error: (error) => console.error(error)
+    });
+  }
+
+  getCategories(): any{
+    this.categoryService.getCategories().subscribe({
+      next: (res) => this.categories = res,
+      error: (err) => console.log(err)
+    });
   }
 
   /**
