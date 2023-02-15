@@ -14,8 +14,8 @@ export class AdService {
 
   constructor(private http: HttpClient) { }
 
-  public getAllAds() :Observable<Array<IAd>> {
-    return this.http.get<Array<IAd>>(`${environment.apiUrl}/${this.url}`);
+  public getAllAds() :Observable<IAd[]> {
+    return this.http.get<IAd[]>(`${environment.apiUrl}/${this.url}`);
   }
 
   public getAd(id: number) :Observable<IAd> {

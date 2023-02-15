@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { AdService } from 'src/app/services/ad.service';
 import { CategoryService } from 'src/app/services/category.service';
 import { IAd } from '../../../models/IAd.interface';
-import { Category } from 'src/app/models/category';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { ICategory } from 'src/app/models/ICategory.interface';
 
 @Component({
   selector: 'app-ads-list',
@@ -13,7 +13,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 export class AdsListComponent implements OnInit {
 
   ads: Array<IAd> = [];
-  categories: Array<Category> = [];
+  categories: ICategory[] = [];
   userSubmitted!:boolean;
   searchAdForm!: FormGroup;
 
@@ -26,7 +26,7 @@ export class AdsListComponent implements OnInit {
     });
 
     this.categoryService.getCategories().subscribe({
-      next: (res: Array<Category>) => this.categories = res,
+      next: (res: ICategory[]) => this.categories = res,
       error: (err) => console.log(err)
     });
 
