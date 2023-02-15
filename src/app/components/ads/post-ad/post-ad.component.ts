@@ -45,25 +45,25 @@ export class PostAdComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.postAdForm);
+    console.log(this.postAdForm.value);
     this.userSubmitted = true;
 
     if (this.postAdForm.valid) {
       console.log('form valid');
-      // this.mapAd();
+      this.mapAd();
       // this.adService.postAd(this.ad);
       // this.postAdForm.reset();
-      // this.userSubmitted = false;
+      this.userSubmitted = false;
     }
   }
 
   mapAd(): void {
-    // this.ad.Title = this.title?.value;
-    // this.ad.Date = new Date();
-    // this.ad.Price = +this.price?.value;
-    // this.ad.Description = this.description?.value;
-    // this.ad.Category = this.category?.value;
-    // this.ad.Condition = this.condition?.value;
+    this.ad.title = this.title?.value;
+    this.ad.publicationDate = new Date();
+    this.ad.price = +this.price?.value;
+    this.ad.description = this.description?.value;
+    this.ad.category = this.category?.value;
+    this.ad.condition = this.condition?.value;
 
   }
 
