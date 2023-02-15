@@ -4,6 +4,20 @@
         &nbsp;Back to list
     </a>
 </div>
-<p>ad-detail works!
-    Selected property id is {{adId}}
-</p>
+<section class="ad-details-section">
+    <div class="ad-details">
+        <div class="ad-header">
+            <p>{{ad.title}}</p>
+            <p>{{ad.price}}</p>
+        </div>
+        <figure class="ad-images">
+            images
+        </figure>
+        <div class="ad-infos">
+            <p>{{ad.description}}</p>
+        </div>
+    </div>
+    <div class="owner-section">
+        <p>author: {{ad.author}}</p>
+    </div>
+</section>
