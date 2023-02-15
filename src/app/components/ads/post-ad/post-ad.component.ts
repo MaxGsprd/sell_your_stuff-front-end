@@ -44,6 +44,12 @@ export class PostAdComponent implements OnInit {
       category: [null, Validators.required],
       condition: [null, '']
     });
+
+    this.postAdForm.get('title')?.valueChanges.subscribe( (value: string) => this.adCardPreview.title = value);
+    this.postAdForm.get('description')?.valueChanges.subscribe( (value: string) => this.adCardPreview.description = value);
+    this.postAdForm.get('price')?.valueChanges.subscribe( (value: number) => this.adCardPreview.price = value);
+    this.postAdForm.get('condition')?.valueChanges.subscribe( (value: number) => this.adCardPreview.condition = value);
+    this.postAdForm.get('category')?.valueChanges.subscribe( (value: number) => this.adCardPreview.category = value);
   }
 
   onSubmit() {
