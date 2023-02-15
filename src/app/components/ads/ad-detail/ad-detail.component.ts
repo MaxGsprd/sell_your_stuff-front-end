@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Ad } from 'src/app/models/ad';
 import { IAd } from 'src/app/models/IAd.interface';
 import { AdService } from 'src/app/services/ad.service';
 
@@ -10,42 +11,23 @@ import { AdService } from 'src/app/services/ad.service';
 })
 export class AdDetailComponent implements OnInit {
 
-  ad: any = {
-    id: undefined,
-    author : undefined,
-    title :undefined ,
-    description : undefined,
-    category : undefined,
-    price : undefined,
-    publicationDate : undefined,
-    condition : undefined,
-    location : undefined,
-    Image : undefined
-  };
+  ad: IAd = {} as IAd;
 
-  constructor(private route: ActivatedRoute, private adService: AdService) {}
+  constructor(private route: ActivatedRoute, private adService: AdService) {  }
 
-  ngOnInit() {
+  ngOnInit(): void{
+    this.getAd();
+  }
+
+  getAd(): void {
     const routeParams = this.route.snapshot.paramMap;
     const adIdFromRoute = Number(routeParams.get('id'));
 
-    this.adService.getAd(adIdFromRoute).subscribe({
-      next: (res) => {
-        this.mapAdInterface(res);
-      },
+    this.adService.getAd(adIdFromRoute)
+    .subscribe({
+      next: (response) => this.ad = response,
       error: (err) => console.log(err)
     });
   }
 
-  mapAdInterface(httpResponseObject: any) {
-    console.log(httpResponseObject)
-    this.ad.id = httpResponseObject.id;
-    this.ad.author = httpResponseObject.author;
-    this.ad.title = httpResponseObject.title;
-    this.ad.description = httpResponseObject.description;
-    this.ad.category = httpResponseObject.category;
-    this.ad.publicationDate = httpResponseObject.publicationDate;
-    this.ad.location = httpResponseObject.location;
-    this.ad.Image = httpResponseObject.Image;
-  }
 }
