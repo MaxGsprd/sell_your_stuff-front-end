@@ -7,17 +7,17 @@
 <section class="ad-details-section">
     <div class="ad-details">
         <div class="ad-header">
-            <p>{{ad.title}}</p>
-            <p>{{ad.price}}</p>
+            <p *ngIf="ad.title">{{ad.title}}</p>
+            <p *ngIf="ad.price">{{ad.price}}</p>
         </div>
         <figure class="ad-images">
             images
         </figure>
         <div class="ad-infos">
-            <p>{{ad.description}}</p>
+            <p *ngIf="ad.description">{{ad.description}}</p>
         </div>
     </div>
     <div class="owner-section">
-        <p>author: {{ad.author}}</p>
+        <p *ngIf="ad.author">author: {{ad.author}}</p>
     </div>
 </section>
