@@ -6,6 +6,7 @@ import { IAd } from '../../../models/IAd.interface';
 import { ICondition } from 'src/app/models/ICondition.interface';
 import { ICategory } from 'src/app/models/ICategory.interface';
 import { CategoryService } from 'src/app/services/category.service';
+import { Ad } from 'src/app/models/ad';
     
 @Component({
   selector: 'app-post-ad',
@@ -49,16 +50,18 @@ export class PostAdComponent implements OnInit {
     this.postAdForm.get('price')?.valueChanges.subscribe( (value: number) => this.adCardPreview.price = value);
     this.postAdForm.get('condition')?.valueChanges.subscribe( (value: number) => this.adCardPreview.condition = value);
     this.postAdForm.get('category')?.valueChanges.subscribe( (value: number) => this.adCardPreview.category = value);
-   
   }
 
   onSubmit() {
     this.userSubmitted = true;
     const alertDanger =  document.getElementById('form-invalid-alert');
     if (this.postAdForm.valid) {
+            let newAd = new Ad();
+            Object.assign(newAd, this.postAdForm.value);
+            this.adService.postAd(newAd).subscribe();
             this.postAdForm.reset();
-            this.userSubmitted = false;
             alertDanger?.classList.add('hidden');
+            this.userSubmitted = false;
     } else {
       alertDanger?.classList.remove('hidden');
       alertDanger?.classList.add('show');
