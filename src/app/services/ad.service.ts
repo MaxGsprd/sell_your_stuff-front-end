@@ -14,16 +14,16 @@ export class AdService {
 
   constructor(private http: HttpClient) { }
 
-  public getAllAds() :Observable<IAd[]> {
+  public getAllAds(): Observable<IAd[]> {
     return this.http.get<IAd[]>(`${environment.apiUrl}/${this.url}`);
   }
 
-  public getAd(id: number) :Observable<IAd> {
+  public getAd(id: number): Observable<IAd> {
     return this.http.get<IAd>(`${environment.apiUrl}/${this.url}/${id}`);
   }
 
-  public postAd(ad: Ad) {
-    window.alert('feature à implémenter !');
+  public postAd(ad: Ad): Observable<Ad> {
+    return this.http.post<Ad>(`${environment.apiUrl}/${this.url}`, ad);
   }
 }
 
