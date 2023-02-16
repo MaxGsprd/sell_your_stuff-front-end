@@ -6,7 +6,7 @@ import { IAd } from '../../../models/IAd.interface';
 import { ICondition } from 'src/app/models/ICondition.interface';
 import { ICategory } from 'src/app/models/ICategory.interface';
 import { CategoryService } from 'src/app/services/category.service';
-
+    
 @Component({
   selector: 'app-post-ad',
   templateUrl: './post-ad.component.html',
@@ -25,7 +25,6 @@ export class PostAdComponent implements OnInit {
   };
   conditions: ICondition[] = [];
   categories: ICategory[] = [];
-  
   userSubmitted!:boolean;
 
   constructor (private formBuilder: FormBuilder, 
@@ -50,19 +49,20 @@ export class PostAdComponent implements OnInit {
     this.postAdForm.get('price')?.valueChanges.subscribe( (value: number) => this.adCardPreview.price = value);
     this.postAdForm.get('condition')?.valueChanges.subscribe( (value: number) => this.adCardPreview.condition = value);
     this.postAdForm.get('category')?.valueChanges.subscribe( (value: number) => this.adCardPreview.category = value);
+   
   }
 
   onSubmit() {
-    console.log(this.postAdForm.value);
     this.userSubmitted = true;
-
-    // if (this.postAdForm.valid) {
-    //   console.log('form valid');
-    //   // this.mapAd();
-    //   this.adService.postAd(this.ad);
-    //   this.postAdForm.reset();
-    //   this.userSubmitted = false;
-    // }
+    const alertDanger =  document.getElementById('form-invalid-alert');
+    if (this.postAdForm.valid) {
+            this.postAdForm.reset();
+            this.userSubmitted = false;
+            alertDanger?.classList.add('hidden');
+    } else {
+      alertDanger?.classList.remove('hidden');
+      alertDanger?.classList.add('show');
+    }
   }
 
   getConditions(): void {
