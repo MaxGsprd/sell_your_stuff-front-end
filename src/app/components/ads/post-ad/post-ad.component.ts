@@ -1,5 +1,5 @@
 import { Component, OnInit} from '@angular/core';
-import { FormGroup, Validators, ValidationErrors, FormBuilder, FormControl } from '@angular/forms';
+import { FormGroup, Validators, FormBuilder} from '@angular/forms';
 import { AdService } from 'src/app/services/ad.service';
 import { ConditionService } from 'src/app/services/condition.service';
 import { IAd } from '../../../models/IAd.interface';
@@ -7,6 +7,8 @@ import { ICondition } from 'src/app/models/ICondition.interface';
 import { ICategory } from 'src/app/models/ICategory.interface';
 import { CategoryService } from 'src/app/services/category.service';
 import { Ad } from 'src/app/models/ad';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
     
 @Component({
   selector: 'app-post-ad',
@@ -31,7 +33,9 @@ export class PostAdComponent implements OnInit {
   constructor (private formBuilder: FormBuilder, 
                 private adService: AdService, 
                 private conditionService: ConditionService,
-                private categoryService: CategoryService) { }
+                private categoryService: CategoryService,
+                private router: Router,
+                private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.getCategories();
@@ -62,6 +66,8 @@ export class PostAdComponent implements OnInit {
             this.postAdForm.reset();
             alertDanger?.classList.add('hidden');
             this.userSubmitted = false;
+            this.router.navigate(['/']);
+            this.toastr.success('Congratulations, your ad has been pusblished.', 'Thank you !');
     } else {
       alertDanger?.classList.remove('hidden');
       alertDanger?.classList.add('show');
