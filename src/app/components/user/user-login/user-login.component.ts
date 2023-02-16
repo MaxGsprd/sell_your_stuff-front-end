@@ -41,11 +41,9 @@ export class UserLoginComponent implements OnInit {
         this.router.navigate(['/']);
       } else {
         this.throwAlert();
-        console.log('name password mismatch');
       }
     } else {
       this.throwAlert();
-      console.log('form invalid');
     }
   }
 
