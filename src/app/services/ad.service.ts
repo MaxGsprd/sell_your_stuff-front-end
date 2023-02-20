@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { IAd } from '../models/IAd.interface';
 import { Ad } from '../models/ad';
 import { environment } from '../environments/environment';
+import { IAdResponseDto } from '../models/dtos/IadResponseDto';
+import { IAdRequestDto } from '../models/dtos/IAdRequestDto';
 
 @Injectable({
   providedIn: 'root'
@@ -14,16 +16,16 @@ export class AdService {
 
   constructor(private http: HttpClient) { }
 
-  public getAllAds(): Observable<IAd[]> {
-    return this.http.get<IAd[]>(`${environment.apiUrl}/${this.url}`);
+  public getAllAds(): Observable<IAdResponseDto[]> {
+    return this.http.get<IAdResponseDto[]>(`${environment.apiUrl}/${this.url}`);
   }
 
-  public getAd(id: number): Observable<IAd> {
-    return this.http.get<IAd>(`${environment.apiUrl}/${this.url}/${id}`);
+  public getAd(id: number): Observable<IAdResponseDto> {
+    return this.http.get<IAdResponseDto>(`${environment.apiUrl}/${this.url}/${id}`);
   }
 
-  public postAd(ad: Ad): Observable<Ad> {
-    return this.http.post<Ad>(`${environment.apiUrl}/${this.url}`, ad);
+  public postAd(ad: IAdRequestDto): Observable<IAdRequestDto> {
+    return this.http.post<IAdRequestDto>(`${environment.apiUrl}/${this.url}`, ad);
   }
 }
 
