@@ -14,8 +14,12 @@
       </p>
     </div>
     <div class="card-infos">
-        <p class="card-text">Category : {{ad.category}}</p>
+        <p class="card-text">Category : {{ad.category.name}}</p>
         <p class="card-text">{{ad.price | currency:'CAD':'symbol-narrow'}}</p>
+    </div>
+    <div class="card-infos">
+      <p class="card-text">By: {{ad.user.name }}</p>
+      <p class="card-text">{{ad.condition.name }}</p>
     </div>
     <span class="publicationDate">{{ad.publicationDate | date:'medium'}}</span>
     <a [routerLink]="['/ad-detail', ad.id]" class="stretched-link"></a>
