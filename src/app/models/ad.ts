@@ -1,3 +1,4 @@
+import { Category } from "./category";
 import { IAd } from "./IAd.interface"
 
 export class Ad implements IAd {
@@ -5,7 +6,7 @@ export class Ad implements IAd {
     author!: number;
     title!: string;
     description!: string;
-    category!: number;
+    category!: Category;
     price!: number;
     publicationDate!: Date;
     condition?: number | undefined;
