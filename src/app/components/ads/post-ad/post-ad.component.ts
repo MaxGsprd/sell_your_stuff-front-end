@@ -2,13 +2,13 @@ import { Component, OnInit} from '@angular/core';
 import { FormGroup, Validators, FormBuilder} from '@angular/forms';
 import { AdService } from 'src/app/services/ad.service';
 import { ConditionService } from 'src/app/services/condition.service';
-import { IAd } from '../../../models/IAd.interface';
-import { ICondition } from 'src/app/models/ICondition.interface';
-import { ICategory } from 'src/app/models/ICategory.interface';
 import { CategoryService } from 'src/app/services/category.service';
-import { Ad } from 'src/app/models/ad';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { IAdRequestDto } from 'src/app/models/dtos/IAdRequestDto';
+import { IUserResponseDto } from 'src/app/models/dtos/IUserResponseDto';
+import { Category } from 'src/app/models/category';
+import { Condition } from 'src/app/models/condition';
     
 @Component({
   selector: 'app-post-ad',
@@ -17,17 +17,19 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class PostAdComponent implements OnInit {
   postAdForm!: FormGroup;
-  adCardPreview: IAd = {
+  adCardPreview: any = 
+  {
     id: 0,
-    author: 0,
+    user: {} as IUserResponseDto,
     title: "Ad preview title",
     description: "A description of the ad. The more precise the better !",
     category: 0,
+    condition: 0,
     price: 0,
     publicationDate: new Date(),
   };
-  conditions: ICondition[] = [];
-  categories: ICategory[] = [];
+  conditions: Condition[] = [];
+  categories: Category[] = [];
   userSubmitted!:boolean;
 
   constructor (private formBuilder: FormBuilder, 
@@ -49,19 +51,19 @@ export class PostAdComponent implements OnInit {
       condition: [null, '']
     });
 
-    this.postAdForm.get('title')?.valueChanges.subscribe( (value: string) => this.adCardPreview.title = value);
-    this.postAdForm.get('description')?.valueChanges.subscribe( (value: string) => this.adCardPreview.description = value);
-    this.postAdForm.get('price')?.valueChanges.subscribe( (value: number) => this.adCardPreview.price = value);
-    this.postAdForm.get('condition')?.valueChanges.subscribe( (value: number) => this.adCardPreview.condition = value);
-    this.postAdForm.get('category')?.valueChanges.subscribe( (value: number) => this.adCardPreview.category = value);
+    this.postAdForm.get('title')?.valueChanges.subscribe((value: string) => this.adCardPreview.title = value);
+    this.postAdForm.get('description')?.valueChanges.subscribe((value: string) => this.adCardPreview.description = value);
+    this.postAdForm.get('price')?.valueChanges.subscribe((value: number) => this.adCardPreview.price = value);
+    this.postAdForm.get('category')?.valueChanges.subscribe((value: number) => this.adCardPreview.category = this.categories[value-1]);
+    this.postAdForm.get('condition')?.valueChanges.subscribe((value: number) => this.adCardPreview.condition = this.conditions[value-1]);
+
   }
 
   onSubmit() {
     this.userSubmitted = true;
     const alertDanger =  document.getElementById('form-invalid-alert');
     if (this.postAdForm.valid) {
-            let newAd = new Ad();
-            Object.assign(newAd, this.postAdForm.value);
+            let newAd = this.postAdFormToDto(this.postAdForm.value);
             this.adService.postAd(newAd).subscribe();
             this.postAdForm.reset();
             alertDanger?.classList.add('hidden');
@@ -86,6 +88,18 @@ export class PostAdComponent implements OnInit {
       next: (res) => this.categories = res,
       error: (err) => console.log(err)
     });
+  }
+
+  postAdFormToDto(formValues: any): IAdRequestDto {
+    let adDto = {} as IAdRequestDto;
+    Object.assign(adDto, formValues);
+    adDto.id = 0;
+    adDto.categoryId = parseInt(formValues.category)
+    adDto.conditionId = parseInt(formValues.condition)
+    adDto.publicationDate = new Date();
+    adDto.userId = 1;  //@ to be changed with connect USER ID
+    adDto.addressId = 1;  //@ to be changed with connect USER ADDRESS ID
+    return adDto;
   }
 
   /**
