@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { IAd } from '../models/IAd.interface';
 import { Ad } from '../models/ad';
 import { environment } from '../environments/environment';
-import { IAdResponseDto } from '../models/dtos/IadResponseDto';
+import { IAdResponseDto } from '../models/dtos/IAdResponseDto';
 import { IAdRequestDto } from '../models/dtos/IAdRequestDto';
 
 @Injectable({

@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { AdService } from 'src/app/services/ad.service';
-import { CategoryService } from 'src/app/services/category.service';
-import { IAd } from '../../../models/IAd.interface';
 import { ICategory } from 'src/app/models/ICategory.interface';
-import { map } from 'rxjs';
-import { IAdResponseDto } from 'src/app/models/dtos/IadResponseDto';
+import { IAdResponseDto } from 'src/app/models/dtos/IAdResponseDto';
 
 @Component({
   selector: 'app-ads-list',

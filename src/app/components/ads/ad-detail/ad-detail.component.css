@@ -1,0 +1,82 @@
+.images {
+    display: flex ;
+    width: 100%;
+    align-items: center;
+    margin-bottom: 5vh;
+}
+
+.main-image img {
+    display: block;
+    max-height: 700px;
+    width: 500px;
+    object-fit: contain;
+    border-radius: 5px;
+}
+
+.gallery {
+    overflow: hidden;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.gallery img {
+    margin: 5px;
+    flex-wrap: wrap;
+    background-color: #ccc;
+    height: 150px;
+    width: 150px;
+    object-fit: contain;
+    border-radius: 5%;
+}
+
+.ad-details-section {
+    display: flex;
+    width: 100%;
+    padding: 0.5em;
+    margin-top: 3em;
+}
+
+.ad-details {
+    margin: 0 10p;
+    width: 70%;
+}
+
+.ad-title {
+    font-size: 1.6em;
+}
+
+.ad-price {
+    font-size: 1.5em;
+}
+
+.ad-infos {
+    display: flex;
+    justify-content: space-between;
+    max-width: 300px;
+    font-size: 0.9em;
+    font-style: italic;
+    padding: 0 0.5em;
+}
+
+.owner-section {
+    width: 30%;
+    margin: 0 2%;
+    border: 1px solid #ccc;
+    padding: 0.5em;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.ad-description {
+    padding: 0.5em;
+    min-height: 250px;
+}
+
+.description {
+    margin-top: 3%;
+}
+
+.img-btn {
+    all: unset;
+    cursor: pointer;
+}

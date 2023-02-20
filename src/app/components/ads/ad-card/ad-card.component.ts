@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { TruncateTextPipe } from 'src/app/pipes/truncateText.pipe';
-import { IAdResponseDto } from 'src/app/models/dtos/IadResponseDto';
+import { IAdResponseDto } from 'src/app/models/dtos/IAdResponseDto';
 
 @Component({
   selector: 'app-ad-card',
