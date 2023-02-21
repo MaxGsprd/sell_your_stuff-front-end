@@ -9,7 +9,7 @@
                 <h4>Post your ad</h4>
             </div>
             <div class="card-body">
-                <form [formGroup]="postAdForm" (ngSubmit)="onSubmit()">
+                <form [formGroup]="postAdForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
                     <div class="form-group row">
                       <label for="title" class="col-sm-3 col-form-label">Ad Title</label>
                       <div class="col">
@@ -69,11 +69,10 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="photo" class="col-sm-3 col-form-label">Photos</label>
-                        <div class="col-sm-3 photo-control">
-                            <input disabled type="file" class="file-upload" onchange="console.log(event.target.files)">
-                            <!-- <span *ngIf="price?.invalid && (price?.dirty || price?.touched || userSubmitted)" class="alert-span alert-danger">Price is required.</span> -->
-                            <br>(Coming soon)
+                        <label for="images" class="col-sm-3 col-form-label">Photos</label>
+                        <div class="col-sm photo-control">
+                            <input name="images" type="file" class="form-control" (change)="getImg($event)">
+                            <!-- PHOTOS => for now multime = false -->
                         </div>
                     </div>
                     <div class="confirmationModal mb-3">
@@ -104,7 +103,7 @@
     </div>
     <div class="col-4 card-preview">
         <p>Ad thumbnail preview :</p>
-        <app-ad-card [ad]="adCardPreview"></app-ad-card>
+        <app-ad-card [ad]="adCardPreview" [adImagePreview]="adImagePreview"></app-ad-card>
     </div>
 </div>
 

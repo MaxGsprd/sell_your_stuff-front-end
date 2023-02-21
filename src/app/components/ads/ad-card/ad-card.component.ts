@@ -10,6 +10,7 @@ import { IAdResponseDto } from 'src/app/models/dtos/IAdResponseDto';
 export class AdCardComponent implements OnInit {
   
   @Input() ad!: IAdResponseDto;
+  @Input() adImagePreview!: any;
   
   ngOnInit(): void {
     // console.log(this.ad);

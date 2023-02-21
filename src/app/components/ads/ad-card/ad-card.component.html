@@ -1,6 +1,7 @@
 <div class="card shadow">
-  <img *ngIf="ad.Image" src="assets/{{ad.Image}}" class="card-img" alt="ad main image">
-  <img *ngIf="!ad.Image" src="assets/placeholder_img.png" class="card-img" alt="default_image">
+  <img *ngIf="adImagePreview" [src]=adImagePreview class="card-img" alt="ad main image">
+  <img *ngIf="ad.adImage" src="{{ad.adImage}}" class="card-img" alt="default_image">
+  <img *ngIf="!ad.adImage && adImagePreview == null" src="assets/placeholder_img.png" class="card-img" alt="default_image">
   <div class="card-body">
     <h5 class="card-title">{{ad.title}}</h5>
     <div class="description">

@@ -13,5 +13,5 @@ export interface IAdResponseDto {
     category: Category,
     condition: Condition,
     location?: Address,
-    Image?: Array<Object>
+    adImage?: string
 }

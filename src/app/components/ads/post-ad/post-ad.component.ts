@@ -27,10 +27,14 @@ export class PostAdComponent implements OnInit {
     condition: 0,
     price: 0,
     publicationDate: new Date(),
+    images: []
   };
   conditions: Condition[] = [];
   categories: Category[] = [];
   userSubmitted!:boolean;
+
+  adImagePreview: any;
+  imageUploadTest: any;
 
   constructor (private formBuilder: FormBuilder, 
                 private adService: AdService, 
@@ -63,8 +67,22 @@ export class PostAdComponent implements OnInit {
     this.userSubmitted = true;
     const alertDanger =  document.getElementById('form-invalid-alert');
     if (this.postAdForm.valid) {
+            // console.log(this.postAdForm);
+            // console.log(newAd);
             let newAd = this.postAdFormToDto(this.postAdForm.value);
-            this.adService.postAd(newAd).subscribe();
+            this.adService.postAd(newAd).subscribe({
+              next: (res) => {
+                if (this.imageUploadTest) {
+                  let formData = new FormData();
+                  formData.append("file",this.imageUploadTest, String(res.id));
+                  this.adService.uploadImage(formData).subscribe({
+                    next: (res2) => console.log("Ad created", res, res2), 
+                    error: (error) => console.log("error", error)
+                  });
+                }
+              },
+              error: (err) => console.log(err)
+            });
             this.postAdForm.reset();
             alertDanger?.classList.add('hidden');
             this.userSubmitted = false;
@@ -90,6 +108,19 @@ export class PostAdComponent implements OnInit {
     });
   }
 
+  getImg(event:any) {
+    this.adCardPreview.images.push(event.target.files[0]);
+    this.adImagePreview = `assets/images/${event.target.files[0].name}`;
+    Array.from(event.target.files).forEach(file => this.adCardPreview.images.push(file));
+    this.imageUploadTest = event.target.files[0];
+
+    // let reader = new FileReader();
+    // reader.readAsDataURL(event.target.files[0]);
+    // reader.onload = () => {
+    //   this.imageUploadTest = reader.result;
+    // }
+  }
+
   postAdFormToDto(formValues: any): IAdRequestDto {
     let adDto = {} as IAdRequestDto;
     Object.assign(adDto, formValues);
@@ -99,8 +130,10 @@ export class PostAdComponent implements OnInit {
     adDto.publicationDate = new Date();
     adDto.userId = 1;  //@ to be changed with connect USER ID
     adDto.addressId = 1;  //@ to be changed with connect USER ADDRESS ID
+    adDto.Image = this.adCardPreview.images; 
     return adDto;
   }
+
 
   /**
    * Getter methods for form controls

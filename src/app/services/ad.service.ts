@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { IAd } from '../models/IAd.interface';
-import { Ad } from '../models/ad';
 import { environment } from '../environments/environment';
 import { IAdResponseDto } from '../models/dtos/IAdResponseDto';
 import { IAdRequestDto } from '../models/dtos/IAdRequestDto';
@@ -26,6 +24,22 @@ export class AdService {
 
   public postAd(ad: IAdRequestDto): Observable<IAdRequestDto> {
     return this.http.post<IAdRequestDto>(`${environment.apiUrl}/${this.url}`, ad);
+  }
+
+  public updateAd(ad: IAdRequestDto) :Observable<IAdRequestDto> {
+    return this.http.patch<IAdRequestDto>(`${environment.apiUrl}/${this.url}`, ad);
+  }
+
+  public deleteAd(id: number): Observable<void> {
+    return this.http.delete<void>(`${environment.apiUrl}/${this.url}/${id}`);
+  }
+
+  public uploadImage(inputData: any) {
+    return this.http.post<IAdRequestDto>(`${environment.apiUrl}/${this.url}/uploadImage`, inputData);
+  }
+
+  public removeImage(id: number) {
+    // return this.http.delete<IAdRequestDto>(`${environment.apiUrl}/${this.url}/uploadImage`, inputData);
   }
 }
 

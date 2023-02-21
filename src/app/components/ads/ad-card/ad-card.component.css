@@ -14,9 +14,9 @@
 }
 
 .card-img {
-    object-fit: cover;
+    object-fit: contain;
     height: 250px;
-    background-color: #f6f6f6;
+    background-color: #e5e5e5;
 }
 
 .publicationDate {

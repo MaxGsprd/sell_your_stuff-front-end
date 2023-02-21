@@ -20,7 +20,6 @@ export class AdsListComponent implements OnInit {
 
   ngOnInit() : void {
     this.getAds();
-    
     this.searchAdForm = this.formBuilder.group({
       category: [null, null],
     });
