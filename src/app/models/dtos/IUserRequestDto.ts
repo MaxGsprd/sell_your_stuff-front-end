@@ -1,12 +1,13 @@
 import { Address } from "../address";
-import { Role } from "../role";
 
-export interface IUserResponseDto {
+export interface IUserRequestDto {
     id: number;
     name: string;
+    birthDate: Date;
     email: string;
+    password: string;
     phone?: string;
-    role: Role;
+    roleId: number;
     // address?: Address;
 
 }

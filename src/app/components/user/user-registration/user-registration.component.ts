@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, AbstractControl, ValidationErrors, FormBuilder } from '@angular/forms';
-import { IUser } from 'src/app/models/IUser.interface';
+import { Address } from 'src/app/models/address';
+import { IUserRequestDto } from 'src/app/models/dtos/IUserRequestDto';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -10,25 +11,21 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class UserRegistrationComponent implements OnInit {
   registrationForm!: FormGroup;
-  user!: IUser;
   userSubmitted!:boolean;
 
   constructor(private formBuilder: FormBuilder, private userService: UserService) { }
 
   ngOnInit(): void {
-    this.createRegistrationForm();
-  }
-
-  createRegistrationForm(): void {
     this.registrationForm = this.formBuilder.group({
       name: [null, Validators.required],
       birthdate: [null, Validators.required],
       email: [null, [Validators.required, Validators.email]],
       phone: [null, Validators.required],
-      password: [null, [Validators.required, Validators.minLength(8)]],
-      confirmPassword: [null, Validators.required]
-    },
-    {validators: this.passwordMatchingValidator});
+      password: [null, [Validators.required, Validators.minLength(8)]]
+      // confirmPassword: [null, Validators.required]
+    });
+    // ,
+    // {validators: this.passwordMatchingValidator});
   }
 
   onSubmit(): void {
@@ -40,8 +37,11 @@ export class UserRegistrationComponent implements OnInit {
     if (this.registrationForm.valid) {
       const formCard = document.getElementById('form-card');
       const welcomeBanner = document.getElementById('welcome-banner');
-
-      this.userService.registerUser(this.userData());
+      let newUser = this.registrationFormToDto(this.registrationForm.value);
+      this.userService.postUser(newUser).subscribe({
+        next: (res) => console.log(res),
+        error: (err) => console.log(err)
+      });
       this.registrationForm.reset();
       this.userSubmitted = false;
 
@@ -57,23 +57,19 @@ export class UserRegistrationComponent implements OnInit {
     }
   }
 
-  /**
-   * This method maps form submitted values into user interface
-   * @returns user model
-   */
-  userData(): IUser {
-    return this.user = {
-      name: this.name?.value,
-      birthdate: this.birthdate?.value,
-      email: this.email?.value,
-      phone: this.phone?.value,
-      password: this.password?.value
-    }
-  }
   
   passwordMatchingValidator(control: AbstractControl): ValidationErrors | null {
     return control.get('password')?.value === control.get('confirmPassword')?.value ? null : { passwordsMismatch : true};
   }
+
+  registrationFormToDto(formValues: any): IUserRequestDto {
+    let userDto = {} as IUserRequestDto;
+    Object.assign(userDto, formValues);
+    userDto.id = 0;
+    userDto.roleId = 2;
+    return userDto;
+  }
+
 
   /**
    * Getter methods for form controls
