@@ -17,4 +17,9 @@ export class TokenService {
     const token = localStorage.getItem("authToken");
     return !! token; // return true if token != false
   }
+
+  clearToken(): void {
+    localStorage.removeItem("authToken");
+    this.router.navigate(['/']);
+  }
 }

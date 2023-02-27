@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { TokenService } from 'src/app/services/token.service';
 
 @Component({
   selector: 'app-navbar',
@@ -7,14 +8,21 @@ import { Component } from '@angular/core';
 })
 export class NavbarComponent {
   loggedinUser!: string;
+
+  constructor (private tokenService: TokenService) {}
   
   userSignedIn() {
-    this.loggedinUser = localStorage.getItem('authToken') as string;
-    return this.loggedinUser;
+    
+    if (this.tokenService.isLogged()) {
+      this.loggedinUser = "Gloubiste !";
+      return true;
+    } else {
+      return false;
+    }
   }
 
   signOut(): void {
-    localStorage.removeItem('authToken');
+    this.tokenService.clearToken();
   }
 
 }
