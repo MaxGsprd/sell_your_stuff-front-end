@@ -20,7 +20,7 @@ import { UserDashboardComponent } from './components/user/user-dashboard/user-da
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { UserAdsComponent } from './components/user/user-ads/user-ads.component';
 import { TruncateTextPipe } from './_helpers/_pipes/truncateText.pipe';
-import { AuthInterceptor } from './_helpers/_interceptor/auth.interceptor';
+import { AuthInterceptorProvider } from './_helpers/_interceptor/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -47,11 +47,7 @@ import { AuthInterceptor } from './_helpers/_interceptor/auth.interceptor';
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
   ],
-  providers: [{
-    provide: HTTP_INTERCEPTORS,
-    useClass: AuthInterceptor,
-    multi: true
-  }],
+  providers: [AuthInterceptorProvider],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
