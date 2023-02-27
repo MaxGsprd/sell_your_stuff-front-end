@@ -38,7 +38,7 @@ export class UserRegistrationComponent implements OnInit {
       const formCard = document.getElementById('form-card');
       const welcomeBanner = document.getElementById('welcome-banner');
       let newUser = this.registrationFormToDto(this.registrationForm.value);
-      this.userService.postUser(newUser).subscribe({
+      this.userService.registerUser(newUser).subscribe({
         next: (res) => console.log(res),
         error: (err) => console.log(err)
       });
@@ -56,7 +56,6 @@ export class UserRegistrationComponent implements OnInit {
       alertDanger?.classList.add('show');
     }
   }
-
   
   passwordMatchingValidator(control: AbstractControl): ValidationErrors | null {
     return control.get('password')?.value === control.get('confirmPassword')?.value ? null : { passwordsMismatch : true};
@@ -66,10 +65,9 @@ export class UserRegistrationComponent implements OnInit {
     let userDto = {} as IUserRequestDto;
     Object.assign(userDto, formValues);
     userDto.id = 0;
-    userDto.roleId = 2;
+    userDto.roleId = 2; //roleId 2 = user role
     return userDto;
   }
-
 
   /**
    * Getter methods for form controls

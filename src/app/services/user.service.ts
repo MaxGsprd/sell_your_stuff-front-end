@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { IUser } from '../models/IUser.interface';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../environments/environment';
 import { IUserResponseDto } from '../models/dtos/IUserResponseDto';
 import { IUserRequestDto } from '../models/dtos/IUserRequestDto';
+import { IUserLoginDto } from '../models/dtos/IUserLoginDto';
 
 @Injectable({
   providedIn: 'root'
@@ -15,17 +15,6 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  registerUser(user: IUser) {
-    let users = [];
-    if (localStorage.getItem('Users')) {
-      users = JSON.parse(localStorage.getItem('Users') as string);
-      users = [user,...users];
-    } else {
-      users = [user];
-    }
-    localStorage.setItem('Users', JSON.stringify(users));
-  }
-
   public getAllUsers(): Observable<IUserResponseDto[]> {
     return this.http.get<IUserResponseDto[]>(`${environment.apiUrl}/${this.url}`);
   }
@@ -34,8 +23,14 @@ export class UserService {
     return this.http.get<IUserResponseDto>(`${environment.apiUrl}/${this.url}/${id}`);
   }
 
-  public postUser(user: IUserRequestDto): Observable<IUserRequestDto> {
-    return this.http.post<IUserRequestDto>(`${environment.apiUrl}/${this.url}`, user);
+  public registerUser(userDto: IUserRequestDto): Observable<IUserResponseDto> {
+    return this.http.post<IUserResponseDto>(`${environment.apiUrl}/${this.url}`, userDto);
+  }
+
+  public userLogin(credentials: IUserLoginDto): Observable<string> {
+    return this.http.post(`${environment.apiUrl}/${this.url}/login`, credentials, {
+      responseType:  'text'
+    });
   }
 
   public updateUser(user: IUserRequestDto) :Observable<IUserRequestDto> {
@@ -45,7 +40,4 @@ export class UserService {
   public deleteUser(id: number): Observable<void> {
     return this.http.delete<void>(`${environment.apiUrl}/${this.url}/${id}`);
   }
-
-
-
 }

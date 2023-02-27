@@ -1,8 +1,9 @@
 import { Component, ComponentRef, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { AuthenticationService } from 'src/app/services/authentication.service';
 import { CustomAlertComponent } from 'src/app/components/custom-alert/custom-alert.component';
 import { Router } from '@angular/router';
+import { UserService } from 'src/app/services/user.service';
+import { IUserLoginDto } from 'src/app/models/dtos/IUserLoginDto';
 
 @Component({
   selector: 'app-user-login',
@@ -13,13 +14,9 @@ export class UserLoginComponent implements OnInit {
   loginForm!: FormGroup;
   userSubmitted!:boolean;
 
-  constructor(private authenticationService: AuthenticationService, private router: Router) { }
+  constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit(): void {
-    this.createLoginForm();
-  }
-
-  createLoginForm(): void {
     this.loginForm = new FormGroup({
       name: new FormControl(null, Validators.required),
       password: new FormControl(null, [Validators.required, Validators.minLength(8)]),
@@ -28,20 +25,21 @@ export class UserLoginComponent implements OnInit {
 
   onLogin(): void {
     this.userSubmitted = true;    
-    // console.log(this.loginForm);
-    // console.log(this.loginForm.value);
+
     if (this.loginForm.valid) {
-      const token = this.authenticationService.authenticateUser(this.loginForm.value);
-      if (token) {
-        console.log('login succesfull');
+      
+      let loginValues = {} as IUserLoginDto;
+      Object.assign(loginValues, this.loginForm.value);
+
+      this.userService.userLogin(loginValues).subscribe(
+        (token: string) => {
+        localStorage.setItem('authToken', token);
         console.log(token);
-        localStorage.setItem('token', token.name);
-        this.userSubmitted = false;
-        this.loginForm.reset();
-        this.router.navigate(['/']);
-      } else {
-        this.throwAlert();
-      }
+      });
+
+      this.userSubmitted = false;
+      this.loginForm.reset();
+      this.router.navigate(['/']);
     } else {
       this.throwAlert();
     }
