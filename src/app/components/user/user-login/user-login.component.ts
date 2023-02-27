@@ -1,9 +1,9 @@
 import { Component, ComponentRef, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CustomAlertComponent } from 'src/app/components/custom-alert/custom-alert.component';
-import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 import { IUserLoginDto } from 'src/app/models/dtos/IUserLoginDto';
+import { TokenService } from 'src/app/services/token.service';
 
 @Component({
   selector: 'app-user-login',
@@ -14,7 +14,7 @@ export class UserLoginComponent implements OnInit {
   loginForm!: FormGroup;
   userSubmitted!:boolean;
 
-  constructor(private userService: UserService, private router: Router) { }
+  constructor(private userService: UserService, private tokenService: TokenService) { }
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({
@@ -33,13 +33,11 @@ export class UserLoginComponent implements OnInit {
 
       this.userService.userLogin(loginValues).subscribe(
         (token: string) => {
-        localStorage.setItem('authToken', token);
-        console.log(token);
+          console.log(token);
+          this.tokenService.saveToken(token);
       });
-
       this.userSubmitted = false;
       this.loginForm.reset();
-      this.router.navigate(['/']);
     } else {
       this.throwAlert();
     }
