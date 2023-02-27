@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -19,7 +19,8 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { UserDashboardComponent } from './components/user/user-dashboard/user-dashboard.component';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { UserAdsComponent } from './components/user/user-ads/user-ads.component';
-import { TruncateTextPipe } from './pipes/truncateText.pipe';
+import { TruncateTextPipe } from './_helpers/_pipes/truncateText.pipe';
+import { AuthInterceptor } from './_helpers/_interceptor/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,11 @@ import { TruncateTextPipe } from './pipes/truncateText.pipe';
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

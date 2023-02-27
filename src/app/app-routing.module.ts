@@ -7,15 +7,16 @@ import { UserLoginComponent } from './components/user/user-login/user-login.comp
 import { UserRegistrationComponent } from './components/user/user-registration/user-registration.component';
 import { UserDashboardComponent } from './components/user/user-dashboard/user-dashboard.component';
 import { UserAdsComponent } from './components/user/user-ads/user-ads.component';
+import { AuthGuard } from './_helpers/_guard/auth.guard';
 
 const routes: Routes = [
   {path: '', component: AdsListComponent},
-  {path: 'post-ad', component: PostAdComponent},
-  {path: 'ad-detail/:id', component: AdDetailComponent},
+  {path: 'post-ad', component: PostAdComponent, canActivate:[AuthGuard]},
+  {path: 'ad-detail/:id', component: AdDetailComponent, canActivate:[AuthGuard]},
   {path: 'signin', component: UserLoginComponent},
   {path: 'register', component: UserRegistrationComponent},
-  {path: 'myDashboard', component: UserDashboardComponent},
-  {path: 'myAds', component: UserAdsComponent},
+  {path: 'myDashboard', component: UserDashboardComponent, canActivate:[AuthGuard]},
+  {path: 'myAds', component: UserAdsComponent, canActivate:[AuthGuard]},
   {path: '**', component: AdsListComponent}
 ];
 
