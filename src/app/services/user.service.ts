@@ -33,6 +33,10 @@ export class UserService {
     });
   }
 
+  public getLoggedInUserId(): Observable<string> {
+    return this.http.get<string>(`${environment.apiUrl}/${this.url}/loggedIn`);
+  }
+
   public updateUser(user: IUserRequestDto) :Observable<IUserRequestDto> {
     return this.http.patch<IUserRequestDto>(`${environment.apiUrl}/${this.url}`, user);
   }

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -21,6 +21,7 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { UserAdsComponent } from './components/user/user-ads/user-ads.component';
 import { TruncateTextPipe } from './_helpers/_pipes/truncateText.pipe';
 import { AuthInterceptorProvider } from './_helpers/_interceptor/auth.interceptor';
+import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 
 @NgModule({
   declarations: [
@@ -46,8 +47,12 @@ import { AuthInterceptorProvider } from './_helpers/_interceptor/auth.intercepto
     ToastrModule.forRoot(),
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
+
   ],
-  providers: [AuthInterceptorProvider],
+  providers: [
+    AuthInterceptorProvider,
+    { provide: JWT_OPTIONS, useValue: JWT_OPTIONS }, JwtHelperService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
