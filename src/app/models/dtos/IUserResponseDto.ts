@@ -7,6 +7,7 @@ export interface IUserResponseDto {
     email: string;
     phone?: string;
     role: Role;
+    birthDate: Date
     // address?: Address;
 
 }

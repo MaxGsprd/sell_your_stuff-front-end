@@ -22,7 +22,6 @@
 }
 
 .search-section {
-    background-color: rgb(228, 204, 159);
     width: 95%;
     margin: 0 auto;
 }
@@ -30,6 +29,8 @@
 #categoryFormGroup {
     display: flex;
     flex-direction: row;
+    justify-content: space-around;
+    /* justify-content: center; */
 }
 
 

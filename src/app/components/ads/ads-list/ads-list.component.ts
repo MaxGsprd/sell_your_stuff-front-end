@@ -26,7 +26,7 @@ export class AdsListComponent implements OnInit {
 
   getAds(): void {
     this.adService.getAllAds().subscribe({
-      next: (res) => this.ads = res,
+      next: (res) => this.ads = res.reverse(),
       error: (error) => console.error(error)
     });
   }

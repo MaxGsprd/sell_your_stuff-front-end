@@ -3,12 +3,13 @@ import { FormGroup, Validators, FormBuilder} from '@angular/forms';
 import { AdService } from 'src/app/services/ad.service';
 import { ConditionService } from 'src/app/services/condition.service';
 import { CategoryService } from 'src/app/services/category.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { IAdRequestDto } from 'src/app/models/dtos/IAdRequestDto';
 import { IUserResponseDto } from 'src/app/models/dtos/IUserResponseDto';
 import { Category } from 'src/app/models/category';
 import { Condition } from 'src/app/models/condition';
+import { UserService } from 'src/app/services/user.service';
     
 @Component({
   selector: 'app-post-ad',
@@ -39,13 +40,16 @@ export class PostAdComponent implements OnInit {
   constructor (private formBuilder: FormBuilder, 
                 private adService: AdService, 
                 private conditionService: ConditionService,
+                private userService: UserService,
                 private categoryService: CategoryService,
                 private router: Router,
-                private toastr: ToastrService) { }
+                private toastr: ToastrService,
+                private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.getCategories();
     this.getConditions();
+    this.getUser();
 
     this.postAdForm = this.formBuilder.group({
       title: [null, [Validators.required, Validators.minLength(8)]],
@@ -60,7 +64,6 @@ export class PostAdComponent implements OnInit {
     this.postAdForm.get('price')?.valueChanges.subscribe((value: number) => this.adCardPreview.price = value);
     this.postAdForm.get('category')?.valueChanges.subscribe((value: number) => this.adCardPreview.category = this.categories[value-1]);
     this.postAdForm.get('condition')?.valueChanges.subscribe((value: number) => this.adCardPreview.condition = this.conditions[value-1]);
-
   }
 
   onSubmit() {
@@ -75,10 +78,7 @@ export class PostAdComponent implements OnInit {
                 if (this.imageUploadTest) {
                   let formData = new FormData();
                   formData.append("file",this.imageUploadTest, String(res.id));
-                  this.adService.uploadImage(formData).subscribe({
-                    next: (res2) => console.log("Ad created", res, res2), 
-                    error: (error) => console.log("error", error)
-                  });
+                  this.adService.uploadImage(formData).subscribe();
                 }
               },
               error: (err) => console.log(err)
@@ -87,6 +87,7 @@ export class PostAdComponent implements OnInit {
             alertDanger?.classList.add('hidden');
             this.userSubmitted = false;
             this.router.navigate(['/']);
+            window.setTimeout(() => {window.location.reload()}, 1000)
             this.toastr.success('Congratulations, your ad has been pusblished.', 'Thank you !');
     } else {
       alertDanger?.classList.remove('hidden');
@@ -113,12 +114,6 @@ export class PostAdComponent implements OnInit {
     this.adImagePreview = `assets/images/${event.target.files[0].name}`;
     Array.from(event.target.files).forEach(file => this.adCardPreview.images.push(file));
     this.imageUploadTest = event.target.files[0];
-
-    // let reader = new FileReader();
-    // reader.readAsDataURL(event.target.files[0]);
-    // reader.onload = () => {
-    //   this.imageUploadTest = reader.result;
-    // }
   }
 
   postAdFormToDto(formValues: any): IAdRequestDto {
@@ -128,10 +123,28 @@ export class PostAdComponent implements OnInit {
     adDto.categoryId = parseInt(formValues.category)
     adDto.conditionId = parseInt(formValues.condition)
     adDto.publicationDate = new Date();
-    adDto.userId = 1;  //@ to be changed with connect USER ID
+    adDto.userId = this.adCardPreview.user.id;
     adDto.addressId = 1;  //@ to be changed with connect USER ADDRESS ID
     adDto.Image = this.adCardPreview.images; 
     return adDto;
+  }
+
+  getUser() {
+    const routeParams = this.route.snapshot.paramMap;
+    const userId = Number(routeParams.get('id'));
+
+    if (userId) {
+      this.userService.getUser(userId).subscribe({
+        next: (res) => {
+          this.adCardPreview.user.name = res.name
+          this.adCardPreview.user.id = res.id
+        }
+      });
+    }
+  }
+
+  refreshPage() {
+    window.setTimeout(() => {this.router.navigate(['/'])}, 500);
   }
 
 

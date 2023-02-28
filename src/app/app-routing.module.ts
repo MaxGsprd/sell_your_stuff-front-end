@@ -11,11 +11,11 @@ import { AuthGuard } from './_helpers/_guard/auth.guard';
 
 const routes: Routes = [
   {path: '', component: AdsListComponent},
-  {path: 'post-ad', component: PostAdComponent, canActivate:[AuthGuard]},
+  {path: 'post-ad/:id', component: PostAdComponent, canActivate:[AuthGuard]},
   {path: 'ad-detail/:id', component: AdDetailComponent, canActivate:[AuthGuard]},
   {path: 'signin', component: UserLoginComponent},
   {path: 'register', component: UserRegistrationComponent},
-  {path: 'myDashboard', component: UserDashboardComponent, canActivate:[AuthGuard]},
+  {path: 'myDashboard/:id', component: UserDashboardComponent, canActivate:[AuthGuard]},
   {path: 'myAds', component: UserAdsComponent, canActivate:[AuthGuard]},
   {path: '**', component: AdsListComponent}
 ];

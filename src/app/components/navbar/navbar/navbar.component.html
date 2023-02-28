@@ -7,9 +7,12 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a routerLink="/post-ad" class="btn btn-outline-primary">
+          <a *ngIf="user.id"  [routerLink]="['/post-ad', user.id]" class="btn btn-outline-primary">
               <span class="material-symbols-outlined">add_box</span>&nbsp;Post your ad
           </a>
+          <a *ngIf="!user.id" routerLink="signin" class="btn btn-outline-primary">
+            <span class="material-symbols-outlined">add_box</span>&nbsp;Post your ad
+        </a>
         </li>
       </ul>
       <ul class="d-flex navbar-nav">
@@ -31,14 +34,15 @@
               &nbsp;{{user.name}}
             </a>
             <div class="dropdown-menu" *dropdownMenu>
-              <a class="nav-link" class="dropdown-item" routerLink="myDashboard"> 
+              <a class="nav-link" class="dropdown-item" [routerLink]="['/myDashboard', user.id]" > 
                 <span class="material-symbols-outlined">dashboard</span>
                 &nbsp;Dashboard
               </a>
-              <a class="nav-link" class="dropdown-item" routerLink="myAds"> 
+              <!-- <a class="nav-link" class="dropdown-item" routerLink="myAds"> 
                 <span class="material-symbols-outlined">library_books</span>
                 &nbsp;My ads
-              </a>
+              </a> -->
+
               <!-- <a class="nav-link" class="dropdown-item" routerLink="#"> 
                 <span class="material-symbols-outlined">chat</span>
                 &nbsp;Messages
