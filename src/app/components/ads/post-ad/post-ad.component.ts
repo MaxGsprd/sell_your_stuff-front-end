@@ -143,11 +143,6 @@ export class PostAdComponent implements OnInit {
     }
   }
 
-  refreshPage() {
-    window.setTimeout(() => {this.router.navigate(['/'])}, 500);
-  }
-
-
   /**
    * Getter methods for form controls
    */

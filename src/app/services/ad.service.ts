@@ -22,6 +22,10 @@ export class AdService {
     return this.http.get<IAdResponseDto>(`${environment.apiUrl}/${this.url}/${id}`);
   }
 
+  public getAdByUser(id: number) :Observable<IAdResponseDto[]> {
+    return this.http.get<IAdResponseDto[]>(`${environment.apiUrl}/${this.url}/byUser/${id}`);
+  }
+
   public postAd(ad: IAdRequestDto): Observable<IAdRequestDto> {
     return this.http.post<IAdRequestDto>(`${environment.apiUrl}/${this.url}`, ad);
   }

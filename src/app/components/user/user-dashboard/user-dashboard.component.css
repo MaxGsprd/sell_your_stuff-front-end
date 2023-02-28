@@ -1,3 +1,57 @@
 .wrapper {
     padding: 50px 0;
 }
+
+.infos-card {
+    width: 40%;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.card-header a {
+    color: #0d6efd;
+    cursor: pointer;
+}
+
+.card-header a:hover {
+    text-decoration: underline;
+}
+
+
+.user-info div {
+    margin-top: 10px;
+}
+
+.info-title {
+    margin-right: 30px;
+    font-weight: bold;
+}
+
+.image-min {
+    max-width: 50px;
+}
+
+.table {
+    margin: 0;
+}
+
+tbody tr {
+    cursor: pointer;
+}
+
+.icons {
+    display: flex;
+    justify-content: space-between;
+    max-width: 80px;
+}
+
+.icons a:hover {
+    color: #0d6efd;
+}
+
+.confirmationModal {
+    margin: 0;
+}
