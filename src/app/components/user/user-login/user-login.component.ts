@@ -4,6 +4,7 @@ import { CustomAlertComponent } from 'src/app/components/custom-alert/custom-ale
 import { UserService } from 'src/app/services/user.service';
 import { IUserLoginDto } from 'src/app/models/dtos/IUserLoginDto';
 import { TokenService } from 'src/app/services/token.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-login',
@@ -14,9 +15,11 @@ export class UserLoginComponent implements OnInit {
   loginForm!: FormGroup;
   userSubmitted!:boolean;
 
-  constructor(private userService: UserService, private tokenService: TokenService) { }
+  constructor(private userService: UserService, private tokenService: TokenService, private router: Router) { }
 
   ngOnInit(): void {
+
+    if(this.tokenService.isLogged()) this.router.navigate(['/']);
     this.loginForm = new FormGroup({
       name: new FormControl(null, Validators.required),
       password: new FormControl(null, [Validators.required, Validators.minLength(8)]),
@@ -27,17 +30,15 @@ export class UserLoginComponent implements OnInit {
     this.userSubmitted = true;    
 
     if (this.loginForm.valid) {
-      
       let loginValues = {} as IUserLoginDto;
       Object.assign(loginValues, this.loginForm.value);
 
       this.userService.userLogin(loginValues).subscribe(
         (token: string) => {
-          console.log(token);
           this.tokenService.saveToken(token);
+          window.location.reload();
       });
       this.userSubmitted = false;
-      this.loginForm.reset();
     } else {
       this.throwAlert();
     }
