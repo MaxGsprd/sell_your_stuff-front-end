@@ -21,11 +21,11 @@ export class UserRegistrationComponent implements OnInit {
       birthdate: [null, Validators.required],
       email: [null, [Validators.required, Validators.email]],
       phone: [null, Validators.required],
-      password: [null, [Validators.required, Validators.minLength(8)]]
-      // confirmPassword: [null, Validators.required]
-    });
-    // ,
-    // {validators: this.passwordMatchingValidator});
+      password: [null, [Validators.required, Validators.minLength(8)]],
+      confirmPassword: [null, Validators.required]
+    }
+    ,
+    {validators: this.passwordMatchingValidator});
   }
 
   onSubmit(): void {
@@ -39,18 +39,22 @@ export class UserRegistrationComponent implements OnInit {
       const welcomeBanner = document.getElementById('welcome-banner');
       let newUser = this.registrationFormToDto(this.registrationForm.value);
       this.userService.registerUser(newUser).subscribe({
-        next: (res) => console.log(res),
-        error: (err) => console.log(err)
+        next: (res) => {
+          // console.log(res)
+          this.registrationForm.reset();
+          this.userSubmitted = false;
+          alertDanger?.classList.add('hidden');
+          alertSuccess?.classList.remove('hidden');
+          alertSuccess?.classList.add('show');
+          formCard?.classList.add('hidden');
+          welcomeBanner?.classList.remove('hidden')
+        },
+        error: (err) => {
+          const userNameTakenErrorDiv = document.getElementById('username-exist');
+          userNameTakenErrorDiv?.classList.remove('hidden');
+          userNameTakenErrorDiv?.classList.add('show');
+        }
       });
-      this.registrationForm.reset();
-      this.userSubmitted = false;
-
-      alertDanger?.classList.add('hidden');
-      alertSuccess?.classList.remove('hidden');
-      alertSuccess?.classList.add('show');
-
-      formCard?.classList.add('hidden');
-      welcomeBanner?.classList.remove('hidden')
     } else {
       alertDanger?.classList.remove('hidden');
       alertDanger?.classList.add('show');

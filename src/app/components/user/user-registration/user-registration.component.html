@@ -20,6 +20,10 @@
             <strong>Sorry :</strong> The form is missing some informations.
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
+        <div class="alert alert-danger alert-dismissible fade hidden mt-4" role="alert" id="username-exist">
+            <strong>Sorry :</strong> The form could not be sent. This user name is already taken.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
         <div class="card mt-4" id="form-card">
             <div class="card-header"><h4>Register</h4></div>
             <div class="card-body">
@@ -63,7 +67,7 @@
                             </span>
                         </span>
                     </div>
-                    <!-- <div class="form-group col-12 mb-4">
+                    <div class="form-group col-12 mb-4">
                         <label for="confirm-password" class="form-label">Confirm Password</label>
                         <input type="password" id="confirm-password-input" formControlName="confirmPassword" class="form-control" >
                         <span *ngIf="confirmPassword?.invalid && (confirmPassword?.dirty || confirmPassword?.touched || userSubmitted)" class="alert-span alert-danger">
@@ -74,7 +78,7 @@
                         <span *ngIf="registrationForm.hasError('passwordsMismatch') && confirmPassword?.valid" class="alert-span alert-danger">
                             Passwords do not match.
                         </span>
-                    </div> -->
+                    </div>
                     <div class="form-group col-12 form-buttons mt-5">
                         <button type="reset" class="btn btn-secondary" routerLink="/">Cancel</button>
                         <button type="submit" class="btn btn-primary">Create account</button>
