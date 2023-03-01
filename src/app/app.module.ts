@@ -22,6 +22,7 @@ import { UserAdsComponent } from './components/user/user-ads/user-ads.component'
 import { TruncateTextPipe } from './_helpers/_pipes/truncateText.pipe';
 import { AuthInterceptorProvider } from './_helpers/_interceptor/auth.interceptor';
 import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
+import { UserEditComponent } from './components/user/user-edit/user-edit.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
     CustomAlertComponent,
     UserDashboardComponent,
     UserAdsComponent,
-    TruncateTextPipe
+    TruncateTextPipe,
+    UserEditComponent
   ],
   imports: [
     BrowserModule,
