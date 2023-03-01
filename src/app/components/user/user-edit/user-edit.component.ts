@@ -29,11 +29,11 @@ export class UserEditComponent implements OnInit {
 
     this.userService.getFullUser(userId).subscribe({
       next: (res) => {
-        this.user = res
-        this.userEditionForm.get('name')?.setValue(this.user.name)
-        this.userEditionForm.get('birthDate')?.setValue(this.user.birthDate)
-        this.userEditionForm.get('email')?.setValue(this.user.email)
-        this.userEditionForm.get('phone')?.setValue(this.user.phone)
+        this.user = res;
+        this.userEditionForm.get('name')?.setValue(this.user.name);
+        this.userEditionForm.get('birthDate')?.setValue(this.user.birthDate);
+        this.userEditionForm.get('email')?.setValue(this.user.email);
+        this.userEditionForm.get('phone')?.setValue(this.user.phone);
       },
       error: (err) => console.log(err)
     });
