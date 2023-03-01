@@ -31,7 +31,7 @@ export class AdService {
   }
 
   public updateAd(ad: IAdRequestDto) :Observable<IAdRequestDto> {
-    return this.http.patch<IAdRequestDto>(`${environment.apiUrl}/${this.url}`, ad);
+    return this.http.put<IAdRequestDto>(`${environment.apiUrl}/${this.url}/${ad.id}`, ad);
   }
 
   public deleteAd(id: number): Observable<void> {
