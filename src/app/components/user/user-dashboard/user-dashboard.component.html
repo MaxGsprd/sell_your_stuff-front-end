@@ -1,5 +1,4 @@
 <div class="wrapper">
-    <!-- <h3 class="mt-3">My Dashboard</h3> -->
     <div class="infos-card card">
         <div class="card-header">
             <span>My informations: </span>
@@ -56,7 +55,7 @@
                     <td [routerLink]="['/ad-detail', ad.id]">{{ad.publicationDate | date:'short'}}</td>
                     <td>
                         <div class="icons">
-                            <a (click)="editAd(ad.id)" title="edit ad" ><span class="material-symbols-outlined">edit</span></a>
+                            <a [routerLink]="['/edit-ad', ad.id]" title="edit ad" ><span class="material-symbols-outlined editBtn">edit</span></a>
                             <a (click)="confirmDelete(ad.id)" title="delete ad" data-bs-toggle="modal" data-bs-target="#customModal"><span class="material-symbols-outlined">delete</span></a>
                         </div>
                     </td>

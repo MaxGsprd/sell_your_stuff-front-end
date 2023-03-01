@@ -26,13 +26,11 @@ export class UserDashboardComponent implements OnInit{
     if (userId) {
       this.userService.getUser(userId).subscribe({
         next: (res) => {
-          this.user = res
-          console.log(this.user)
-
+          this.user = res;
           this.adService.getAdByUser(this.user.id).subscribe({
             next: (res) => {
-              console.log(res)
-              this.ads = res
+              // console.log(res);
+              this.ads = res;
             },
             error: (err) => console.log(err)
 
@@ -40,14 +38,9 @@ export class UserDashboardComponent implements OnInit{
         }
       });
     }
-
-    console.log(this.user)
+    // console.log(this.user)
   }
 
-  editAd(id: number) {
-
-    console.log('edit coucou', id);
-  }
 
   confirmDelete(id: number) {
     this.selectedAdId = id;

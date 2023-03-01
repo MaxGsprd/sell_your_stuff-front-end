@@ -55,3 +55,12 @@ tbody tr {
 .confirmationModal {
     margin: 0;
 }
+
+.editBtn {
+    color:#444;
+    text-decoration: none;
+}
+
+.editBtn:hover {
+    color: #0d6efd;
+}
