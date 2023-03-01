@@ -1,1 +1,80 @@
-<p>user-edit works!</p>
+<div>
+    <a [routerLink]="['/myDashboard', user.id]" class="back-link">
+        <span class="material-symbols-outlined">arrow_back</span>
+        &nbsp;Back to dashboard
+    </a>
+</div>
+<div class="row">
+    <div class="col-6 m-auto mb-5">
+        <div class="alert alert-danger alert-dismissible fade hidden mt-4" role="alert" id="form-invalid-alert">
+            <strong>Sorry :</strong> The form is missing some informations.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <div class="alert alert-danger alert-dismissible fade hidden mt-4" role="alert" id="username-exist">
+            <strong>Sorry :</strong> Sorry, The form could not be sent. An error occured. 
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <div class="card mt-4" id="form-card">
+            <div class="card-header"><h4>Edit my profile</h4></div>
+            <div class="card-body">
+                <form [formGroup]="userEditionForm" (ngSubmit)="onSubmit()">
+                    <div class="form-group col-12 mb-4">
+                        <label for="name" class="form-label">Name</label>
+                        <input type="text" id="name-input" placeholder={{user.name}} formControlName="name" class="form-control" value={{user.name}}>
+                        <span *ngIf="name?.invalid && (name?.dirty || name?.touched || userSubmitted)" class="alert-span alert-danger">Name is required.</span>
+                    </div>
+                    <div class="form-group col-12 mb-4">
+                        <label for="birthdate" class="form-label">Date of birth</label>
+                        <input type="date" id="birthdate-input" formControlName="birthDate" class="form-control" value="{{user.birthDate | date : 'yyyy-MM-dd'}}">
+                        <span *ngIf="birthDate?.invalid && (birthDate?.dirty || birthDate?.touched || userSubmitted)" class="alert-span alert-danger">Date of birth is required.</span>
+                    </div>
+                    <div class="form-group col-12 mb-4">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" id="email-input" placeholder="Your email" formControlName="email" class="form-control" value={{user.email}}>
+                        <span *ngIf="email?.invalid && (email?.dirty || email?.touched || userSubmitted)" class="alert-span alert-danger">
+                            <span *ngIf="email?.errors?.['required']">
+                                Email is required.
+                            </span>
+                            <span *ngIf="email?.errors?.['email']">
+                                Email is not valid.
+                            </span>
+                        </span>
+                    </div>
+                    <div class="form-group col-12 mb-4">
+                        <label for="phone" class="form-label">Phone number</label>
+                        <input type="tel" id="phone-input" placeholder="Your phone number" formControlName="phone" class="form-control" value="{{user.phone}}">
+                        <span *ngIf="phone?.invalid && (phone?.dirty || phone?.touched || userSubmitted)" class="alert-span alert-danger">Phone number is required.</span>
+                    </div>
+                    <div class="form-group col-12 mb-4">
+                        <label for="password" class="form-label">New password</label>
+                        <input type="password" id="password-input" formControlName="password" class="form-control">
+                        <span *ngIf="password?.invalid && (password?.dirty || password?.touched || userSubmitted)" class="alert-span alert-danger">
+                            <span *ngIf="password?.errors?.['required']">
+                                A new password is required.
+                            </span>
+                            <span *ngIf="password?.errors?.['minlength']">
+                                Password should be at least 8 characters long.
+                            </span>
+                        </span>
+                    </div>
+                    <div class="form-group col-12 mb-4">
+                        <label for="confirm-password" class="form-label">Confirm Password</label>
+                        <input type="password" id="confirm-password-input" formControlName="confirmPassword" class="form-control" >
+                        <span *ngIf="confirmPassword?.invalid && (confirmPassword?.dirty || confirmPassword?.touched || userSubmitted)" class="alert-span alert-danger">
+                            <span *ngIf="confirmPassword?.errors?.['required']">
+                                Please confirm password
+                            </span>
+                        </span>
+                        <span *ngIf="userEditionForm.hasError('passwordsMismatch') && confirmPassword?.valid" class="alert-span alert-danger">
+                            Passwords do not match.
+                        </span>
+                    </div>
+                    <div class="form-group col-12 form-buttons mt-5">
+                        <button type="reset" class="btn btn-secondary" routerLink="/">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Edit profile</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
