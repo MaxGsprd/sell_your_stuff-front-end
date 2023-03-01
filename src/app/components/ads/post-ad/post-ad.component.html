@@ -57,7 +57,7 @@
                     <div class="form-group row">
                         <label for="description" class="col-sm-3 col-form-label">Description</label>
                         <div class="col-sm-9">
-                            <textarea type="text" placeholder={{adCardPreview.description}} formControlName="description" class="form-control"></textarea>
+                            <textarea type="text" placeholder={{adCardPreview.description}} formControlName="description" class="form-control" rows="5" cols="30" ></textarea>
                             <span *ngIf="description?.invalid && (description?.dirty || description?.touched || userSubmitted)" class="alert-span alert-danger">
                                 <span *ngIf="description?.errors?.['required']">
                                     Description is required.

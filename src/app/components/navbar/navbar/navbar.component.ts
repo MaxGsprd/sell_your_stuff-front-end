@@ -19,7 +19,7 @@ export class NavbarComponent implements OnInit {
       this.userService.getLoggedInUserId().subscribe({
         next: (res) =>  {
           this.userService.getUser(parseInt(res)).subscribe((data) => {
-            this.user = data
+            this.user = data;
           })
         },
         error: (err) => console.error(err)
