@@ -1,8 +1,11 @@
 export interface IUser {
+    id: number
     name: string,
-    birthdate: Date,
+    birthDate: Date,
     email: string,
-    password: string,
     phone: string,
+    password: string,
+    roleId?: number,
+    role?: any
     // address: number
 }
