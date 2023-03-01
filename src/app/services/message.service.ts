@@ -21,8 +21,12 @@ export class MessageService {
     return this.http.get<IMessage>(`${environment.apiUrl}/${this.url}/${id}`);
   }
 
-  public getMessagesByUser(id: number) :Observable<IMessage[]> {
-    return this.http.get<IMessage[]>(`${environment.apiUrl}/${this.url}/byUser/${id}`);
+  public getMessagesReceivedByUser(id: number) :Observable<IMessage[]> {
+    return this.http.get<IMessage[]>(`${environment.apiUrl}/${this.url}/receivedByUser/${id}`);
+  }
+
+  public getMessagesSentByUser(id: number) :Observable<IMessage[]> {
+    return this.http.get<IMessage[]>(`${environment.apiUrl}/${this.url}/sentByUser/${id}`);
   }
 
   public postMessage(message: IMessage): Observable<IMessage> {
