@@ -9,11 +9,13 @@ import { UserDashboardComponent } from './components/user/user-dashboard/user-da
 import { UserAdsComponent } from './components/user/user-ads/user-ads.component';
 import { AuthGuard } from './_helpers/_guard/auth.guard';
 import { UserEditComponent } from './components/user/user-edit/user-edit.component';
+import { EditAdComponent } from './components/ads/edit-ad/edit-ad.component';
 
 const routes: Routes = [
   {path: '', component: AdsListComponent},
   {path: 'post-ad/:id', component: PostAdComponent, canActivate:[AuthGuard]},
   {path: 'ad-detail/:id', component: AdDetailComponent, canActivate:[AuthGuard]},
+  {path: 'edit-ad/:id', component: EditAdComponent, canActivate:[AuthGuard]},
   {path: 'signin', component: UserLoginComponent},
   {path: 'register', component: UserRegistrationComponent},
   {path: 'myDashboard/:id', component: UserDashboardComponent, canActivate:[AuthGuard]},

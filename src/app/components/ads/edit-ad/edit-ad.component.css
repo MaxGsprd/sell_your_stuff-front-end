@@ -1,0 +1,25 @@
+.back-link:hover {
+    color: #333;
+}
+
+.form-group {
+    margin-bottom: 1.5em;
+}
+
+.form-buttons {
+   width: 70%;
+}
+
+.card-preview {
+    padding-top: 5%;
+}
+
+.confirmationModal {
+    display: flex;
+    justify-content: center;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: space-around;
+}

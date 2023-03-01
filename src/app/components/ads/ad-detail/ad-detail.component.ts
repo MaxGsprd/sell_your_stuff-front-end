@@ -12,20 +12,7 @@ export class AdDetailComponent implements OnInit {
 
   ad: IAdResponseDto = {} as IAdResponseDto;
   mainImg = {id:1, src:"/assets/images/jazz1.jpg"};
-  images = [
-    {id:1, src:"/assets/images/jazz1.jpg"},
-    {id:2, src:"/assets/images/jazz2.jpg"},
-    {id:3, src:"/assets/images/jazz3.jpg"},
-    {id:4, src:"/assets/images/jazz4.jpg"},
-    {id:5, src:"/assets/images/jazz5.jpg"},
-    {id:6, src:"/assets/images/jazz6.jpg"},
-    {id:7, src:"/assets/images/jazz7.jpg"},
-    {id:8, src:"/assets/images/jazz8.jpg"},
-    {id:9, src:"/assets/images/jazz9.jpg"},
-    {id:10, src:"/assets/images/jazz10.jpg"},
-    {id:11, src:"/assets/images/jazz11.jpg"},
-    {id:12, src:"/assets/images/jazz12.jpg"},
-  ];
+  images = [];
 
   constructor(private route: ActivatedRoute, private adService: AdService, private router: Router) {  }
 

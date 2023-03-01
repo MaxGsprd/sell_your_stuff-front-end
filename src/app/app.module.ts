@@ -23,6 +23,7 @@ import { TruncateTextPipe } from './_helpers/_pipes/truncateText.pipe';
 import { AuthInterceptorProvider } from './_helpers/_interceptor/auth.interceptor';
 import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { UserEditComponent } from './components/user/user-edit/user-edit.component';
+import { EditAdComponent } from './components/ads/edit-ad/edit-ad.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { UserEditComponent } from './components/user/user-edit/user-edit.compone
     UserDashboardComponent,
     UserAdsComponent,
     TruncateTextPipe,
-    UserEditComponent
+    UserEditComponent,
+    EditAdComponent
   ],
   imports: [
     BrowserModule,
