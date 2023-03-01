@@ -35,7 +35,7 @@ export class PostAdComponent implements OnInit {
   userSubmitted!:boolean;
 
   adImagePreview: any;
-  imageUploadTest: any;
+  imageToUpload: any;
 
   constructor (private formBuilder: FormBuilder, 
                 private adService: AdService, 
@@ -75,9 +75,9 @@ export class PostAdComponent implements OnInit {
             let newAd = this.postAdFormToDto(this.postAdForm.value);
             this.adService.postAd(newAd).subscribe({
               next: (res) => {
-                if (this.imageUploadTest) {
+                if (this.imageToUpload) {
                   let formData = new FormData();
-                  formData.append("file",this.imageUploadTest, String(res.id));
+                  formData.append("file",this.imageToUpload, String(res.id));
                   this.adService.uploadImage(formData).subscribe();
                 }
               },
@@ -110,10 +110,15 @@ export class PostAdComponent implements OnInit {
   }
 
   getImg(event:any) {
-    this.adCardPreview.images.push(event.target.files[0]);
-    this.adImagePreview = `assets/images/${event.target.files[0].name}`;
-    Array.from(event.target.files).forEach(file => this.adCardPreview.images.push(file));
-    this.imageUploadTest = event.target.files[0];
+    let selectedFile = event.target.files[0];
+    if (selectedFile) {
+        const reader = new FileReader();
+        reader.onload = (e: any) => {
+          this.adImagePreview = e.target.result;
+        };
+        reader.readAsDataURL(selectedFile);
+        this.imageToUpload = event.target.files[0];
+    }
   }
 
   postAdFormToDto(formValues: any): IAdRequestDto {
@@ -132,7 +137,6 @@ export class PostAdComponent implements OnInit {
   getUser() {
     const routeParams = this.route.snapshot.paramMap;
     const userId = Number(routeParams.get('id'));
-
     if (userId) {
       this.userService.getUser(userId).subscribe({
         next: (res) => {
