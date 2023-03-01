@@ -80,3 +80,7 @@
     all: unset;
     cursor: pointer;
 }
+
+.back-link:hover {
+    color: #333;
+}
