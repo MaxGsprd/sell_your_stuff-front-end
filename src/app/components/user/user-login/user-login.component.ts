@@ -33,10 +33,15 @@ export class UserLoginComponent implements OnInit {
       let loginValues = {} as IUserLoginDto;
       Object.assign(loginValues, this.loginForm.value);
 
-      this.userService.userLogin(loginValues).subscribe(
-        (token: string) => {
-          this.tokenService.saveToken(token);
-          window.location.reload();
+      this.userService.userLogin(loginValues).subscribe({
+        next: (token) => {
+            this.tokenService.saveToken(token);
+            window.location.reload();
+        },
+        error: (err) => {
+          console.log(err)
+          this.throwAlert();
+        }
       });
       this.userSubmitted = false;
     } else {
