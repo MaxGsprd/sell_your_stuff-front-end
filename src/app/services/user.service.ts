@@ -5,6 +5,7 @@ import { environment } from '../environments/environment';
 import { IUserResponseDto } from '../models/dtos/IUserResponseDto';
 import { IUserRequestDto } from '../models/dtos/IUserRequestDto';
 import { IUserLoginDto } from '../models/dtos/IUserLoginDto';
+import { IUser } from '../models/IUser.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +24,10 @@ export class UserService {
     return this.http.get<IUserResponseDto>(`${environment.apiUrl}/${this.url}/${id}`);
   }
 
+  public getFullUser(id: number): Observable<IUser> {
+    return this.http.get<IUser>(`${environment.apiUrl}/${this.url}/fullUser/${id}`);
+  }
+
   public registerUser(userDto: IUserRequestDto): Observable<IUserResponseDto> {
     return this.http.post<IUserResponseDto>(`${environment.apiUrl}/${this.url}`, userDto);
   }
@@ -38,7 +43,7 @@ export class UserService {
   }
 
   public updateUser(user: IUserRequestDto) :Observable<IUserRequestDto> {
-    return this.http.patch<IUserRequestDto>(`${environment.apiUrl}/${this.url}`, user);
+    return this.http.put<any>(`${environment.apiUrl}/${this.url}/${user.id}`, user);
   }
 
   public deleteUser(id: number): Observable<void> {
