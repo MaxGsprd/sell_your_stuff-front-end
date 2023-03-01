@@ -4,34 +4,77 @@
         &nbsp;Back to list
     </a>
 </div>
-<section class="ad-details-section">
-    <div class="ad-details">
-        <div class="ad-header">
-            <h1 class="ad-title" *ngIf="ad.title">{{ad.title}}</h1>
-            <p class="ad-price" *ngIf="ad.price">{{ad.price | currency}}</p>
+
+<section class="ad-infos mt-5 shadow">
+    <div class="left">
+        <div class="title-price">
+            <h3 *ngIf="ad?.title" class="ad-title">{{ad?.title}}</h3>
+            <h3 *ngIf="ad?.price" class="ad-price">{{ad?.price |currency:'CAD':'symbol-narrow'}}</h3>
+        </div>
+        <div class="ad-details">
+            <div class="ad-category">
+                <span *ngIf="ad?.category?.name" >Category: {{ad?.category?.name}}</span>
+            </div>
+            <div class="ad-condition">
+                <span *ngIf="ad?.condition?.name" >Condition: {{ad?.condition?.name}}</span>
+            </div>
+        </div>
+        <div class="author-box shadow mt-2">
+            <span>If you're interested by this ad, send a message to it's author.</span>
+            <div class="author-info mt-2">
+                <p>
+                    <span>author:</span>&nbsp;
+                    <span *ngIf="ad" class="author-name">{{ad.user.name}}</span>
+                </p>
+            </div>
+            <div class="contact-author">
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#customModal">I'm interested !</button>
+            </div>
         </div>
     </div>
-    <div class="owner-section">
-        <p *ngIf="ad.user">author: {{ad.user.name}}</p>
+    <div class="right">
+        <img *ngIf="ad?.adImage" class="ad-img" src={{ad?.adImage}} alt="ad image">
     </div>
 </section>
-<div class="ad-infos">
-    <p *ngIf="ad.category" class="category">Category:&nbsp;&nbsp;{{ad.category.name}}</p>
-    <p *ngIf="ad.condition" cclass="condition">Condition:&nbsp;&nbsp;{{ad.condition.name}}</p>
-</div>
-<div class="ad-description">
-    <h5 class="description-section-title">Description</h5>
-    <p class="description" *ngIf="ad.description">{{ad.description}}</p>
-</div>
-<section class="images">
-    <div class="main-image">
-        <img [id]="mainImg.id" [src]="mainImg.src" [title]="mainImg.id" alt="first slide">
-    </div>
-    <div class="gallery">
-        <div *ngFor="let img of images">
-            <button class="img-btn">
-                <img [id]=img.id [src]=img.src [alt]=img.id [title]=img.id (click)="changeMainImg(img)">
-            </button>
+<section class="description mt-4">
+    <h3>Description:</h3>
+    <p *ngIf="ad?.description" >{{ad?.description}}</p>
+</section>
+<div class="confirmationModal">
+    <div class="modal fade" id="customModal" tabindex="-1" aria-labelledby="customModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="customModalLabel">Message to : {{ad?.user?.name}}</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="messageForm" (ngSubmit)="sendMessage()" >
+                    <div class="form-group">
+                        <label class="mb-2" for="title">Title:</label>
+                        <input formControlName="title" type="text" class="form-control" id="form-title" name="title" placeholder="Hi {{ad?.user?.name}}, I'm really interested by your ad !">
+                        <span *ngIf="title?.invalid && (title?.dirty || title?.touched || userSubmitted)" class="alert-span alert-danger">
+                            <span *ngIf="title?.errors?.['required']">
+                                Title is required.
+                            </span>
+                        </span>
+                    </div>
+                    <div class="form-group mt-3">
+                        <label class="mb-2" for="body">Message:</label>
+                        <textarea formControlName="body" rows="10" cols="30" class="form-control" id="form-body" name="body" placeholder="Can you send the item to ..."></textarea>
+                        <span *ngIf="body?.invalid && (body?.dirty || body?.touched || userSubmitted)" class="alert-span alert-danger">
+                            <span *ngIf="body?.errors?.['required']">
+                                Message body is required.
+                            </span>
+                        </span>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button (click)="sendMessage()" type="submit" class="btn btn-primary" data-bs-dismiss="modal">Send Message</button>
+            </div>
+            </div>
         </div>
     </div>
-</section>
+</div>
