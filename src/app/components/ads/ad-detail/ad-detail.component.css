@@ -1,86 +1,69 @@
-.images {
-    display: flex ;
-    width: 100%;
-    align-items: center;
-    margin-bottom: 5vh;
-}
-
-.main-image img {
-    display: block;
-    max-height: 700px;
-    width: 500px;
-    object-fit: contain;
-    border-radius: 5px;
-}
-
-.gallery {
-    overflow: hidden;
+.ad-infos {
+    color: #333;
     display: flex;
-    flex-wrap: wrap;
-    width: 100%;
+    justify-content: space-around;
 }
 
-.gallery img {
-    margin: 5px;
-    flex-wrap: wrap;
-    background-color: #ccc;
-    height: 150px;
-    width: 150px;
-    object-fit: contain;
-    border-radius: 5%;
-}
-
-.ad-details-section {
-    display: flex;
-    width: 100%;
-    padding: 0.5em;
-    margin-top: 3em;
-}
-
-.ad-details {
-    margin: 0 10p;
-    width: 70%;
-}
-
-.ad-title {
-    font-size: 1.6em;
-}
-
-.ad-price {
+.ad-title, .ad-price{
     font-size: 1.5em;
 }
 
-.ad-infos {
+.left {
+    margin: 1em;
+    width: 50%;
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
-    max-width: 300px;
-    font-size: 0.9em;
+}
+
+.ad-details {
     font-style: italic;
-    padding: 0 0.5em;
+    display: block;
+    display: flex;
+    justify-content: space-around;
+    font-size: 0.9em;
 }
 
-.owner-section {
-    width: 30%;
-    margin: 0 2%;
-    border: 1px solid #ccc;
-    padding: 0.5em;
-    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+.right {
+    display: flex;
+    justify-content:center ;
+    margin: 1em;
+    width: 50%;
 }
 
-.ad-description {
-    padding: 0.5em;
-    min-height: 250px;
+.ad-img {
+    max-height: 300px;
+}
+
+.author-box{
+    font-size: 0.9em;
+    padding: 10px;
+    color: #333;
+}
+
+.contact-author {
+    margin: auto;
+    width: 35%;
+}
+
+.contact-author button {
+    width: 100%;
 }
 
 .description {
-    margin-top: 3%;
-}
-
-.img-btn {
-    all: unset;
-    cursor: pointer;
-}
-
-.back-link:hover {
     color: #333;
+}
+
+.modal-body {
+    min-height: 300px;
+}
+
+.modal-footer {
+    align-items: center;
+    margin: auto;
+}
+
+.modal-footer button {
+    width: 180px;
+    margin: 0 10px;
 }

@@ -1,6 +1,13 @@
+.card {
+    min-height: 500px;
+}
 
 .description{
     min-height: 90px;
+}
+
+.card-title {
+    min-height: 40px;
 }
 
 .card-infos {
