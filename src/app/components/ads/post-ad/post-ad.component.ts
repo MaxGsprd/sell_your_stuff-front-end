@@ -70,8 +70,6 @@ export class PostAdComponent implements OnInit {
     this.userSubmitted = true;
     const alertDanger =  document.getElementById('form-invalid-alert');
     if (this.postAdForm.valid) {
-            // console.log(this.postAdForm);
-            // console.log(newAd);
             let newAd = this.postAdFormToDto(this.postAdForm.value);
             this.adService.postAd(newAd).subscribe({
               next: (res) => {
