@@ -29,7 +29,6 @@ export class UserRegistrationComponent implements OnInit {
   }
 
   onSubmit(): void {
-    console.log(this.registrationForm); // to be removed
     const alertSuccess =  document.getElementById('form-valid-alert');
     const alertDanger =  document.getElementById('form-invalid-alert');
     this.userSubmitted = true;
