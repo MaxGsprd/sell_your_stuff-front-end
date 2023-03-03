@@ -28,7 +28,7 @@
 
 .publicationDate {
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     font-size: 0.7em;
     color: #969495;
     margin-top: 0.3em;
