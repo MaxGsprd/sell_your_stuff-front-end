@@ -35,6 +35,10 @@ export class MessageService {
     return this.http.post<IMessageRequest>(`${environment.apiUrl}/${this.url}`, message);
   }
 
+  public updateMessage(msgId: number, msgObject: Object) :Observable<void> {
+    return this.http.patch<void>(`${environment.apiUrl}/${this.url}/${msgId}`, msgObject);
+  }
+
   public deleteMessage(id: number): Observable<void> {
     return this.http.delete<void>(`${environment.apiUrl}/${this.url}/${id}`);
   }

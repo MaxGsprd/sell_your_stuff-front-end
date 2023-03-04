@@ -1,9 +1,23 @@
 <div class="wrapper">
-    <div class="user-info-section">
-        <div class="infos-card card">
+    <ul class="anchor-list list-group list-group-horizontal mb-3">
+        <li>
+            <a class="anchor-link list-group-item shadow-sm" (click)="onClick('myAdsCard')">My ads</a>
+        </li>
+        <li>
+            <a class="anchor-link list-group-item shadow-sm" (click)="onClick('messageReceivedCard')">My messages received</a>
+        </li>
+        <li>
+            <a class="anchor-link list-group-item shadow-sm" (click)="onClick('messageSentCard')">My messages sent</a>
+        </li>
+    </ul>
+    <div class="user-info-section mt-5">
+        <div class="infos-card card shadow-sm">
             <div class="card-header">
                 <span>My informations: </span>
-                <a [routerLink]="['/user-edit', user.id]">Edit my infos</a>
+                <div class="card-header-edit-link">
+                    <a [routerLink]="['/user-edit', user.id]">Edit</a>
+                    <span class="material-symbols-outlined">edit</span>
+                </div>
             </div>
             <div class="card-body">
                 <div class="user-info">
@@ -28,102 +42,135 @@
         </div>
         <img src="assets/sale.jpg" alt="Men concluding a sale image - Designed by Vectorjuice/Freepik" style="width: 200px;">
     </div>
-    <div class="card mt-5 mb-3 ">
-        <span class="card-header">My Ads:</span>
-        <table class="card-body table table-striped">
-            <thead>
-                <tr>
-                    <th scope="col">Image</th>
-                    <th scope="col">Title</th>
-                    <th scope="col">Price</th>
-                    <th scope="col">Category</th>
-                    <th scope="col">Condition</th>
-                    <th scope="col">Publication date</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let ad of ads">
-                    <td [routerLink]="['/ad-detail', ad.id]">
-                        <div class="image-min">
-                            <img *ngIf="ad.adImage" src="{{ad.adImage}}" class="card-img" alt="default_image">
-                            <img *ngIf="!ad.adImage" src="assets/placeholder_img.png" class="card-img"
-                                alt="default_image">
-                        </div>
-                    </td>
-                    <td [routerLink]="['/ad-detail', ad.id]">{{ad.title | truncateText: 70}}</td>
-                    <td [routerLink]="['/ad-detail', ad.id]" [routerLink]="['/ad-detail', ad.id]">{{ad.price |
-                        currency:'CAD':'symbol-narrow'}}</td>
-                    <td [routerLink]="['/ad-detail', ad.id]">{{ad.category.name}}</td>
-                    <td [routerLink]="['/ad-detail', ad.id]">{{ad.condition.name}}</td>
-                    <td [routerLink]="['/ad-detail', ad.id]">{{ad.publicationDate | date:'short'}}</td>
-                    <td>
-                        <div class="icons">
-                            <a [routerLink]="['/edit-ad', ad.id]" title="edit ad"><span
-                                    class="material-symbols-outlined editBtn">edit</span></a>
-                            <a (click)="confirmDelete(ad.id)" title="delete ad" data-bs-toggle="modal"
-                                data-bs-target="#customModal"><span class="material-symbols-outlined">delete</span></a>
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <div class="confirmationModal">
-            <div class="modal fade" id="customModal" tabindex="-1" aria-labelledby="customModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="customModalLabel">Delete confirmation</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <span>
-                                Are you sure you want to delete this ad ?<br>
-                                After confirmation this ad will be permanently deleted.
-                            </span>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                            <button (click)="deleteAd()" type="button" class="btn btn-primary"
-                                data-bs-dismiss="modal">Delete</button>
+    <div class="myAds mt-5 mb-3 shadow-sm">
+        <div class="card" id="myAdsCard">
+            <button class="card-header btn btn-dropdown" data-bs-toggle="collapse" data-bs-target="#collapsMyAds">
+                My Ads
+                <span class="material-symbols-outlined">arrow_drop_down</span>
+            </button>
+            <table class="card-body table table-striped" id="collapsMyAds">
+                <thead>
+                    <tr>
+                        <th scope="col">Image</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Category</th>
+                        <th scope="col">Condition</th>
+                        <th scope="col">Publication date</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let ad of ads">
+                        <td [routerLink]="['/ad-detail', ad.id]">
+                            <div class="image-min">
+                                <img *ngIf="ad.adImage" src="{{ad.adImage}}" class="card-img" alt="default_image">
+                                <img *ngIf="!ad.adImage" src="assets/placeholder_img.png" class="card-img"
+                                    alt="default_image">
+                            </div>
+                        </td>
+                        <td [routerLink]="['/ad-detail', ad.id]">{{ad.title | truncateText: 70}}</td>
+                        <td [routerLink]="['/ad-detail', ad.id]" [routerLink]="['/ad-detail', ad.id]">{{ad.price |
+                            currency:'CAD':'symbol-narrow'}}</td>
+                        <td [routerLink]="['/ad-detail', ad.id]">{{ad.category.name}}</td>
+                        <td [routerLink]="['/ad-detail', ad.id]">{{ad.condition.name}}</td>
+                        <td [routerLink]="['/ad-detail', ad.id]">{{ad.publicationDate | date:'short'}}</td>
+                        <td>
+                            <div class="icons">
+                                <a [routerLink]="['/edit-ad', ad.id]" title="edit ad"><span
+                                        class="material-symbols-outlined editBtn">edit</span></a>
+                                <a (click)="confirmDelete(ad.id)" title="delete ad" data-bs-toggle="modal"
+                                    data-bs-target="#customModal"><span class="material-symbols-outlined">delete</span></a>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="confirmationModal">
+                <div class="modal fade" id="customModal" tabindex="-1" aria-labelledby="customModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="customModalLabel">Delete confirmation</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <span>
+                                    Are you sure you want to delete this ad ?<br>
+                                    After confirmation this ad will be permanently deleted.
+                                </span>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <button (click)="deleteAd()" type="button" class="btn btn-primary"
+                                    data-bs-dismiss="modal">Delete</button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="card mt-5 mb-3 ">
-        <span class="card-header">My messages received:</span>
-        <table class="card-body table">
-            <thead>
-                <tr>
-                    <th scope="col">Read</th>
-                    <th scope="col">Title</th>
-                    <th scope="col">Body</th>
-                    <th scope="col">Author</th>
-                    <th scope="col">Ad n°</th>
-                    <th scope="col">Date</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let msg of messagesReceived">
-                    <td>{{msg.isRead}}</td>
-                    <td>{{msg.title | truncateText: 70}}</td>
-                    <td>{{msg.body | truncateText: 70}}</td>
-                    <td>{{msg.author.name}}</td>
-                    <td><a [routerLink]="['/ad-detail', msg.adId]">{{msg.adId}}</a></td>
-                    <td>{{msg.date | date:'short'}}</td>
-                </tr>
-            </tbody>
-        </table>
+    <div class="messagesReceived mt-5 mb-3 ">
+        <div class="card shadow-sm" id="messageReceivedCard">
+            <button class="card-header btn btn-dropdown" data-bs-toggle="collapse" data-bs-target="#collapsMyMessagesReceived" >
+                My messages received
+                <span class="material-symbols-outlined">arrow_drop_down</span>
+            </button>
+            <table class="card-body table" id="collapsMyMessagesReceived">
+                <thead>
+                    <tr>
+                        <th scope="col">Read</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Body</th>
+                        <th scope="col">Author</th>
+                        <th scope="col">Ad n°</th>
+                        <th scope="col">Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let msg of messagesReceived">
+                        <td *ngIf="!msg.isRead" class="msgUnread">
+                            <a (click)="readMsg(msg)" title="read message" data-bs-toggle="modal"
+                            data-bs-target="#messageModal">NEW</a> 
+                        </td>
+                        <td *ngIf="msg.isRead" class="msgRead">
+                            <a (click)="readMsg(msg)" title="read message" data-bs-toggle="modal"
+                            data-bs-target="#messageModal">
+                                <span class="material-symbols-outlined">task_alt</span>
+                            </a> 
+                        </td>
+                        <td>
+                            <a (click)="readMsg(msg)" title="read message" data-bs-toggle="modal"
+                            data-bs-target="#messageModal">{{msg.title | truncateText: 70}}</a> 
+                        </td>
+                        <td>
+                            <a (click)="readMsg(msg)" title="read message" data-bs-toggle="modal"
+                            data-bs-target="#messageModal">{{msg.body | truncateText: 70}}</a> 
+                        </td>
+                        <td>
+                            <a (click)="readMsg(msg)" title="read message" data-bs-toggle="modal"
+                            data-bs-target="#messageModal">{{msg.author.name}}</a> 
+                        </td>
+                        <td><a [routerLink]="['/ad-detail', msg.adId]">{{msg.adId}}</a></td>
+                        <td>
+                            <a (click)="readMsg(msg)" title="read message" data-bs-toggle="modal"
+                            data-bs-target="#messageModal">{{msg.date | date:'short'}}</a> 
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
-    <div class="card mt-5 mb-3 ">
-        <span class="card-header">My messages sent:</span>
-        <table class="card-body table">
+    <div class="card shadow-sm mt-5 mb-3">
+        <button class="card-header btn btn-dropdown" id="messageSentCard" data-bs-toggle="collapse" data-bs-target="#collapsMyMessagesSent">
+            My messages sent
+            <span class="material-symbols-outlined">arrow_drop_down</span>
+        </button>
+        <table class="card-body table" id="collapsMyMessagesSent">
             <thead>
                 <tr>
-                    <th scope="col">Read</th>
                     <th scope="col">Title</th>
                     <th scope="col">Body</th>
                     <th scope="col">Recipient</th>
@@ -133,14 +180,49 @@
             </thead>
             <tbody>
                 <tr *ngFor="let msg of messagesSent">
-                    <td>{{msg.isRead}}</td>
-                    <td>{{msg.title | truncateText: 70}}</td>
-                    <td>{{msg.body | truncateText: 70}}</td>
-                    <td>{{msg.recipient.name}}</td>
+                    <td>
+                        <a (click)="readMsg(msg)" title="read message" data-bs-toggle="modal"
+                        data-bs-target="#messageModal">{{msg.title | truncateText: 70}}</a> 
+                    </td>
+                    <td>
+                        <a (click)="readMsg(msg)" title="read message" data-bs-toggle="modal"
+                        data-bs-target="#messageModal">{{msg.body | truncateText: 70}}</a> 
+                    </td>
+                    <td>
+                        <a (click)="readMsg(msg)" title="read message" data-bs-toggle="modal"
+                        data-bs-target="#messageModal">{{msg.recipient.name}}</a> 
+                    </td>
                     <td><a [routerLink]="['/ad-detail', msg.adId]">{{msg.adId}}</a></td>
-                    <td>{{msg.date | date:'short'}}</td>
-                </tr>
+                    <td>
+                        <a (click)="readMsg(msg)" title="read message" data-bs-toggle="modal"
+                        data-bs-target="#messageModal">{{msg.date | date:'short'}}</a> 
+                    </td>
+                </tr>              
             </tbody>
         </table>
+    </div>
+    <div class="confirmationModal">
+        <div class="modal fade" id="messageModal" tabindex="-1" aria-labelledby="customModalLabel"
+            aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 *ngIf="readingMessage?.author?.name"  class="modal-title fs-5" id="customModalLabel">Message from: {{readingMessage.author.name}}</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="onCloseReload()"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p class="msg-modal-date">{{readingMessage.date | date: 'short'}}</p>
+                        <div class="card">
+                            <div class="card-header">
+                                <h5>{{readingMessage.title}}</h5>
+                            </div>
+                            <div class="card-body">
+                                <p>{{readingMessage.body}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

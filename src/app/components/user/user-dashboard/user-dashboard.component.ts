@@ -1,9 +1,9 @@
+import { ViewportScroller } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IAdResponseDto } from 'src/app/models/dtos/IAdResponseDto';
 import { IMessageResponse } from 'src/app/models/dtos/IMessageResponseDto';
 import { IUserResponseDto } from 'src/app/models/dtos/IUserResponseDto';
-import { IMessage } from 'src/app/models/IMessage.interface';
 import { AdService } from 'src/app/services/ad.service';
 import { MessageService } from 'src/app/services/message.service';
 import { UserService } from 'src/app/services/user.service';
@@ -20,14 +20,15 @@ export class UserDashboardComponent implements OnInit{
   messagesReceived: IMessageResponse[] = [];
   messagesSent: IMessageResponse[] = [];
   selectedAdId: number = 0;
+  readingMessage: IMessageResponse = {} as IMessageResponse;
 
   constructor(private route: ActivatedRoute, 
               private userService: UserService, 
               private adService: AdService,
-              private messageService: MessageService) {}
+              private messageService: MessageService,
+              private viewportScroller: ViewportScroller) {}
 
   ngOnInit(): void {
-
     const routeParams = this.route.snapshot.paramMap;
     const userId = Number(routeParams.get('id'));
 
@@ -43,34 +44,46 @@ export class UserDashboardComponent implements OnInit{
       });
 
       this.messageService.getMessagesReceivedByUser(userId).subscribe({
-        next: (res) => {
-          console.log("Received:", res)
-          this.messagesReceived = res;       
-        },
+        next: (res) => this.messagesReceived= res,
         error: (err) => console.log(err)
       });
 
       this.messageService.getMessagesSentByUser(userId).subscribe({
-        next: (res) => {
-          console.log("ent:", res)
-          this.messagesSent= res;       
-        },
+        next: (res) => this.messagesSent= res,
         error: (err) => console.log(err)
       });
     }
-
-
   }
 
+  onClick(elementId: string): void { 
+    this.viewportScroller.scrollToAnchor(elementId);
+}
 
-  confirmDelete(id: number) {
+  confirmDelete(id: number): void {
     this.selectedAdId = id;
   }
 
-  deleteAd() {
+  deleteAd(): void {
     this.adService.deleteAd(this.selectedAdId).subscribe();
     this.selectedAdId = 0;
     window.location.reload();
   }
-  
+
+  readMsg(msg: IMessageResponse): void {
+    this.readingMessage = msg;
+    if (msg.isRead === false && msg.recipient.id === this.user.id) {
+
+      const updateMsgObject = [{ "path": "/isRead", "op": "replace", "value": 1 }];
+
+      this.messageService.updateMessage(this.readingMessage.id, updateMsgObject).subscribe({
+      next: (res) => console.log(res),
+      error: (err) => console.log(err)
+      });
+    }
+  }
+
+  onCloseReload() {
+    console.log('reload');
+    window.location.reload();
+  }
 }

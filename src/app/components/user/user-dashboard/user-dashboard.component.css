@@ -2,9 +2,14 @@
     padding: 50px 0;
 }
 
+.anchor-list {
+    cursor: pointer;
+    list-style-type: none;
+    font-size: 0.9em;
+}
+
 .user-info-section {
     display: flex;
-    /* background-color: orange; */
     justify-content: space-around;
 }
 
@@ -17,9 +22,21 @@
     justify-content: space-between;
 }
 
+.card-header-edit-link {
+    display: flex;
+    align-items: center;
+    font-size: 0.9em;
+}
+
 .card-header a {
+    margin-right: 5px;
     color: #0d6efd;
     cursor: pointer;
+    text-decoration: none;
+}
+
+.card-header span {
+    color: #0d6efd;
 }
 
 .card-header a:hover {
@@ -68,4 +85,36 @@ tbody tr {
 
 .editBtn:hover {
     color: #0d6efd;
+}
+
+.btn-dropdown {
+    display: block;
+    padding: 5px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    color: #0d6efd;
+}
+
+.btn-dropdown:hover {
+    border: solid 1px #333;
+}
+
+.msgUnread {
+    color: red;
+}
+
+.msgRead {
+    justify-content: center;
+    color: #797272;
+}
+
+.msgRead span{
+    font-size: 1em;
+}
+
+.msg-modal-date {
+    color: #0d6efd;
+    font-size: 0.9em;
+    text-align: end;
 }
