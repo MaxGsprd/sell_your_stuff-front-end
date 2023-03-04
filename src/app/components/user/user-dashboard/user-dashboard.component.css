@@ -2,6 +2,12 @@
     padding: 50px 0;
 }
 
+.user-info-section {
+    display: flex;
+    /* background-color: orange; */
+    justify-content: space-around;
+}
+
 .infos-card {
     width: 40%;
 }

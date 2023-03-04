@@ -1,29 +1,32 @@
 <div class="wrapper">
-    <div class="infos-card card">
-        <div class="card-header">
-            <span>My informations: </span>
-            <a [routerLink]="['/user-edit', user.id]">Edit my infos</a>
-        </div>
-        <div class="card-body">
-            <div class="user-info">
-                <div>
-                    <span class="info-title">Name: </span>
-                    <span class="info-value">{{user.name}}</span>
-                </div>
-                <div>
-                    <span class="info-title">Email: </span>
-                    <span class="info-value">{{user.email}}</span>
-                </div>
-                <div>
-                    <span class="info-title">Phone: </span>
-                    <span class="info-value">{{user.phone}}</span>
-                </div>
-                <div>
-                    <span class="info-title">Date of birth: </span>
-                    <span class="info-value">{{user.birthDate | date:'longDate'}}</span>
+    <div class="user-info-section">
+        <div class="infos-card card">
+            <div class="card-header">
+                <span>My informations: </span>
+                <a [routerLink]="['/user-edit', user.id]">Edit my infos</a>
+            </div>
+            <div class="card-body">
+                <div class="user-info">
+                    <div>
+                        <span class="info-title">Name: </span>
+                        <span class="info-value">{{user.name}}</span>
+                    </div>
+                    <div>
+                        <span class="info-title">Email: </span>
+                        <span class="info-value">{{user.email}}</span>
+                    </div>
+                    <div>
+                        <span class="info-title">Phone: </span>
+                        <span class="info-value">{{user.phone}}</span>
+                    </div>
+                    <div>
+                        <span class="info-title">Date of birth: </span>
+                        <span class="info-value">{{user.birthDate | date:'longDate'}}</span>
+                    </div>
                 </div>
             </div>
         </div>
+        <img src="assets/sale.jpg" alt="Men concluding a sale image - Designed by Vectorjuice/Freepik" style="width: 200px;">
     </div>
     <div class="card mt-5 mb-3 ">
         <span class="card-header">My Ads:</span>
