@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../environments/environment';
 import { IMessage } from '../models/IMessage.interface';
+import { IMessageResponse } from '../models/dtos/IMessageResponseDto';
+import { IMessageRequest } from '../models/dtos/IMessageRequestDto';
 
 @Injectable({
   providedIn: 'root'
@@ -13,24 +15,24 @@ export class MessageService {
 
   constructor(private http: HttpClient) { }
 
-  public getAllMessages(): Observable<IMessage[]> {
-    return this.http.get<IMessage[]>(`${environment.apiUrl}/${this.url}`);
+  public getAllMessages(): Observable<IMessageResponse[]> {
+    return this.http.get<IMessageResponse[]>(`${environment.apiUrl}/${this.url}`);
   }
 
-  public getMessage(id: number): Observable<IMessage> {
-    return this.http.get<IMessage>(`${environment.apiUrl}/${this.url}/${id}`);
+  public getMessage(id: number): Observable<IMessageResponse> {
+    return this.http.get<IMessageResponse>(`${environment.apiUrl}/${this.url}/${id}`);
   }
 
-  public getMessagesReceivedByUser(id: number) :Observable<IMessage[]> {
-    return this.http.get<IMessage[]>(`${environment.apiUrl}/${this.url}/receivedByUser/${id}`);
+  public getMessagesReceivedByUser(id: number) :Observable<IMessageResponse[]> {
+    return this.http.get<IMessageResponse[]>(`${environment.apiUrl}/${this.url}/receivedByUser/${id}`);
   }
 
-  public getMessagesSentByUser(id: number) :Observable<IMessage[]> {
-    return this.http.get<IMessage[]>(`${environment.apiUrl}/${this.url}/sentByUser/${id}`);
+  public getMessagesSentByUser(id: number) :Observable<IMessageResponse[]> {
+    return this.http.get<IMessageResponse[]>(`${environment.apiUrl}/${this.url}/sentByUser/${id}`);
   }
 
-  public postMessage(message: IMessage): Observable<IMessage> {
-    return this.http.post<IMessage>(`${environment.apiUrl}/${this.url}`, message);
+  public postMessage(message: IMessageRequest): Observable<IMessageRequest> {
+    return this.http.post<IMessageRequest>(`${environment.apiUrl}/${this.url}`, message);
   }
 
   public deleteMessage(id: number): Observable<void> {

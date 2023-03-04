@@ -3,8 +3,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { IAdResponseDto } from 'src/app/models/dtos/IAdResponseDto';
+import { IMessageRequest } from 'src/app/models/dtos/IMessageRequestDto';
 import { IUserResponseDto } from 'src/app/models/dtos/IUserResponseDto';
-import { IMessage } from 'src/app/models/IMessage.interface';
 import { AdService } from 'src/app/services/ad.service';
 import { MessageService } from 'src/app/services/message.service';
 import { TokenService } from 'src/app/services/token.service';
@@ -33,7 +33,6 @@ export class AdDetailComponent implements OnInit {
   ngOnInit(): void{
     this.getAd();
     this.getCurrentUser();
-
     this.messageForm = new FormGroup({
       title: new FormControl('', [Validators.required]),
       body: new FormControl('', [Validators.required])
@@ -43,7 +42,6 @@ export class AdDetailComponent implements OnInit {
   getAd(): void {
     const routeParams = this.route.snapshot.paramMap;
     const adIdFromRoute = Number(routeParams.get('id'));
-
     this.adService.getAd(adIdFromRoute)
     .subscribe({
       next: (response) => this.ad = response,
@@ -54,43 +52,30 @@ export class AdDetailComponent implements OnInit {
   sendMessage() {
     this.userSubmitted = true;
     if (this.messageForm.valid) {
-      console.log("formValue", this.messageForm.value)
-      
       let newMessage = this.messageFormToMessage(this.messageForm.value);
-      console.log("newMsg", newMessage);
-
-      this.messageService.postMessage(newMessage).subscribe({
-        next: (res) => {
-          console.log(res);
-        },
-        error: (err) => console.log(err)
-      });
-      
+      this.messageService.postMessage(newMessage).subscribe();
       this.messageForm.reset();
       this.userSubmitted = false;
       this.toastr.success('Congratulations, your message has been sent.', 'Thank you !');
     }
   }
 
-  messageFormToMessage(formValues: any): IMessage {
-    let message = {} as IMessage;
-    message.id = 0;
+  messageFormToMessage(formValues: any): IMessageRequest {
+    let message = {} as IMessageRequest;
     message.title = formValues.title;
     message.body = formValues.body;
     message.authorId = this.currentUser.id;
+    message.recipientId = this.ad?.user.id;
     message.adId = this.ad?.id;
     message.isRead = false;
     message.date = new Date();
-    message.recipientId = this.ad?.user.id;
     return message;
   }
 
   getCurrentUser() {
     if (this.tokenService.isLogged()) {
       this.userService.getLoggedInUserId().subscribe({
-        next: (res) =>  {
-          this.userService.getUser(parseInt(res)).subscribe( data => this.currentUser = data)
-        },
+        next: (res) => this.userService.getUser(parseInt(res)).subscribe( data => this.currentUser = data),
         error: (err) => console.error(err)
       });
     }

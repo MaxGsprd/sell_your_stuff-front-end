@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IAdResponseDto } from 'src/app/models/dtos/IAdResponseDto';
+import { IMessageResponse } from 'src/app/models/dtos/IMessageResponseDto';
 import { IUserResponseDto } from 'src/app/models/dtos/IUserResponseDto';
 import { IMessage } from 'src/app/models/IMessage.interface';
 import { AdService } from 'src/app/services/ad.service';
@@ -16,8 +17,8 @@ export class UserDashboardComponent implements OnInit{
 
   user = {} as IUserResponseDto;
   ads: IAdResponseDto[] = [];
-  messagesReceived: IMessage[] = [];
-  messagesSent: IMessage[] = [];
+  messagesReceived: IMessageResponse[] = [];
+  messagesSent: IMessageResponse[] = [];
   selectedAdId: number = 0;
 
   constructor(private route: ActivatedRoute, 
@@ -43,6 +44,7 @@ export class UserDashboardComponent implements OnInit{
 
       this.messageService.getMessagesReceivedByUser(userId).subscribe({
         next: (res) => {
+          console.log("Received:", res)
           this.messagesReceived = res;       
         },
         error: (err) => console.log(err)
@@ -50,6 +52,7 @@ export class UserDashboardComponent implements OnInit{
 
       this.messageService.getMessagesSentByUser(userId).subscribe({
         next: (res) => {
+          console.log("ent:", res)
           this.messagesSent= res;       
         },
         error: (err) => console.log(err)

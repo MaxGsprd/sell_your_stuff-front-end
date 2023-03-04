@@ -108,7 +108,7 @@
                     <td>{{msg.isRead}}</td>
                     <td>{{msg.title | truncateText: 70}}</td>
                     <td>{{msg.body | truncateText: 70}}</td>
-                    <td>{{msg.authorId}}</td>
+                    <td>{{msg.author.name}}</td>
                     <td><a [routerLink]="['/ad-detail', msg.adId]">{{msg.adId}}</a></td>
                     <td>{{msg.date | date:'short'}}</td>
                 </tr>
@@ -133,7 +133,7 @@
                     <td>{{msg.isRead}}</td>
                     <td>{{msg.title | truncateText: 70}}</td>
                     <td>{{msg.body | truncateText: 70}}</td>
-                    <td>{{msg.recipientId}}</td>
+                    <td>{{msg.recipient.name}}</td>
                     <td><a [routerLink]="['/ad-detail', msg.adId]">{{msg.adId}}</a></td>
                     <td>{{msg.date | date:'short'}}</td>
                 </tr>
