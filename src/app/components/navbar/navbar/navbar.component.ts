@@ -18,7 +18,7 @@ export class NavbarComponent implements OnInit {
     if (this.tokenService.isLogged()) {
       this.userService.getLoggedInUserId().subscribe({
         next: (res) =>  {
-          this.userService.getUser(parseInt(res)).subscribe((data) => {
+            this.userService.getUser(parseInt(res)).subscribe((data) => {
             this.user = data;
           })
         },
