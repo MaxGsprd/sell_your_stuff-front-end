@@ -44,8 +44,7 @@ export class EditAdComponent implements OnInit {
 
     this.adService.getAd(adId).subscribe({
       next: (res) => {
-         this.ad = res;
-         console.log(this.ad)
+        this.ad = res;
         this.adCardPreview = this.ad;
         this.adCardPreview.images = [this.ad.adImage];
         this.editAdForm.get('title')?.setValue(this.ad.title);
@@ -91,13 +90,13 @@ export class EditAdComponent implements OnInit {
   getImg(event:any) {
     let selectedFile = event.target.files[0];
     if (selectedFile) {
-        this.ad.adImage = "";
-        const reader = new FileReader();
-        reader.onload = (e: any) => {
-          this.adImagePreview = e.target.result;
-        };
-        reader.readAsDataURL(selectedFile);
-        this.imageToUpload = event.target.files[0];
+      this.ad.adImage = "";
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.adImagePreview = e.target.result;
+      };
+      reader.readAsDataURL(selectedFile);
+      this.imageToUpload = event.target.files[0];
     }
   }
 
@@ -109,7 +108,6 @@ export class EditAdComponent implements OnInit {
     adDto.conditionId = parseInt(formValues.condition)
     adDto.publicationDate = new Date();
     adDto.userId = this.adCardPreview.user.id;
-    adDto.addressId = 1;  //@ to be changed with connect USER ADDRESS ID
     return adDto;
   }
 
@@ -117,16 +115,10 @@ export class EditAdComponent implements OnInit {
     this.userSubmitted = true;
     const alertDanger =  document.getElementById('form-invalid-alert');
     if (this.editAdForm.valid) {
-            // console.log(this.postAdForm);
-            // console.log(newAd);
             let newAd = this.editAdFormToDto(this.editAdForm.value);
-            console.log("NEW",newAd);
-
             this.adService.updateAd(newAd).subscribe({
               next: (res) => {
-                console.log(this.imageToUpload)
                 if (this.imageToUpload) {
-                  console.log("imag Prssent")
                   let formData = new FormData();
                   formData.append("file",this.imageToUpload, String(res.id));
                   this.adService.uploadImage(formData).subscribe();

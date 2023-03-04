@@ -110,12 +110,12 @@ export class PostAdComponent implements OnInit {
   getImg(event:any) {
     let selectedFile = event.target.files[0];
     if (selectedFile) {
-        const reader = new FileReader();
-        reader.onload = (e: any) => {
-          this.adImagePreview = e.target.result;
-        };
-        reader.readAsDataURL(selectedFile);
-        this.imageToUpload = event.target.files[0];
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.adImagePreview = e.target.result;
+      };
+      reader.readAsDataURL(selectedFile);
+      this.imageToUpload = event.target.files[0];
     }
   }
 
@@ -127,7 +127,6 @@ export class PostAdComponent implements OnInit {
     adDto.conditionId = parseInt(formValues.condition)
     adDto.publicationDate = new Date();
     adDto.userId = this.adCardPreview.user.id;
-    adDto.addressId = 1;  //@ to be changed with connect USER ADDRESS ID
     adDto.Image = this.adCardPreview.images; 
     return adDto;
   }

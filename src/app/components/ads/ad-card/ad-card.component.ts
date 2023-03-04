@@ -1,5 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { TruncateTextPipe } from 'src/app/_helpers/_pipes/truncateText.pipe';
+import { Component, Input } from '@angular/core';
 import { IAdResponseDto } from 'src/app/models/dtos/IAdResponseDto';
 
 @Component({
@@ -7,12 +6,7 @@ import { IAdResponseDto } from 'src/app/models/dtos/IAdResponseDto';
   templateUrl: './ad-card.component.html',
   styleUrls: ['./ad-card.component.css']
 })
-export class AdCardComponent implements OnInit {
-  
+export class AdCardComponent {
   @Input() ad!: IAdResponseDto;
   @Input() adImagePreview!: any;
-  
-  ngOnInit(): void {
-    // console.log(this.ad);
-  }
 }

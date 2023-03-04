@@ -42,10 +42,9 @@ export class AdDetailComponent implements OnInit {
   getAd(): void {
     const routeParams = this.route.snapshot.paramMap;
     const adIdFromRoute = Number(routeParams.get('id'));
-    this.adService.getAd(adIdFromRoute)
-    .subscribe({
-      next: (response) => this.ad = response,
-      error: (err) =>  this.router.navigate(['/'])
+    this.adService.getAd(adIdFromRoute).subscribe({
+        next: (response) => this.ad = response,
+        error: () =>  this.router.navigate(['/'])
     });
   }
 
