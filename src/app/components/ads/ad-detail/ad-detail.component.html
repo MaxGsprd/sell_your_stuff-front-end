@@ -4,7 +4,6 @@
         &nbsp;Back to list
     </a>
 </div>
-
 <section class="ad-infos mt-5 shadow">
     <div class="left">
         <div class="title-price">
@@ -13,10 +12,10 @@
         </div>
         <div class="ad-details">
             <div class="ad-category">
-                <span *ngIf="ad?.category?.name" >Category: {{ad?.category?.name}}</span>
+                <span *ngIf="ad?.category?.name">Category: {{ad?.category?.name}}</span>
             </div>
             <div class="ad-condition">
-                <span *ngIf="ad?.condition?.name" >Condition: {{ad?.condition?.name}}</span>
+                <span *ngIf="ad?.condition?.name">Condition: {{ad?.condition?.name}}</span>
             </div>
         </div>
         <div class="author-box shadow mt-2">
@@ -38,42 +37,44 @@
 </section>
 <section class="description mt-4">
     <h3>Description:</h3>
-    <p *ngIf="ad?.description" >{{ad?.description}}</p>
+    <p *ngIf="ad?.description">{{ad?.description}}</p>
 </section>
 <div class="confirmationModal">
     <div class="modal fade" id="customModal" tabindex="-1" aria-labelledby="customModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="customModalLabel">Message to : {{ad?.user?.name}}</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form [formGroup]="messageForm" (ngSubmit)="sendMessage()" >
-                    <div class="form-group">
-                        <label class="mb-2" for="title">Title:</label>
-                        <input formControlName="title" type="text" class="form-control" id="form-title" name="title" placeholder="Hi {{ad?.user?.name}}, I'm really interested by your ad !">
-                        <span *ngIf="title?.invalid && (title?.dirty || title?.touched || userSubmitted)" class="alert-span alert-danger">
-                            <span *ngIf="title?.errors?.['required']">
-                                Title is required.
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="customModalLabel">Message to : {{ad?.user?.name}}</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form [formGroup]="messageForm" (ngSubmit)="sendMessage()">
+                        <div class="form-group">
+                            <label class="mb-2" for="title">Title:</label>
+                            <input formControlName="title" type="text" class="form-control" id="form-title" name="title"
+                                placeholder="Hi {{ad?.user?.name}}, I'm really interested by your ad !">
+                            <span *ngIf="title?.invalid && (title?.dirty || title?.touched || userSubmitted)" class="alert-span alert-danger">
+                                <span *ngIf="title?.errors?.['required']">
+                                    Title is required.
+                                </span>
                             </span>
-                        </span>
-                    </div>
-                    <div class="form-group mt-3">
-                        <label class="mb-2" for="body">Message:</label>
-                        <textarea formControlName="body" rows="10" cols="30" class="form-control" id="form-body" name="body" placeholder="Can you send the item to ..."></textarea>
-                        <span *ngIf="body?.invalid && (body?.dirty || body?.touched || userSubmitted)" class="alert-span alert-danger">
-                            <span *ngIf="body?.errors?.['required']">
-                                Message body is required.
+                        </div>
+                        <div class="form-group mt-3">
+                            <label class="mb-2" for="body">Message:</label>
+                            <textarea formControlName="body" rows="10" cols="30" class="form-control" id="form-body"
+                                name="body" placeholder="Can you send the item to ..."></textarea>
+                            <span *ngIf="body?.invalid && (body?.dirty || body?.touched || userSubmitted)" class="alert-span alert-danger">
+                                <span *ngIf="body?.errors?.['required']">
+                                    Message body is required.
+                                </span>
                             </span>
-                        </span>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button (click)="sendMessage()" type="submit" class="btn btn-primary" data-bs-dismiss="modal">Send Message</button>
-            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button (click)="sendMessage()" type="submit" class="btn btn-primary" data-bs-dismiss="modal">Send Message</button>
+                </div>
             </div>
         </div>
     </div>

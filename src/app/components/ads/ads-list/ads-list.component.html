@@ -5,34 +5,35 @@
       <form>
         <div class="row" id="categoryFormGroup">
           <div class="col-sm-3 p-0">
-              <select name="category" id="categorySelectInput" class="form-select" (change)="categoryFilter($event)">
-                <option [ngValue]="null" disabled selected>Categories</option>
-                <option *ngFor="let category of categories" value={{category.id}}>
-                    {{category.name}}
-                </option>
-              </select>
+            <select name="category" id="categorySelectInput" class="form-select" (change)="categoryFilter($event)">
+              <option [ngValue]="null" disabled selected>Categories</option>
+              <option *ngFor="let category of categories" value={{category.id}}>
+                {{category.name}}
+              </option>
+            </select>
+          </div>
+          <div class="col-sm-4 p-0">
+            <div class="input-group">
+              <span class="input-group-text">Search:</span>
+              <input type="text" class="form-control" [(ngModel)]="search" aria-label="search ad bar"
+                (keyup)="onSearchTextChanged($event)" [ngModelOptions]="{standalone: true}">
             </div>
-            <div class="col-sm-4 p-0">
-              <div class="input-group">
-                <span class="input-group-text">Search:</span>
-                <input type="text" class="form-control" [(ngModel)]="search" aria-label="search ad bar" (keyup)="onSearchTextChanged($event)" [ngModelOptions]="{standalone: true}">
-              </div>
-            </div>
-            <div class="col-sm-2 p-0">
-                <button class="btn btn-outline-primary" (click)="removeFilter()">Remove filters</button>
-            </div>
+          </div>
+          <div class="col-sm-2 p-0">
+            <button class="btn btn-outline-primary" (click)="removeFilter()">Remove filters</button>
+          </div>
         </div>
       </form>
     </div>
-   </div>
-    <div class="row row-cols-3 justify-content-center" *ngIf="filteredAds.length > 0">
-        <div *ngFor="let ad of filteredAds" class="col p-3">
-          <app-ad-card [ad]="ad"></app-ad-card>
-        </div>
+  </div>
+  <div class="row row-cols-3 justify-content-center" *ngIf="filteredAds.length > 0">
+    <div *ngFor="let ad of filteredAds" class="col p-3">
+      <app-ad-card [ad]="ad"></app-ad-card>
     </div>
-    <div class="row row-cols-3 justify-content-center" *ngIf="filteredAds.length <= 0">
-      <div *ngFor="let ad of ads" class="col p-3">
-        <app-ad-card [ad]="ad"></app-ad-card>
-      </div>
+  </div>
+  <div class="row row-cols-3 justify-content-center" *ngIf="filteredAds.length <= 0">
+    <div *ngFor="let ad of ads" class="col p-3">
+      <app-ad-card [ad]="ad"></app-ad-card>
     </div>
+  </div>
 </div>

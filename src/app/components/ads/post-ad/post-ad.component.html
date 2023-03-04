@@ -11,10 +11,12 @@
             <div class="card-body">
                 <form [formGroup]="postAdForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
                     <div class="form-group row">
-                      <label for="title" class="col-sm-3 col-form-label">Ad Title</label>
-                      <div class="col">
-                        <input type="text" class="form-control" formControlName="title" placeholder={{adCardPreview.title}}>
-                            <span *ngIf="title?.invalid && (title?.dirty || title?.touched || userSubmitted)" class="alert-span alert-danger">
+                        <label for="title" class="col-sm-3 col-form-label">Ad Title</label>
+                        <div class="col">
+                            <input type="text" class="form-control" formControlName="title"
+                                placeholder={{adCardPreview.title}}>
+                            <span *ngIf="title?.invalid && (title?.dirty || title?.touched || userSubmitted)"
+                                class="alert-span alert-danger">
                                 <span *ngIf="title?.errors?.['required']">
                                     Title is required.
                                 </span>
@@ -22,14 +24,17 @@
                                     The title should be at least 8 characters long.
                                 </span>
                             </span>
-                      </div>
+                        </div>
                     </div>
                     <div class="form-group row">
-                      <label for="price" class="col-sm-3 col-form-label">Price ($)</label>
-                      <div class="col-sm-4">
-                        <input type="number" class="form-control"  min="1" id="inputPrice" formControlName="price" placeholder={{adCardPreview.price}}>
-                        <span id="priceError" *ngIf="price?.invalid && (price?.dirty || price?.touched || userSubmitted)" class="alert-span alert-danger">Price should be at least 1</span>
-                      </div>
+                        <label for="price" class="col-sm-3 col-form-label">Price ($)</label>
+                        <div class="col-sm-4">
+                            <input type="number" class="form-control" min="1" id="inputPrice" formControlName="price"
+                                placeholder={{adCardPreview.price}}>
+                            <span id="priceError"
+                                *ngIf="price?.invalid && (price?.dirty || price?.touched || userSubmitted)"
+                                class="alert-span alert-danger">Price should be at least 1</span>
+                        </div>
                     </div>
                     <div class="form-group row">
                         <label for="category" class="col-sm-3 col-form-label">Ad category</label>
@@ -39,8 +44,9 @@
                                 <option *ngFor="let category of categories" value={{category.id}}>
                                     {{category.name}}
                                 </option>
-                              </select>
-                              <span *ngIf="category?.invalid && (category?.dirty || category?.touched || userSubmitted)" class="alert-span alert-danger">Category is required.</span>
+                            </select>
+                            <span *ngIf="category?.invalid && (category?.dirty || category?.touched || userSubmitted)"
+                                class="alert-span alert-danger">Category is required.</span>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -51,14 +57,17 @@
                                 <option *ngFor="let condition of conditions" value={{condition.id}}>
                                     {{condition.name}}
                                 </option>
-                              </select>
+                            </select>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="description" class="col-sm-3 col-form-label">Description</label>
                         <div class="col-sm-9">
-                            <textarea type="text" placeholder={{adCardPreview.description}} formControlName="description" class="form-control" rows="5" cols="30" ></textarea>
-                            <span *ngIf="description?.invalid && (description?.dirty || description?.touched || userSubmitted)" class="alert-span alert-danger">
+                            <textarea type="text" placeholder={{adCardPreview.description}}
+                                formControlName="description" class="form-control" rows="5" cols="30"></textarea>
+                            <span
+                                *ngIf="description?.invalid && (description?.dirty || description?.touched || userSubmitted)"
+                                class="alert-span alert-danger">
                                 <span *ngIf="description?.errors?.['required']">
                                     Description is required.
                                 </span>
@@ -72,27 +81,31 @@
                         <label for="images" class="col-sm-3 col-form-label">Photos</label>
                         <div class="col-sm photo-control">
                             <input name="images" type="file" class="form-control" (change)="getImg($event)">
-                            <!-- PHOTOS => for now multime = false -->
                         </div>
                     </div>
                     <div class="confirmationModal">
-                        <button type="button" [disabled]="postAdForm.invalid" class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#customModal">
+                        <button type="button" [disabled]="postAdForm.invalid" class="btn btn-primary mt-3"
+                            data-bs-toggle="modal" data-bs-target="#customModal">
                             Post your ad
                         </button>
-                        <div class="modal fade" id="customModal" tabindex="-1" aria-labelledby="customModalLabel" aria-hidden="true">
+                        <div class="modal fade" id="customModal" tabindex="-1" aria-labelledby="customModalLabel"
+                            aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
-                                <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="customModalLabel">Confirmation</h1>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    Are you ready to publish this ad ?
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                    <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Post ad</button>
-                                </div>
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="customModalLabel">Confirmation</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Are you ready to publish this ad ?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Cancel</button>
+                                        <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Post
+                                            ad</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -106,4 +119,3 @@
         <app-ad-card [ad]="adCardPreview" [adImagePreview]="adImagePreview"></app-ad-card>
     </div>
 </div>
-
