@@ -4,7 +4,8 @@
     justify-content: space-around;
 }
 
-.ad-title, .ad-price{
+.ad-title,
+.ad-price {
     font-size: 1.5em;
 }
 
@@ -26,7 +27,7 @@
 
 .right {
     display: flex;
-    justify-content:center ;
+    justify-content: center;
     margin: 1em;
     width: 50%;
 }
@@ -35,7 +36,7 @@
     max-height: 300px;
 }
 
-.author-box{
+.author-box {
     font-size: 0.9em;
     padding: 10px;
     color: #333;
