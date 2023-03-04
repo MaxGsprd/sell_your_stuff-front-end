@@ -40,7 +40,7 @@
                 </div>
             </div>
         </div>
-        <img src="assets/sale.jpg" alt="Men concluding a sale image - Designed by Vectorjuice/Freepik" style="width: 200px;">
+        <img src="assets/images/sale.jpg" alt="Men concluding a sale image - Designed by Vectorjuice/Freepik" style="width: 200px;">
     </div>
     <div class="myAds mt-5 mb-3 shadow-sm">
         <div class="card" id="myAdsCard">
@@ -65,7 +65,7 @@
                         <td [routerLink]="['/ad-detail', ad.id]">
                             <div class="image-min">
                                 <img *ngIf="ad.adImage" src="{{ad.adImage}}" class="card-img" alt="default_image">
-                                <img *ngIf="!ad.adImage" src="assets/placeholder_img.png" class="card-img"
+                                <img *ngIf="!ad.adImage" src="assets/images/placeholder_img.png" class="card-img"
                                     alt="default_image">
                             </div>
                         </td>
