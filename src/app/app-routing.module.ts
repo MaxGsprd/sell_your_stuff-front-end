@@ -6,7 +6,6 @@ import { PostAdComponent } from './components/ads/post-ad/post-ad.component';
 import { UserLoginComponent } from './components/user/user-login/user-login.component';
 import { UserRegistrationComponent } from './components/user/user-registration/user-registration.component';
 import { UserDashboardComponent } from './components/user/user-dashboard/user-dashboard.component';
-import { UserAdsComponent } from './components/user/user-ads/user-ads.component';
 import { AuthGuard } from './_helpers/_guard/auth.guard';
 import { UserEditComponent } from './components/user/user-edit/user-edit.component';
 import { EditAdComponent } from './components/ads/edit-ad/edit-ad.component';
@@ -20,7 +19,6 @@ const routes: Routes = [
   {path: 'register', component: UserRegistrationComponent},
   {path: 'myDashboard/:id', component: UserDashboardComponent, canActivate:[AuthGuard]},
   {path: 'user-edit/:id', component: UserEditComponent, canActivate:[AuthGuard]},
-  {path: 'myAds', component: UserAdsComponent, canActivate:[AuthGuard]},
   {path: '**', component: AdsListComponent}
 ];
 

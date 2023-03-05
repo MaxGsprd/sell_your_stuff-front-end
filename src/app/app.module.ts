@@ -18,7 +18,6 @@ import { CustomAlertComponent } from './components/custom-alert/custom-alert.com
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { UserDashboardComponent } from './components/user/user-dashboard/user-dashboard.component';
 import { TabsModule } from 'ngx-bootstrap/tabs';
-import { UserAdsComponent } from './components/user/user-ads/user-ads.component';
 import { TruncateTextPipe } from './_helpers/_pipes/truncateText.pipe';
 import { AuthInterceptorProvider } from './_helpers/_interceptor/auth.interceptor';
 import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
@@ -37,7 +36,6 @@ import { EditAdComponent } from './components/ads/edit-ad/edit-ad.component';
     UserRegistrationComponent,
     CustomAlertComponent,
     UserDashboardComponent,
-    UserAdsComponent,
     TruncateTextPipe,
     UserEditComponent,
     EditAdComponent
