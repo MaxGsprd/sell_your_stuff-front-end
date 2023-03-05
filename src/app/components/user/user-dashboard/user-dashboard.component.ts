@@ -1,22 +1,21 @@
 import { ViewportScroller } from '@angular/common';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { interval, pipe, Subject, Subscription, takeUntil } from 'rxjs';
+import { takeUntil } from 'rxjs/internal/operators/takeUntil';
 import { IAdResponseDto } from 'src/app/models/dtos/IAdResponseDto';
 import { IMessageResponse } from 'src/app/models/dtos/IMessageResponseDto';
 import { IUserResponseDto } from 'src/app/models/dtos/IUserResponseDto';
 import { AdService } from 'src/app/services/ad.service';
 import { MessageService } from 'src/app/services/message.service';
 import { UserService } from 'src/app/services/user.service';
+import { Unsubscribe } from 'src/app/_helpers/_unscubscribe/unsubscribe';
 
 @Component({
   selector: 'app-user-dashboard',
   templateUrl: './user-dashboard.component.html',
   styleUrls: ['./user-dashboard.component.css']
 })
-export class UserDashboardComponent implements OnInit, OnDestroy {
-
-  private unsubscribe$ = new Subject<void>();
+export class UserDashboardComponent extends Unsubscribe implements OnInit {
 
   user = {} as IUserResponseDto;
   ads: IAdResponseDto[] = [];
@@ -29,7 +28,9 @@ export class UserDashboardComponent implements OnInit, OnDestroy {
               private userService: UserService, 
               private adService: AdService,
               private messageService: MessageService,
-              private viewportScroller: ViewportScroller) {}
+              private viewportScroller: ViewportScroller) {
+                super();
+              }
 
   ngOnInit(): void {
     const routeParams = this.route.snapshot.paramMap;
@@ -52,12 +53,6 @@ export class UserDashboardComponent implements OnInit, OnDestroy {
         .pipe(takeUntil(this.unsubscribe$))
         .subscribe((res) => this.messagesSent = res);
     }
-  }
-                
-  ngOnDestroy(): void {
-    console.log(this.unsubscribe$)
-    this.unsubscribe$.next();
-    this.unsubscribe$.complete();
   }
 
   onClick(elementId: string): void { 
@@ -88,7 +83,6 @@ export class UserDashboardComponent implements OnInit, OnDestroy {
   }
 
   onCloseReload() {
-    console.log('reload');
     window.location.reload();
   }
 }
