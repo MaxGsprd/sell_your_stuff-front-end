@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { switchMap, takeUntil, tap } from 'rxjs';
 import { IAdResponseDto } from 'src/app/models/dtos/IAdResponseDto';
 import { IMessageRequest } from 'src/app/models/dtos/IMessageRequestDto';
 import { IUserResponseDto } from 'src/app/models/dtos/IUserResponseDto';
@@ -9,18 +10,19 @@ import { AdService } from 'src/app/services/ad.service';
 import { MessageService } from 'src/app/services/message.service';
 import { TokenService } from 'src/app/services/token.service';
 import { UserService } from 'src/app/services/user.service';
+import { Unsubscribe } from 'src/app/_helpers/_unscubscribe/unsubscribe';
 
 @Component({
   selector: 'app-ad-detail',
   templateUrl: './ad-detail.component.html',
   styleUrls: ['./ad-detail.component.css']
 })
-export class AdDetailComponent implements OnInit {
+export class AdDetailComponent extends Unsubscribe implements OnInit {
 
   ad: IAdResponseDto | undefined;
   messageForm!: FormGroup;
   userSubmitted!:boolean;
-  currentUser: IUserResponseDto = {} as IUserResponseDto
+  currentUser: IUserResponseDto = {} as IUserResponseDto;
 
   constructor(private route: ActivatedRoute, 
               private adService: AdService,
@@ -28,7 +30,9 @@ export class AdDetailComponent implements OnInit {
               private tokenService: TokenService,
               private userService: UserService,
               private messageService: MessageService,
-              private router: Router) {  }
+              private router: Router) { 
+                super(); 
+              }
 
   ngOnInit(): void{
     this.getAd();
@@ -42,17 +46,20 @@ export class AdDetailComponent implements OnInit {
   getAd(): void {
     const routeParams = this.route.snapshot.paramMap;
     const adIdFromRoute = Number(routeParams.get('id'));
-    this.adService.getAd(adIdFromRoute).subscribe({
-        next: (response) => this.ad = response,
-        error: () =>  this.router.navigate(['/'])
-    });
+    this.adService.getAd(adIdFromRoute)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe({
+          next: (response) => this.ad = response,
+          error: () =>  this.router.navigate(['/'])
+      });
   }
 
   sendMessage() {
     this.userSubmitted = true;
     if (this.messageForm.valid) {
+      console.log(this.messageForm.value)
       let newMessage = this.messageFormToMessage(this.messageForm.value);
-      this.messageService.postMessage(newMessage).subscribe();
+      this.messageService.postMessage(newMessage).pipe(takeUntil(this.unsubscribe$)).subscribe();
       this.messageForm.reset();
       this.userSubmitted = false;
       this.toastr.success('Congratulations, your message has been sent.', 'Thank you !');
@@ -73,10 +80,14 @@ export class AdDetailComponent implements OnInit {
 
   getCurrentUser() {
     if (this.tokenService.isLogged()) {
-      this.userService.getLoggedInUserId().subscribe({
-        next: (res) => this.userService.getUser(parseInt(res)).subscribe( data => this.currentUser = data),
-        error: (err) => console.error(err)
-      });
+      this.userService.getLoggedInUserId()
+      .pipe(
+        switchMap( userId => this.userService.getUser(parseInt(userId)).pipe(
+          tap(data => this.currentUser = data))
+        ),
+        takeUntil(this.unsubscribe$)
+      )
+      .subscribe();
     }
   }
 
