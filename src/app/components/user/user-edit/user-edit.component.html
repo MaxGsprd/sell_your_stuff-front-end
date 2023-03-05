@@ -15,7 +15,9 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         <div class="card mt-4" id="form-card">
-            <div class="card-header"><h4>Edit my profile</h4></div>
+            <div class="card-header">
+                <h4>Edit my profile</h4>
+            </div>
             <div class="card-body">
                 <form [formGroup]="userEditionForm" (ngSubmit)="onSubmit()">
                     <div class="form-group col-12 mb-4">
