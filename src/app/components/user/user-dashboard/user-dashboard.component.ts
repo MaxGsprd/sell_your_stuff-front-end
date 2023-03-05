@@ -1,6 +1,7 @@
 import { ViewportScroller } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { interval, pipe, Subject, Subscription, takeUntil } from 'rxjs';
 import { IAdResponseDto } from 'src/app/models/dtos/IAdResponseDto';
 import { IMessageResponse } from 'src/app/models/dtos/IMessageResponseDto';
 import { IUserResponseDto } from 'src/app/models/dtos/IUserResponseDto';
@@ -13,7 +14,9 @@ import { UserService } from 'src/app/services/user.service';
   templateUrl: './user-dashboard.component.html',
   styleUrls: ['./user-dashboard.component.css']
 })
-export class UserDashboardComponent implements OnInit{
+export class UserDashboardComponent implements OnInit, OnDestroy {
+
+  private unsubscribe$ = new Subject<void>();
 
   user = {} as IUserResponseDto;
   ads: IAdResponseDto[] = [];
@@ -33,26 +36,28 @@ export class UserDashboardComponent implements OnInit{
     const userId = Number(routeParams.get('id'));
 
     if (userId) {
-      this.userService.getUser(userId).subscribe({
-        next: (res) => {
-          this.user = res;
-          this.adService.getAdByUser(this.user.id).subscribe({
-            next: (res) => this.ads = res,
-            error: (err) => console.log(err)
-          });
-        }
-      });
+      this.userService.getUser(userId)
+        .pipe(takeUntil(this.unsubscribe$))
+        .subscribe((res) => this.user = res);
 
-      this.messageService.getMessagesReceivedByUser(userId).subscribe({
-        next: (res) => this.messagesReceived= res,
-        error: (err) => console.log(err)
-      });
+      this.adService.getAdByUser(userId)
+        .pipe(takeUntil(this.unsubscribe$))
+        .subscribe((res) => this.ads = res);
 
-      this.messageService.getMessagesSentByUser(userId).subscribe({
-        next: (res) => this.messagesSent= res,
-        error: (err) => console.log(err)
-      });
+      this.messageService.getMessagesReceivedByUser(userId)
+        .pipe(takeUntil(this.unsubscribe$))
+        .subscribe((res) => this.messagesReceived = res);
+
+      this.messageService.getMessagesSentByUser(userId)
+        .pipe(takeUntil(this.unsubscribe$))
+        .subscribe((res) => this.messagesSent = res);
     }
+  }
+                
+  ngOnDestroy(): void {
+    console.log(this.unsubscribe$)
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 
   onClick(elementId: string): void { 
@@ -64,7 +69,9 @@ export class UserDashboardComponent implements OnInit{
   }
 
   deleteAd(): void {
-    this.adService.deleteAd(this.selectedAdId).subscribe();
+    this.adService.deleteAd(this.selectedAdId)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe();
     this.selectedAdId = 0;
     window.location.reload();
   }
@@ -72,13 +79,11 @@ export class UserDashboardComponent implements OnInit{
   readMsg(msg: IMessageResponse): void {
     this.readingMessage = msg;
     if (msg.isRead === false && msg.recipient.id === this.user.id) {
-
       const updateMsgObject = [{ "path": "/isRead", "op": "replace", "value": 1 }];
 
-      this.messageService.updateMessage(this.readingMessage.id, updateMsgObject).subscribe({
-      next: (res) => console.log(res),
-      error: (err) => console.log(err)
-      });
+      this.messageService.updateMessage(this.readingMessage.id, updateMsgObject)
+        .pipe(takeUntil(this.unsubscribe$))
+        .subscribe();
     }
   }
 
