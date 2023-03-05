@@ -5,20 +5,25 @@ import { UserService } from 'src/app/services/user.service';
 import { IUserLoginDto } from 'src/app/models/dtos/IUserLoginDto';
 import { TokenService } from 'src/app/services/token.service';
 import { Router } from '@angular/router';
+import { Unsubscribe } from 'src/app/_helpers/_unscubscribe/unsubscribe';
+import { takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-user-login',
   templateUrl: './user-login.component.html',
   styleUrls: ['./user-login.component.css']
 })
-export class UserLoginComponent implements OnInit {
+export class UserLoginComponent extends Unsubscribe implements OnInit {
   loginForm!: FormGroup;
   userSubmitted!:boolean;
 
-  constructor(private userService: UserService, private tokenService: TokenService, private router: Router) { }
+  constructor(private userService: UserService,
+              private tokenService: TokenService,
+              private router: Router) { 
+                super(); 
+              }
 
   ngOnInit(): void {
-
     if(this.tokenService.isLogged()) this.router.navigate(['/']);
     this.loginForm = new FormGroup({
       name: new FormControl(null, Validators.required),
@@ -33,16 +38,17 @@ export class UserLoginComponent implements OnInit {
       let loginValues = {} as IUserLoginDto;
       Object.assign(loginValues, this.loginForm.value);
 
-      this.userService.userLogin(loginValues).subscribe({
-        next: (token) => {
-            this.tokenService.saveToken(token);
-            window.location.reload();
-        },
-        error: (err) => {
-          console.log(err)
-          this.throwAlert();
-        }
-      });
+      this.userService.userLogin(loginValues)
+        .pipe(takeUntil(this.unsubscribe$))
+        .subscribe({
+          next: (token) => {
+              this.tokenService.saveToken(token);
+              window.location.reload();
+          },
+          error: () => {
+            this.throwAlert();
+          }
+        });
       this.userSubmitted = false;
     } else {
       this.throwAlert();
