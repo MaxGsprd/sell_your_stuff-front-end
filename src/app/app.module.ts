@@ -50,7 +50,6 @@ import { EditAdComponent } from './components/ads/edit-ad/edit-ad.component';
     ToastrModule.forRoot(),
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
-
   ],
   providers: [
     AuthInterceptorProvider,
