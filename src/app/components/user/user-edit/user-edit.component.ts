@@ -61,8 +61,8 @@ export class UserEditComponent extends Unsubscribe implements OnInit, OnDestroy 
 
     if (this.userEditionForm.valid) {
       console.log(this.userEditionForm.value)
-      let newUser = this.userEditFormToDto(this.userEditionForm.value);
-      this.userService.updateUser(newUser)
+      let editedUser = this.userEditFormToDto(this.userEditionForm.value);
+      this.userService.updateUser(editedUser)
         .pipe(takeUntil(this.unsubscribe$))
         .subscribe({
           next: (res) => {
