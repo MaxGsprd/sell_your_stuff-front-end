@@ -1,3 +1,5 @@
+import { Role } from "./role"
+
 export interface IUser {
     id: number
     name: string,
@@ -6,6 +8,5 @@ export interface IUser {
     phone: string,
     password: string,
     roleId?: number,
-    role?: any
-    // address: number
+    role?: Role
 }
