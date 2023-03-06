@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { takeUntil } from 'rxjs';
 import { Category } from 'src/app/models/category';
 import { Condition } from 'src/app/models/condition';
 import { IAdRequestDto } from 'src/app/models/dtos/IAdRequestDto';
@@ -9,19 +10,20 @@ import { IAdResponseDto } from 'src/app/models/dtos/IAdResponseDto';
 import { AdService } from 'src/app/services/ad/ad.service';
 import { CategoryService } from 'src/app/services/category/category.service';
 import { ConditionService } from 'src/app/services/condition/condition.service';
+import { Unsubscribe } from 'src/app/_helpers/_unscubscribe/unsubscribe';
 
 @Component({
   selector: 'app-edit-ad',
   templateUrl: './edit-ad.component.html',
   styleUrls: ['./edit-ad.component.css']
 })
-export class EditAdComponent implements OnInit {
+export class EditAdComponent extends Unsubscribe implements OnInit {
 
   ad: IAdResponseDto = {} as IAdResponseDto;
-  editAdForm!: FormGroup;
   adCardPreview = this.ad as IAdResponseDto;
   conditions: Condition[] = [];
   categories: Category[] = [];
+  editAdForm!: FormGroup;
   userSubmitted!:boolean;
   adImagePreview: any;
   imageToUpload: any;
@@ -32,8 +34,9 @@ export class EditAdComponent implements OnInit {
               private toastr: ToastrService,
               private router: Router,
               private formBuilder: FormBuilder,
-              private categoryService: CategoryService
-              ) { }
+              private categoryService: CategoryService) { 
+                super();
+              }
 
   ngOnInit(): void {
     const routeParams = this.route.snapshot.paramMap;
@@ -42,19 +45,20 @@ export class EditAdComponent implements OnInit {
     this.getConditions();
     this.initEditForm();
 
-    this.adService.getAd(adId).subscribe({
-      next: (res) => {
-        this.ad = res;
-        this.adCardPreview = this.ad;
-        this.adCardPreview.adImage = this.ad.adImage;
-        this.editAdForm.get('title')?.setValue(this.ad.title);
-        this.editAdForm.get('description')?.setValue(this.ad.description);
-        this.editAdForm.get('price')?.setValue(this.ad.price);
-        this.editAdForm.get('category')?.setValue(this.ad.category.id);
-        this.editAdForm.get('condition')?.setValue(this.ad.condition.id);
-      },
-      error: (err) => console.log(err)
-    });
+    this.adService.getAd(adId)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(
+        (res) => {
+          this.ad = res;
+          this.adCardPreview = this.ad;
+          this.adCardPreview.adImage = this.ad.adImage;
+          this.editAdForm.get('title')?.setValue(this.ad.title);
+          this.editAdForm.get('description')?.setValue(this.ad.description);
+          this.editAdForm.get('price')?.setValue(this.ad.price);
+          this.editAdForm.get('category')?.setValue(this.ad.category.id);
+          this.editAdForm.get('condition')?.setValue(this.ad.condition.id);
+        }
+      );
 
     this.editAdForm.get('title')?.valueChanges.subscribe((value: string) => this.adCardPreview.title = value);
     this.editAdForm.get('description')?.valueChanges.subscribe((value: string) => this.adCardPreview.description = value);
@@ -74,17 +78,15 @@ export class EditAdComponent implements OnInit {
   }
 
   getConditions(): void {
-    this.conditionService.getConditions().subscribe({
-      next: (res) => this.conditions = res,
-      error: (err) => console.log(err)
-    });
+    this.conditionService.getConditions()
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(res => this.conditions = res);
   }
 
   getCategories(): void {
-    this.categoryService.getCategories().subscribe({
-      next: (res) => this.categories = res,
-      error: (err) => console.log(err)
-    });
+    this.categoryService.getCategories()
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(res => this.categories = res);
   }
 
   getImg(event:any) {
@@ -116,16 +118,15 @@ export class EditAdComponent implements OnInit {
     const alertDanger =  document.getElementById('form-invalid-alert');
     if (this.editAdForm.valid) {
             let newAd = this.editAdFormToDto(this.editAdForm.value);
-            this.adService.updateAd(newAd).subscribe({
-              next: (res) => {
-                if (this.imageToUpload) {
-                  let formData = new FormData();
-                  formData.append("file",this.imageToUpload, String(res.id));
-                  this.adService.uploadImage(formData).subscribe();
-                }
-              },
-              error: (err) => console.log(err)
-            });
+            this.adService.updateAd(newAd)
+              .pipe(takeUntil(this.unsubscribe$))
+              .subscribe((res) => {
+                  if (this.imageToUpload) {
+                    let formData = new FormData();
+                    formData.append("file",this.imageToUpload, String(res.id));
+                    this.adService.uploadImage(formData).subscribe();
+                  }
+              });
             this.editAdForm.reset();
             alertDanger?.classList.add('hidden');
             this.userSubmitted = false;
@@ -146,5 +147,4 @@ export class EditAdComponent implements OnInit {
   get description() { return this.editAdForm.get('description'); }
   get category() { return this.editAdForm.get('category'); }
   get condition() { return this.editAdForm.get('condition'); }
-
 }
