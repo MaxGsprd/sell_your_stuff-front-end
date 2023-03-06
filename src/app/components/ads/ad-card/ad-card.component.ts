@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { IAdResponseDto } from 'src/app/models/dtos/IAdResponseDto';
 
 @Component({
@@ -8,5 +8,5 @@ import { IAdResponseDto } from 'src/app/models/dtos/IAdResponseDto';
 })
 export class AdCardComponent {
   @Input() ad!: IAdResponseDto;
-  @Input() adImagePreview!: any;
+  @Input() adImagePreview!: Object;
 }
