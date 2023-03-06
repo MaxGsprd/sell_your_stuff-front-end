@@ -6,9 +6,9 @@ import { Category } from 'src/app/models/category';
 import { Condition } from 'src/app/models/condition';
 import { IAdRequestDto } from 'src/app/models/dtos/IAdRequestDto';
 import { IAdResponseDto } from 'src/app/models/dtos/IAdResponseDto';
-import { AdService } from 'src/app/services/ad.service';
-import { CategoryService } from 'src/app/services/category.service';
-import { ConditionService } from 'src/app/services/condition.service';
+import { AdService } from 'src/app/services/ad/ad.service';
+import { CategoryService } from 'src/app/services/category/category.service';
+import { ConditionService } from 'src/app/services/condition/condition.service';
 
 @Component({
   selector: 'app-edit-ad',

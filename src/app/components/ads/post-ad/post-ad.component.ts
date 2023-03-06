@@ -1,8 +1,8 @@
 import { Component, OnInit} from '@angular/core';
 import { FormGroup, Validators, FormBuilder} from '@angular/forms';
-import { AdService } from 'src/app/services/ad.service';
-import { ConditionService } from 'src/app/services/condition.service';
-import { CategoryService } from 'src/app/services/category.service';
+import { AdService } from 'src/app/services/ad/ad.service';
+import { ConditionService } from 'src/app/services/condition/condition.service';
+import { CategoryService } from 'src/app/services/category/category.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { IAdRequestDto } from 'src/app/models/dtos/IAdRequestDto';

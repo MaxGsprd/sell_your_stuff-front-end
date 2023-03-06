@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CustomAlertComponent } from 'src/app/components/custom-alert/custom-alert.component';
 import { UserService } from 'src/app/services/user.service';
 import { IUserLoginDto } from 'src/app/models/dtos/IUserLoginDto';
-import { TokenService } from 'src/app/services/token.service';
+import { TokenService } from 'src/app/services/token/token.service';
 import { Router } from '@angular/router';
 import { Unsubscribe } from 'src/app/_helpers/_unscubscribe/unsubscribe';
 import { takeUntil } from 'rxjs';

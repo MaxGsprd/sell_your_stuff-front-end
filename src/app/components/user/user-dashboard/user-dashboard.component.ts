@@ -5,8 +5,8 @@ import { takeUntil } from 'rxjs/internal/operators/takeUntil';
 import { IAdResponseDto } from 'src/app/models/dtos/IAdResponseDto';
 import { IMessageResponse } from 'src/app/models/dtos/IMessageResponseDto';
 import { IUserResponseDto } from 'src/app/models/dtos/IUserResponseDto';
-import { AdService } from 'src/app/services/ad.service';
-import { MessageService } from 'src/app/services/message.service';
+import { AdService } from 'src/app/services/ad/ad.service';
+import { MessageService } from 'src/app/services/message/message.service';
 import { UserService } from 'src/app/services/user.service';
 import { Unsubscribe } from 'src/app/_helpers/_unscubscribe/unsubscribe';
 

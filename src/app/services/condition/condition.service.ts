@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from '../environments/environment';
-import { ICondition } from '../models/ICondition.interface';
+import { environment } from '../../environments/environment';
+import { Condition } from '../../models/condition';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +13,7 @@ export class ConditionService {
 
   constructor(private http: HttpClient) { }
 
-  public getConditions(): Observable<ICondition[]> {
-    return this.http.get<ICondition[]>(`${environment.apiUrl}/${this.url}`);
+  public getConditions(): Observable<Condition[]> {
+    return this.http.get<Condition[]>(`${environment.apiUrl}/${this.url}`);
   }
 }

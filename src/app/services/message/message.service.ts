@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from '../environments/environment';
-import { IMessage } from '../models/IMessage.interface';
-import { IMessageResponse } from '../models/dtos/IMessageResponseDto';
-import { IMessageRequest } from '../models/dtos/IMessageRequestDto';
+import { environment } from '../../environments/environment';
+import { IMessage } from '../../models/IMessage.interface';
+import { IMessageResponse } from '../../models/dtos/IMessageResponseDto';
+import { IMessageRequest } from '../../models/dtos/IMessageRequestDto';
 
 @Injectable({
   providedIn: 'root'

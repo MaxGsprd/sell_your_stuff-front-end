@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { AdService } from 'src/app/services/ad.service';
-import { ICategory } from 'src/app/models/ICategory.interface';
+import { AdService } from 'src/app/services/ad/ad.service';
 import { IAdResponseDto } from 'src/app/models/dtos/IAdResponseDto';
-import { CategoryService } from 'src/app/services/category.service';
+import { CategoryService } from 'src/app/services/category/category.service';
 import { Unsubscribe } from 'src/app/_helpers/_unscubscribe/unsubscribe';
 import { takeUntil } from 'rxjs';
+import { Category } from 'src/app/models/category';
 
 @Component({
   selector: 'app-ads-list',
@@ -13,7 +13,7 @@ import { takeUntil } from 'rxjs';
 })
 export class AdsListComponent extends Unsubscribe implements OnInit {
 
-  categories: ICategory[] = [];
+  categories: Category[] = [];
   ads: IAdResponseDto[] = [];
   filteredAds : IAdResponseDto[] = [];
   search: string = '';
