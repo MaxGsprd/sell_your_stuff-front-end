@@ -18,7 +18,8 @@
     max-width: 1066px;
 }
 
-a, button {
+a,
+button {
     display: flex;
 }
 
