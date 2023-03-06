@@ -49,11 +49,12 @@ import { EditAdComponent } from './components/ads/edit-ad/edit-ad.component';
     FormsModule,
     ToastrModule.forRoot(),
     BsDropdownModule.forRoot(),
-    TabsModule.forRoot(),
+    TabsModule.forRoot()
   ],
   providers: [
     AuthInterceptorProvider,
-    { provide: JWT_OPTIONS, useValue: JWT_OPTIONS }, JwtHelperService
+    { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
+    JwtHelperService
   ],
   bootstrap: [AppComponent]
 })
