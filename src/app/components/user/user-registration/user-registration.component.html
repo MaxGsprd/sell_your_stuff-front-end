@@ -1,0 +1,90 @@
+<div class="row">
+    <div class="col-6 m-auto mb-5">
+        <div class="alert alert-success alert-dismissible fade hidden mt-5" role="alert" id="form-valid-alert">
+            <p>
+                <strong>Thank you for signing up !</strong>
+                <br>
+                Welcome to our community, be free to buy or sell your stuff !
+            </p>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <div class="welcome-banner hidden" id="welcome-banner">
+            <img src="assets/images/welcome-image.jpg" alt="Welcome image - designed by pch.vector/Freepik" style="width: 500px;">
+            <p>You can now sign in !</p>
+            <a routerLink="/signin">
+                Go to sign in page&nbsp;
+                <span class="material-symbols-outlined">arrow_forward</span>
+            </a>
+        </div>
+        <div class="alert alert-danger alert-dismissible fade hidden mt-4" role="alert" id="form-invalid-alert">
+            <strong>Sorry :</strong> The form is missing some informations.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <div class="alert alert-danger alert-dismissible fade hidden mt-4" role="alert" id="username-exist">
+            <strong>Sorry :</strong> The form could not be sent. This user name is already taken.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <div class="card mt-4" id="form-card">
+            <div class="card-header"><h4>Register</h4></div>
+            <div class="card-body">
+                <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+                    <div class="form-group col-12 mb-4">
+                        <label for="name" class="form-label">Name</label>
+                        <input type="text" id="name-input" placeholder="Your name" formControlName="name" class="form-control">
+                        <span *ngIf="name?.invalid && (name?.dirty || name?.touched || userSubmitted)" class="alert-span alert-danger">Name is required.</span>
+                    </div>
+                    <div class="form-group col-12 mb-4">
+                        <label for="birthdate" class="form-label">Date of birth</label>
+                        <input type="date" id="birthdate-input" placeholder="Your date of birth" formControlName="birthdate" class="form-control">
+                        <span *ngIf="birthdate?.invalid && (birthdate?.dirty || birthdate?.touched || userSubmitted)" class="alert-span alert-danger">Date of birth is required.</span>
+                    </div>
+                    <div class="form-group col-12 mb-4">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" id="email-input" placeholder="Your email" formControlName="email" class="form-control">
+                        <span *ngIf="email?.invalid && (email?.dirty || email?.touched || userSubmitted)" class="alert-span alert-danger">
+                            <span *ngIf="email?.errors?.['required']">
+                                Email is required.
+                            </span>
+                            <span *ngIf="email?.errors?.['email']">
+                                Email is not valid.
+                            </span>
+                        </span>
+                    </div>
+                    <div class="form-group col-12 mb-4">
+                        <label for="phone" class="form-label">Phone number</label>
+                        <input type="tel" id="phone-input" placeholder="Your phone number" formControlName="phone" class="form-control">
+                        <span *ngIf="phone?.invalid && (phone?.dirty || phone?.touched || userSubmitted)" class="alert-span alert-danger">Phone number is required.</span>
+                    </div>
+                    <div class="form-group col-12 mb-4">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" id="password-input" formControlName="password" class="form-control">
+                        <span *ngIf="password?.invalid && (password?.dirty || password?.touched || userSubmitted)" class="alert-span alert-danger">
+                            <span *ngIf="password?.errors?.['required']">
+                                Password is required.
+                            </span>
+                            <span *ngIf="password?.errors?.['minlength']">
+                                Password should be at least 8 characters long.
+                            </span>
+                        </span>
+                    </div>
+                    <div class="form-group col-12 mb-4">
+                        <label for="confirm-password" class="form-label">Confirm Password</label>
+                        <input type="password" id="confirm-password-input" formControlName="confirmPassword" class="form-control" >
+                        <span *ngIf="confirmPassword?.invalid && (confirmPassword?.dirty || confirmPassword?.touched || userSubmitted)" class="alert-span alert-danger">
+                            <span *ngIf="confirmPassword?.errors?.['required']">
+                                Please confirm password
+                            </span>
+                        </span>
+                        <span *ngIf="registrationForm.hasError('passwordsMismatch') && confirmPassword?.valid" class="alert-span alert-danger">
+                            Passwords do not match.
+                        </span>
+                    </div>
+                    <div class="form-group col-12 form-buttons mt-5">
+                        <button type="reset" class="btn btn-secondary" routerLink="/">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Create account</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

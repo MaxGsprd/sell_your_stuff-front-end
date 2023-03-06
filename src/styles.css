@@ -1,1 +1,13 @@
-/* You can add global styles to this file, and also import other style files */
+@import 'assets/forms.css';
+
+html {
+    max-width: 1066px;
+    margin: auto;
+    background-color: #fff
+}
+
+.back-link {
+    display: flex;
+    text-decoration: none;
+}
+

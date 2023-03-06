@@ -1,0 +1,30 @@
+.form-buttons {
+    display: flex;
+    justify-content: space-around;
+}
+
+.form-buttons button {
+    width: 80%;
+    margin: 0 20px;
+}
+
+.ng-invalid.ng-touched {
+    border-color:#dc3545;
+}
+
+.ng-valid.ng-touched {
+    border-color: #28a745;
+}
+
+.alert-span {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    display: block;
+    margin-top: 5px;
+    color: #dc3545;
+}
+
+.hidden {
+    display: none !important;
+}

@@ -1,0 +1,120 @@
+.wrapper {
+    padding: 50px 0;
+}
+
+.anchor-list {
+    cursor: pointer;
+    list-style-type: none;
+    font-size: 0.9em;
+}
+
+.user-info-section {
+    display: flex;
+    justify-content: space-around;
+}
+
+.infos-card {
+    width: 40%;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.card-header-edit-link {
+    display: flex;
+    align-items: center;
+    font-size: 0.9em;
+}
+
+.card-header a {
+    margin-right: 5px;
+    color: #0d6efd;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.card-header span {
+    color: #0d6efd;
+}
+
+.card-header a:hover {
+    text-decoration: underline;
+}
+
+.user-info div {
+    margin-top: 10px;
+}
+
+.info-title {
+    margin-right: 30px;
+    font-weight: bold;
+}
+
+.image-min {
+    max-width: 50px;
+}
+
+.table {
+    margin: 0;
+}
+
+tbody tr {
+    cursor: pointer;
+}
+
+.icons {
+    display: flex;
+    justify-content: space-between;
+    max-width: 80px;
+}
+
+.icons a:hover {
+    color: #0d6efd;
+}
+
+.confirmationModal {
+    margin: 0;
+}
+
+.editBtn {
+    color:#444;
+    text-decoration: none;
+}
+
+.editBtn:hover {
+    color: #0d6efd;
+}
+
+.btn-dropdown {
+    display: block;
+    padding: 5px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    color: #0d6efd;
+}
+
+.btn-dropdown:hover {
+    border: solid 1px #333;
+}
+
+.msgUnread {
+    color: red;
+}
+
+.msgRead {
+    justify-content: center;
+    color: #797272;
+}
+
+.msgRead span{
+    font-size: 1em;
+}
+
+.msg-modal-date {
+    color: #0d6efd;
+    font-size: 0.9em;
+    text-align: end;
+}

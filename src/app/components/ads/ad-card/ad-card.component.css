@@ -1,0 +1,35 @@
+.card {
+    min-height: 500px;
+}
+
+.description{
+    min-height: 90px;
+}
+
+.card-title {
+    min-height: 40px;
+}
+
+.card-infos {
+    display: flex;
+    justify-content: space-between;
+    height: 1.5em;
+}
+
+.card-text {
+    height: 100%;
+}
+
+.card-img {
+    object-fit: contain;
+    height: 250px;
+    background-color: #e5e5e5;
+}
+
+.publicationDate {
+    display: flex;
+    justify-content: flex-end;
+    font-size: 0.7em;
+    color: #969495;
+    margin-top: 0.3em;
+}

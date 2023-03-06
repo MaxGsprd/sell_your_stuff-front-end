@@ -1,0 +1,70 @@
+.ad-infos {
+    color: #333;
+    display: flex;
+    justify-content: space-around;
+}
+
+.ad-title,
+.ad-price {
+    font-size: 1.5em;
+}
+
+.left {
+    margin: 1em;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.ad-details {
+    font-style: italic;
+    display: block;
+    display: flex;
+    justify-content: space-around;
+    font-size: 0.9em;
+}
+
+.right {
+    display: flex;
+    justify-content: center;
+    margin: 1em;
+    width: 50%;
+}
+
+.ad-img {
+    max-height: 300px;
+}
+
+.author-box {
+    font-size: 0.9em;
+    padding: 10px;
+    color: #333;
+}
+
+.contact-author {
+    margin: auto;
+    width: 35%;
+}
+
+.contact-author button {
+    width: 100%;
+}
+
+.description {
+    color: #333;
+}
+
+.modal-body {
+    min-height: 300px;
+}
+
+.modal-footer {
+    align-items: center;
+    margin: auto;
+}
+
+.modal-footer button {
+    width: 180px;
+    margin: 0 10px;
+}

@@ -1,0 +1,39 @@
+.navbar {
+    background-color: #fff !important;
+}
+
+.navbar-brand {
+    color: #5a5a5a;
+}
+
+.navbar-brand:hover {
+    color: #1e2125;
+}
+
+.nav-link:hover {
+    color: #1e2125;
+}
+
+.container-fluid {
+    max-width: 1066px;
+}
+
+a,
+button {
+    display: flex;
+}
+
+.dropdown-toggle {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #65686a
+}
+
+.dropdown-toggle:hover {
+    color: #333;
+}
+
+.dropdown-item:active {
+    background-color: #1e2125;
+}

@@ -1,0 +1,28 @@
+<div class="card shadow">
+  <img *ngIf="adImagePreview" [src]=adImagePreview class="card-img" alt="ad main image">
+  <img *ngIf="ad.adImage" src="{{ad.adImage}}" class="card-img" alt="default_image">
+  <img *ngIf="!ad.adImage && adImagePreview == null" src="assets/images/placeholder_img.png" class="card-img" alt="default_image">
+  <div class="card-body">
+    <h5 *ngIf="ad?.title" class="card-title">{{ad.title | truncateText: 50}}</h5>
+    <div class="description">
+      <p class="card-text">
+        <span *ngIf="ad?.description">
+          {{ad.description | truncateText: 110}}
+        </span>
+        <span *ngIf="!ad.description">
+          Some quick example text to build on the card title and make up the bulk of the card's content.
+        </span>
+      </p>
+    </div>
+    <div class="card-infos">
+      <p *ngIf="ad?.category?.name" class="card-text">Category : {{ad.category.name}}</p>
+      <p class="card-text">{{ad.price | currency:'CAD':'symbol-narrow'}}</p>
+    </div>
+    <div class="card-infos">
+      <p *ngIf="ad?.user?.name" class="card-text">By: {{ad.user.name }}</p>
+      <p *ngIf="ad?.condition?.name" class="card-text">{{ad.condition.name }}</p>
+    </div>
+    <span class="publicationDate">{{ad.publicationDate | date:'medium'}}</span>
+    <a [routerLink]="['/ad-detail', ad.id]" class="stretched-link"></a>
+  </div>
+</div>

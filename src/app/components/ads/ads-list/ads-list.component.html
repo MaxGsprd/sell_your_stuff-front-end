@@ -1,0 +1,44 @@
+<div class="container">
+  <div class="hero-banner card shadow">
+    <h1 class="welcome-msg">SellYourStuff : Lots of classified ads and as many opportunities to treat yourself !</h1>
+    <div class="search-section">
+      <form>
+        <div class="row" id="categoryFormGroup">
+          <div class="col-sm-3 p-0">
+            <select name="category" id="categorySelectInput" class="form-select" (change)="categoryFilter($event)">
+              <option [ngValue]="null" disabled selected>Categories</option>
+              <option *ngFor="let category of categories" value={{category.id}}>
+                {{category.name}}
+              </option>
+            </select>
+          </div>
+          <div class="col-sm-4 p-0">
+            <div class="input-group">
+              <span class="input-group-text">Search:</span>
+              <input type="text" class="form-control" [(ngModel)]="search" aria-label="search ad bar"
+                (keyup)="onSearchTextChanged($event)" [ngModelOptions]="{standalone: true}">
+            </div>
+          </div>
+          <div class="col-sm-2 p-0">
+            <button class="btn btn-outline-primary" (click)="removeFilter()">Remove filters</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div *ngIf="filteredAds.length;then content else other_content"></div>
+    <ng-template #content>
+      <div class="row row-cols-3 justify-content-center">
+        <div *ngFor="let ad of filteredAds" class="col p-3">
+          <app-ad-card [ad]="ad"></app-ad-card>
+        </div>
+      </div>
+    </ng-template>
+    <ng-template #other_content>
+      <div class="row row-cols-3 justify-content-center">
+        <div #other_content *ngFor="let ad of ads" class="col p-3">
+          <app-ad-card [ad]="ad"></app-ad-card>
+        </div>
+      </div>
+    </ng-template>
+</div>
