@@ -1,23 +1,27 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
 import { AdService } from 'src/app/services/ad.service';
 import { ICategory } from 'src/app/models/ICategory.interface';
 import { IAdResponseDto } from 'src/app/models/dtos/IAdResponseDto';
 import { CategoryService } from 'src/app/services/category.service';
+import { Unsubscribe } from 'src/app/_helpers/_unscubscribe/unsubscribe';
+import { takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-ads-list',
   templateUrl: './ads-list.component.html',
   styleUrls: ['./ads-list.component.css']
 })
-export class AdsListComponent implements OnInit {
+export class AdsListComponent extends Unsubscribe implements OnInit {
 
   categories: ICategory[] = [];
   ads: IAdResponseDto[] = [];
   filteredAds : IAdResponseDto[] = [];
   search: string = '';
 
-  constructor(private adService: AdService, private formBuilder: FormBuilder, private categoryService: CategoryService) {}
+  constructor(private adService: AdService,
+              private categoryService: CategoryService) {
+                super();
+              }
 
   ngOnInit() : void {
     this.getAds();
@@ -25,17 +29,15 @@ export class AdsListComponent implements OnInit {
   }
 
   getAds(): void {
-    this.adService.getAllAds().subscribe({
-      next: (res) => this.ads = res.reverse(),
-      error: (error) => console.error(error)
-    });
+    this.adService.getAllAds()
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(res => this.ads = res.reverse());
   }
 
   getCategories() {
-    this.categoryService.getCategories().subscribe({
-      next: (res) => this.categories = res,
-      error: (error) => console.error(error)
-    })
+    this.categoryService.getCategories()
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(res => this.categories = res)
   }
 
   categoryFilter(event: any) {
