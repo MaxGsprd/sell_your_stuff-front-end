@@ -38,12 +38,8 @@ export class AdService {
     return this.http.delete<void>(`${environment.apiUrl}/${this.url}/${id}`);
   }
 
-  public uploadImage(inputData: any) {
+  public uploadImage(inputData: FormData) {
     return this.http.post<IAdRequestDto>(`${environment.apiUrl}/${this.url}/uploadImage`, inputData);
-  }
-
-  public removeImage(id: number) {
-    // return this.http.delete<IAdRequestDto>(`${environment.apiUrl}/${this.url}/uploadImage`, inputData);
   }
 }
 
