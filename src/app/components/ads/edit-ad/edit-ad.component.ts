@@ -19,7 +19,7 @@ export class EditAdComponent implements OnInit {
 
   ad: IAdResponseDto = {} as IAdResponseDto;
   editAdForm!: FormGroup;
-  adCardPreview = this.ad as any;
+  adCardPreview = this.ad as IAdResponseDto;
   conditions: Condition[] = [];
   categories: Category[] = [];
   userSubmitted!:boolean;
@@ -46,7 +46,7 @@ export class EditAdComponent implements OnInit {
       next: (res) => {
         this.ad = res;
         this.adCardPreview = this.ad;
-        this.adCardPreview.images = [this.ad.adImage];
+        this.adCardPreview.adImage = this.ad.adImage;
         this.editAdForm.get('title')?.setValue(this.ad.title);
         this.editAdForm.get('description')?.setValue(this.ad.description);
         this.editAdForm.get('price')?.setValue(this.ad.price);
