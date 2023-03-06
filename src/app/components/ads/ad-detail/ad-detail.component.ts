@@ -57,7 +57,6 @@ export class AdDetailComponent extends Unsubscribe implements OnInit {
   sendMessage() {
     this.userSubmitted = true;
     if (this.messageForm.valid) {
-      console.log(this.messageForm.value)
       let newMessage = this.messageFormToMessage(this.messageForm.value);
       this.messageService.postMessage(newMessage).pipe(takeUntil(this.unsubscribe$)).subscribe();
       this.messageForm.reset();
