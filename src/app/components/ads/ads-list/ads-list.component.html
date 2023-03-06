@@ -26,14 +26,19 @@
       </form>
     </div>
   </div>
-  <div class="row row-cols-3 justify-content-center" *ngIf="filteredAds.length > 0">
-    <div *ngFor="let ad of filteredAds" class="col p-3">
-      <app-ad-card [ad]="ad"></app-ad-card>
-    </div>
-  </div>
-  <div class="row row-cols-3 justify-content-center" *ngIf="filteredAds.length <= 0">
-    <div *ngFor="let ad of ads" class="col p-3">
-      <app-ad-card [ad]="ad"></app-ad-card>
-    </div>
-  </div>
+  <div *ngIf="filteredAds.length;then content else other_content"></div>
+    <ng-template #content>
+      <div class="row row-cols-3 justify-content-center">
+        <div *ngFor="let ad of filteredAds" class="col p-3">
+          <app-ad-card [ad]="ad"></app-ad-card>
+        </div>
+      </div>
+    </ng-template>
+    <ng-template #other_content>
+      <div class="row row-cols-3 justify-content-center">
+        <div #other_content *ngFor="let ad of ads" class="col p-3">
+          <app-ad-card [ad]="ad"></app-ad-card>
+        </div>
+      </div>
+    </ng-template>
 </div>
