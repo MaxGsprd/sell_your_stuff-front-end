@@ -43,7 +43,7 @@ export class UserService {
   }
 
   public updateUser(user: IUserRequestDto) :Observable<IUserRequestDto> {
-    return this.http.put<any>(`${environment.apiUrl}/${this.url}/${user.id}`, user);
+    return this.http.put<IUserRequestDto>(`${environment.apiUrl}/${this.url}/${user.id}`, user);
   }
 
   public deleteUser(id: number): Observable<void> {
