@@ -1,7 +1,6 @@
 import { Category } from "./category";
-import { IAd } from "./IAd.interface"
 
-export class Ad implements IAd {
+export class Ad {
     id!: number;
     author!: number;
     title!: string;
