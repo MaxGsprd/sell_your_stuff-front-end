@@ -10,13 +10,15 @@ import { IUserResponseDto } from 'src/app/models/dtos/IUserResponseDto';
 import { Category } from 'src/app/models/category';
 import { Condition } from 'src/app/models/condition';
 import { UserService } from 'src/app/services/user/user.service';
+import { Unsubscribe } from 'src/app/_helpers/_unscubscribe/unsubscribe';
+import { takeUntil } from 'rxjs';
     
 @Component({
   selector: 'app-post-ad',
   templateUrl: './post-ad.component.html',
   styleUrls: ['./post-ad.component.css']
 })
-export class PostAdComponent implements OnInit {
+export class PostAdComponent extends Unsubscribe implements OnInit {
   postAdForm!: FormGroup;
   adCardPreview: any = 
   {
@@ -33,7 +35,6 @@ export class PostAdComponent implements OnInit {
   conditions: Condition[] = [];
   categories: Category[] = [];
   userSubmitted!:boolean;
-
   adImagePreview: any;
   imageToUpload: any;
 
@@ -44,7 +45,9 @@ export class PostAdComponent implements OnInit {
                 private categoryService: CategoryService,
                 private router: Router,
                 private toastr: ToastrService,
-                private route: ActivatedRoute) { }
+                private route: ActivatedRoute) { 
+                  super();
+                }
 
   ngOnInit(): void {
     this.getCategories();
@@ -71,16 +74,16 @@ export class PostAdComponent implements OnInit {
     const alertDanger =  document.getElementById('form-invalid-alert');
     if (this.postAdForm.valid) {
             let newAd = this.postAdFormToDto(this.postAdForm.value);
-            this.adService.postAd(newAd).subscribe({
-              next: (res) => {
+            this.adService.postAd(newAd)
+            .subscribe(
+              (res) => {
                 if (this.imageToUpload) {
                   let formData = new FormData();
                   formData.append("file",this.imageToUpload, String(res.id));
-                  this.adService.uploadImage(formData).subscribe();
+                  this.adService.uploadImage(formData).pipe(takeUntil(this.unsubscribe$)).subscribe();
                 }
-              },
-              error: (err) => console.log(err)
-            });
+              }
+            );
             this.postAdForm.reset();
             alertDanger?.classList.add('hidden');
             this.userSubmitted = false;
@@ -94,17 +97,15 @@ export class PostAdComponent implements OnInit {
   }
 
   getConditions(): void {
-    this.conditionService.getConditions().subscribe({
-      next: (res) => this.conditions = res,
-      error: (err) => console.log(err)
-    });
+    this.conditionService.getConditions()
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(res => this.conditions = res);
   }
 
   getCategories(): void {
-    this.categoryService.getCategories().subscribe({
-      next: (res) => this.categories = res,
-      error: (err) => console.log(err)
-    });
+    this.categoryService.getCategories()
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(res => this.categories = res);
   }
 
   getImg(event:any) {
@@ -135,12 +136,13 @@ export class PostAdComponent implements OnInit {
     const routeParams = this.route.snapshot.paramMap;
     const userId = Number(routeParams.get('id'));
     if (userId) {
-      this.userService.getUser(userId).subscribe({
-        next: (res) => {
-          this.adCardPreview.user.name = res.name
-          this.adCardPreview.user.id = res.id
-        }
-      });
+      this.userService.getUser(userId)
+        .pipe(takeUntil(this.unsubscribe$))
+        .subscribe( (res) => {
+            this.adCardPreview.user.name = res.name
+            this.adCardPreview.user.id = res.id
+          }
+        );
     }
   }
 
