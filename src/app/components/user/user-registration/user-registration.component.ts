@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, AbstractControl, ValidationErrors, FormBuilder } from '@angular/forms';
 import { takeUntil } from 'rxjs';
 import { IUserRequestDto } from 'src/app/models/dtos/IUserRequestDto';
-import { UserService } from 'src/app/services/user.service';
+import { UserService } from 'src/app/services/user/user.service';
 import { Unsubscribe } from 'src/app/_helpers/_unscubscribe/unsubscribe';
 
 @Component({

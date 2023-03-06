@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from '../environments/environment';
-import { IUserResponseDto } from '../models/dtos/IUserResponseDto';
-import { IUserRequestDto } from '../models/dtos/IUserRequestDto';
-import { IUserLoginDto } from '../models/dtos/IUserLoginDto';
-import { IUser } from '../models/IUser.interface';
+import { environment } from '../../environments/environment';
+import { IUserResponseDto } from '../../models/dtos/IUserResponseDto';
+import { IUserRequestDto } from '../../models/dtos/IUserRequestDto';
+import { IUserLoginDto } from '../../models/dtos/IUserLoginDto';
+import { IUser } from '../../models/IUser.interface';
 
 @Injectable({
   providedIn: 'root'

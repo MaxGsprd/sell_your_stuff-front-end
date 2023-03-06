@@ -5,7 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { takeUntil } from 'rxjs';
 import { IUserRequestDto } from 'src/app/models/dtos/IUserRequestDto';
 import { IUser } from 'src/app/models/IUser.interface';
-import { UserService } from 'src/app/services/user.service';
+import { UserService } from 'src/app/services/user/user.service';
 import { Unsubscribe } from 'src/app/_helpers/_unscubscribe/unsubscribe';
 
 @Component({

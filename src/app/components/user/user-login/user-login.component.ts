@@ -1,7 +1,7 @@
 import { Component, ComponentRef, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CustomAlertComponent } from 'src/app/components/custom-alert/custom-alert.component';
-import { UserService } from 'src/app/services/user.service';
+import { UserService } from 'src/app/services/user/user.service';
 import { IUserLoginDto } from 'src/app/models/dtos/IUserLoginDto';
 import { TokenService } from 'src/app/services/token/token.service';
 import { Router } from '@angular/router';

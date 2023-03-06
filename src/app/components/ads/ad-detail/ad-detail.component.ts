@@ -9,7 +9,7 @@ import { IUserResponseDto } from 'src/app/models/dtos/IUserResponseDto';
 import { AdService } from 'src/app/services/ad/ad.service';
 import { MessageService } from 'src/app/services/message/message.service';
 import { TokenService } from 'src/app/services/token/token.service';
-import { UserService } from 'src/app/services/user.service';
+import { UserService } from 'src/app/services/user/user.service';
 import { Unsubscribe } from 'src/app/_helpers/_unscubscribe/unsubscribe';
 
 @Component({

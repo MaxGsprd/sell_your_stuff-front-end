@@ -9,7 +9,7 @@ import { IAdRequestDto } from 'src/app/models/dtos/IAdRequestDto';
 import { IUserResponseDto } from 'src/app/models/dtos/IUserResponseDto';
 import { Category } from 'src/app/models/category';
 import { Condition } from 'src/app/models/condition';
-import { UserService } from 'src/app/services/user.service';
+import { UserService } from 'src/app/services/user/user.service';
     
 @Component({
   selector: 'app-post-ad',
