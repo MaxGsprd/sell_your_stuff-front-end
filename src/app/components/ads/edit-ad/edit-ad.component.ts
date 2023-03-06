@@ -119,13 +119,12 @@ export class EditAdComponent extends Unsubscribe implements OnInit {
     if (this.editAdForm.valid) {
             let newAd = this.editAdFormToDto(this.editAdForm.value);
             this.adService.updateAd(newAd)
-              .pipe(takeUntil(this.unsubscribe$))
               .subscribe((res) => {
-                  if (this.imageToUpload) {
-                    let formData = new FormData();
+                    if (this.imageToUpload) {
+                      let formData = new FormData();
                     formData.append("file",this.imageToUpload, String(res.id));
-                    this.adService.uploadImage(formData).subscribe();
-                  }
+                    this.adService.uploadImage(formData).pipe(takeUntil(this.unsubscribe$)).subscribe();
+                    }
               });
             this.editAdForm.reset();
             alertDanger?.classList.add('hidden');
