@@ -33,16 +33,15 @@ export class UserEditComponent extends Unsubscribe implements OnInit, OnDestroy 
 
     this.userService.getFullUser(userId)
       .pipe(takeUntil(this.unsubscribe$))
-      .subscribe({
-        next: (res) => {
+      .subscribe(
+        (res) => {
           this.user = res;
           this.userEditionForm.get('name')?.setValue(this.user.name);
           this.userEditionForm.get('birthDate')?.setValue(this.user.birthDate);
           this.userEditionForm.get('email')?.setValue(this.user.email);
           this.userEditionForm.get('phone')?.setValue(this.user.phone);
-        },
-        error: (err) => console.log(err)
-    });
+        }
+    );
 
     this.userEditionForm = this.formBuilder.group({
       name: [this.user.name, Validators.required],
