@@ -23,6 +23,7 @@ export class AdDetailComponent extends Unsubscribe implements OnInit {
   messageForm!: FormGroup;
   userSubmitted!:boolean;
   currentUser: IUserResponseDto = {} as IUserResponseDto;
+  primaryPhotoUrl!: string;
 
   constructor(private route: ActivatedRoute, 
               private adService: AdService,
@@ -49,7 +50,10 @@ export class AdDetailComponent extends Unsubscribe implements OnInit {
     this.adService.getAd(adIdFromRoute)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
-          next: (response) => this.ad = response,
+          next: (response) => {
+            this.ad = response
+            this.getPrimaryPhoto(this.ad)
+          },
           error: () =>  this.router.navigate(['/'])
       });
   }
@@ -87,6 +91,18 @@ export class AdDetailComponent extends Unsubscribe implements OnInit {
         takeUntil(this.unsubscribe$)
       )
       .subscribe();
+    }
+  }
+
+  getPrimaryPhoto(ad: IAdResponseDto): void {
+    if (ad?.photos?.length > 0) {
+      ad.photos.forEach(p => {
+        if (p.isPrimary) {
+          this.primaryPhotoUrl = p.imageUrl;
+        }
+      });
+    } else {
+      this.primaryPhotoUrl = "assets/images/placeholder_img.png";
     }
   }
 
