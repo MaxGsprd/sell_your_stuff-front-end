@@ -1,4 +1,5 @@
 import { Category } from "./category";
+import { IPhoto } from "./IPhoto";
 
 export class Ad {
     id!: number;
@@ -11,4 +12,5 @@ export class Ad {
     condition?: number | undefined;
     location?: number | undefined;
     Image?: Object[] | undefined;
+    photos?: IPhoto[];
 }

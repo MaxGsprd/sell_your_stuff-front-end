@@ -1,6 +1,7 @@
 import { Address } from "../address";
 import { Category } from "../category";
 import { Condition } from "../condition";
+import { IPhoto } from "../IPhoto";
 import { IUserResponseDto } from "./IUserResponseDto";
 
 export interface IAdResponseDto {
@@ -13,5 +14,6 @@ export interface IAdResponseDto {
     category: Category,
     condition: Condition,
     location?: Address,
-    adImage?: string
+    adImage?: string,
+    photos: IPhoto[];
 }
