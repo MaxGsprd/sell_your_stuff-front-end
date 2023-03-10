@@ -50,6 +50,7 @@ export class EditAdComponent extends Unsubscribe implements OnInit {
       .subscribe(
         (res) => {
           this.ad = res;
+          this.adCardPreview = this.ad;
           if (this.ad.photos && this.ad.photos.length > 0) {
             this.ad.photos.forEach( p => {
               if (p.isPrimary) {
