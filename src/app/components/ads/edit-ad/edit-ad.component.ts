@@ -128,8 +128,8 @@ export class EditAdComponent extends Unsubscribe implements OnInit {
               .subscribe((res) => {
                     if (this.imageToUpload) {
                       let formData = new FormData();
-                    formData.append("file",this.imageToUpload, String(res.id));
-                    this.adService.uploadImage(formData).pipe(takeUntil(this.unsubscribe$)).subscribe();
+                      formData.append("file",this.imageToUpload, String(res.id));
+                      this.adService.uploadImage(formData).pipe(takeUntil(this.unsubscribe$)).subscribe();
                     }
               });
             this.editAdForm.reset();
