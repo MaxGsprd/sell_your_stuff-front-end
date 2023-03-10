@@ -68,3 +68,24 @@
     width: 180px;
     margin: 0 10px;
 }
+
+.photos-section {
+    background-color: antiquewhite;
+}
+
+.photos-section h3 {
+    color: #333;
+}
+
+.photo-gallery {
+    display: flex;
+}
+
+
+.primary-photo img {
+    max-width: 200px;
+}
+
+.secondary-photos img {
+    max-width: 200px;
+}

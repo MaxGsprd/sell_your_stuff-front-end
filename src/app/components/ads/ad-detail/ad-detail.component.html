@@ -39,6 +39,27 @@
     <h3>Description:</h3>
     <p *ngIf="ad?.description">{{ad?.description}}</p>
 </section>
+<section class="photos-section mt-4 mb-5">
+    <h3>Photos gallery:</h3>
+    <div *ngIf="ad?.photos">
+        <div class="photo-gallery">
+            <div class="primary-photo">
+                <div *ngFor="let photo of ad?.photos">
+                    <div *ngIf="photo.isPrimary">
+                        <img src="{{photo.imageUrl}}" alt="{{photo.publicId}}">
+                    </div>
+                </div>
+            </div>
+            <div class="secondary-photos">
+                <div *ngFor="let photo of ad?.photos">
+                    <div *ngIf="!photo.isPrimary">
+                        <img src="{{photo.imageUrl}}" alt="{{photo.publicId}}">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 <div class="confirmationModal">
     <div class="modal fade" id="customModal" tabindex="-1" aria-labelledby="customModalLabel" aria-hidden="true">
         <div class="modal-dialog">
