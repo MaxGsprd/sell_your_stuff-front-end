@@ -67,7 +67,7 @@
                                 <img *ngIf="ad.photos.length == 0" src="assets/images/placeholder_img.png" class="card-img" alt="default_image">
                                 <div *ngIf="ad.photos.length > 0">
                                     <div *ngFor="let photo of ad.photos">
-                                            <img *ngIf="photo.isPrimary" src="{{photo.imageUrl}}" class="card-img" alt="default_image">
+                                        <img *ngIf="photo.isPrimary" src="{{photo.imageUrl}}" class="card-img" alt="default_image">
                                     </div>
                                 </div>
                             </div>
@@ -80,10 +80,12 @@
                         <td [routerLink]="['/ad-detail', ad.id]">{{ad.publicationDate | date:'short'}}</td>
                         <td>
                             <div class="icons">
-                                <a [routerLink]="['/edit-ad', ad.id]" title="edit ad"><span
-                                        class="material-symbols-outlined editBtn">edit</span></a>
-                                <a (click)="confirmDelete(ad.id)" title="delete ad" data-bs-toggle="modal"
-                                    data-bs-target="#customModal"><span class="material-symbols-outlined">delete</span></a>
+                                <a [routerLink]="['/edit-ad', ad.id]" title="edit ad">
+                                    <span class="material-symbols-outlined editBtn">edit</span>
+                                </a>
+                                <a (click)="confirmDelete(ad.id)" title="delete ad" data-bs-toggle="modal" data-bs-target="#customModal">
+                                    <span class="material-symbols-outlined">delete</span>
+                                </a>
                             </div>
                         </td>
                     </tr>
