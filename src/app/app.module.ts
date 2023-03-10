@@ -23,6 +23,7 @@ import { AuthInterceptorProvider } from './_helpers/_interceptor/auth.intercepto
 import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { UserEditComponent } from './components/user/user-edit/user-edit.component';
 import { EditAdComponent } from './components/ads/edit-ad/edit-ad.component';
+import { FileUploadModule } from 'ng2-file-upload';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { EditAdComponent } from './components/ads/edit-ad/edit-ad.component';
     FormsModule,
     ToastrModule.forRoot(),
     BsDropdownModule.forRoot(),
-    TabsModule.forRoot()
+    TabsModule.forRoot(),
+    FileUploadModule
   ],
   providers: [
     AuthInterceptorProvider,
