@@ -64,9 +64,12 @@
                     <tr *ngFor="let ad of ads">
                         <td [routerLink]="['/ad-detail', ad.id]">
                             <div class="image-min">
-                                <img *ngIf="ad.adImage" src="{{ad.adImage}}" class="card-img" alt="default_image">
-                                <img *ngIf="!ad.adImage" src="assets/images/placeholder_img.png" class="card-img"
-                                    alt="default_image">
+                                <img *ngIf="ad.photos.length == 0" src="assets/images/placeholder_img.png" class="card-img" alt="default_image">
+                                <div *ngIf="ad.photos.length > 0">
+                                    <div *ngFor="let photo of ad.photos">
+                                            <img *ngIf="photo.isPrimary" src="{{photo.imageUrl}}" class="card-img" alt="default_image">
+                                    </div>
+                                </div>
                             </div>
                         </td>
                         <td [routerLink]="['/ad-detail', ad.id]">{{ad.title | truncateText: 70}}</td>
