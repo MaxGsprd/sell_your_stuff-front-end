@@ -50,8 +50,13 @@ export class EditAdComponent extends Unsubscribe implements OnInit {
       .subscribe(
         (res) => {
           this.ad = res;
-          this.adCardPreview = this.ad;
-          this.adCardPreview.adImage = this.ad.adImage;
+          if (this.ad.photos && this.ad.photos.length > 0) {
+            this.ad.photos.forEach( p => {
+              if (p.isPrimary) {
+                this.adImagePreview = p.imageUrl;
+              }
+            });
+          }
           this.editAdForm.get('title')?.setValue(this.ad.title);
           this.editAdForm.get('description')?.setValue(this.ad.description);
           this.editAdForm.get('price')?.setValue(this.ad.price);

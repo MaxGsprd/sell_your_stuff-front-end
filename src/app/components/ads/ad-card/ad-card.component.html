@@ -1,6 +1,6 @@
 <div class="card shadow">
-  <img *ngIf=adImagePreview [src]=adImagePreview class="card-img" alt="ad main image">
-  <img *ngIf=!adImagePreview src="{{primaryPhotoUrl}}" class="card-img" alt="ad main image">
+  <img *ngIf="adImagePreview" [src]=adImagePreview class="card-img" alt="ad image preview">
+  <img *ngIf="!adImagePreview" src="{{primaryPhotoUrl}}" class="card-img" alt="ad main image">
   <div class="card-body">
     <h5 *ngIf="ad?.title" class="card-title">{{ad.title | truncateText: 50}}</h5>
     <div class="description">
