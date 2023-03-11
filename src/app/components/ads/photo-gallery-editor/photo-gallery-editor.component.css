@@ -1,0 +1,30 @@
+.photo-btns {
+    text-align: center;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.photo-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+}
+
+.photo-card {
+    background-color: #f3f3f3;
+    width: 150px;
+    margin: 20px 20px;
+    border-radius: 5px;
+}
+
+.trash-btn {
+    display: flex;
+    border: solid 1px #CCC;
+    color: #333;
+}
+
+.trash-btn:hover {
+   background-color: #ce5555;
+}

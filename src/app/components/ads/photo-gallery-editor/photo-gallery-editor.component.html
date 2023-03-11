@@ -1,1 +1,18 @@
-<p>photo-gallery-editor works!</p>
+
+<section class="photo-gallery-editor-section shadow p-2">
+    <h3 class="mb-5">Edit your ad photo gallery :</h3>
+    <div *ngIf="ad?.photos?.length != 0" class="mb-3 photo-gallery">
+        <div *ngFor="let photo of ad?.photos" class="photo-card shadow-sm">
+            <img src="{{photo.imageUrl}}" alt="{{photo.imageUrl}}" class="img-thumbnail p-1">
+            <div class="photo-btns mt-2">
+                <button class="btn btn-sm thumnnail-btn" [disabled]="photo.isPrimary"
+                    [ngClass]='photo.isPrimary ? "btn-primary active" : "btn-outline-primary"'>
+                    Thumbnail 
+                </button>
+                <button class="btn btn-sm trash-btn" [disabled]="photo.isPrimary">
+                    <span class="material-symbols-outlined">delete</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
