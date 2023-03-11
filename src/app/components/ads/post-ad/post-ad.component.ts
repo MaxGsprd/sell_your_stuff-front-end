@@ -73,23 +73,23 @@ export class PostAdComponent extends Unsubscribe implements OnInit {
     this.userSubmitted = true;
     const alertDanger =  document.getElementById('form-invalid-alert');
     if (this.postAdForm.valid) {
-            let newAd = this.postAdFormToDto(this.postAdForm.value);
-            this.adService.postAd(newAd)
-            .subscribe(
-              (res) => {
-                if (this.imageToUpload) {
-                  let formData = new FormData();
-                  formData.append("file",this.imageToUpload, String(res.id));
-                  // this.adService.uploadImage(formData).pipe(takeUntil(this.unsubscribe$)).subscribe();
-                }
-              }
-            );
-            this.postAdForm.reset();
-            alertDanger?.classList.add('hidden');
-            this.userSubmitted = false;
-            this.router.navigate(['/']);
-            window.setTimeout(() => {window.location.reload()}, 1000)
-            this.toastr.success('Congratulations, your ad has been pusblished.', 'Thank you !');
+      let newAd = this.postAdFormToDto(this.postAdForm.value);
+      this.adService.postAd(newAd)
+      .subscribe(
+        (res) => {
+          if (this.imageToUpload) {
+            let formData = new FormData();
+            formData.append("file",this.imageToUpload, String(res.id));
+            // this.adService.uploadImage(formData).pipe(takeUntil(this.unsubscribe$)).subscribe();
+          }
+        }
+      );
+      this.postAdForm.reset();
+      alertDanger?.classList.add('hidden');
+      this.userSubmitted = false;
+      this.router.navigate(['/']);
+      window.setTimeout(() => {window.location.reload()}, 1000)
+      this.toastr.success('Congratulations, your ad has been pusblished.', 'Thank you !');
     } else {
       alertDanger?.classList.remove('hidden');
       alertDanger?.classList.add('show');
@@ -136,6 +136,8 @@ export class PostAdComponent extends Unsubscribe implements OnInit {
     const routeParams = this.route.snapshot.paramMap;
     const userId = Number(routeParams.get('id'));
     if (userId) {
+      this.checkUserId(userId);
+
       this.userService.getUser(userId)
         .pipe(takeUntil(this.unsubscribe$))
         .subscribe( (res) => {
@@ -144,6 +146,14 @@ export class PostAdComponent extends Unsubscribe implements OnInit {
           }
         );
     }
+  }
+
+  checkUserId(userId: number) {
+    this.userService.getLoggedInUserId()
+    .pipe(takeUntil(this.unsubscribe$))
+    .subscribe((loggedInUser) => {
+      if (loggedInUser != userId.toString()) this.router.navigate(['/'])
+    });
   }
 
   /**

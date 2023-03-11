@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { takeUntil } from 'rxjs';
+import { switchMap, takeUntil, tap } from 'rxjs';
 import { Category } from 'src/app/models/category';
 import { Condition } from 'src/app/models/condition';
 import { IAdRequestDto } from 'src/app/models/dtos/IAdRequestDto';
@@ -10,6 +10,7 @@ import { IAd } from 'src/app/models/IAd';
 import { AdService } from 'src/app/services/ad/ad.service';
 import { CategoryService } from 'src/app/services/category/category.service';
 import { ConditionService } from 'src/app/services/condition/condition.service';
+import { UserService } from 'src/app/services/user/user.service';
 import { Unsubscribe } from 'src/app/_helpers/_unscubscribe/unsubscribe';
 
 @Component({
@@ -24,56 +25,35 @@ export class EditAdComponent extends Unsubscribe implements OnInit {
   conditions: Condition[] = [];
   categories: Category[] = [];
   editAdForm!: FormGroup;
-  userSubmitted!:boolean;
+  userSubmitted!: boolean;
   adImagePreview: any;
   imageToUpload: any;
 
-  constructor(private route: ActivatedRoute, 
-              private adService: AdService,
-              private conditionService: ConditionService,
-              private toastr: ToastrService,
-              private router: Router,
-              private formBuilder: FormBuilder,
-              private categoryService: CategoryService) { 
-                super();
-              }
+  constructor(private route: ActivatedRoute,
+    private adService: AdService,
+    private conditionService: ConditionService,
+    private toastr: ToastrService,
+    private router: Router,
+    private userService: UserService,
+    private formBuilder: FormBuilder,
+    private categoryService: CategoryService) {
+    super();
+  }
 
   ngOnInit(): void {
-    const routeParams = this.route.snapshot.paramMap;
-    const adId = Number(routeParams.get('id'));
     this.getCategories();
     this.getConditions();
     this.initEditForm();
-
-    this.adService.getAd(adId)
-      .pipe(takeUntil(this.unsubscribe$))
-      .subscribe(
-        (res) => {
-          this.ad = res;
-          this.adCardPreview = this.ad;
-          if (this.ad.photos && this.ad.photos.length > 0) {
-            this.ad.photos.forEach( p => {
-              if (p.isPrimary) {
-                this.adImagePreview = p.imageUrl;
-              }
-            });
-          }
-          this.editAdForm.get('title')?.setValue(this.ad.title);
-          this.editAdForm.get('description')?.setValue(this.ad.description);
-          this.editAdForm.get('price')?.setValue(this.ad.price);
-          this.editAdForm.get('category')?.setValue(this.ad.category.id);
-          this.editAdForm.get('condition')?.setValue(this.ad.condition.id);
-        }
-      );
+    this.getAd();
 
     this.editAdForm.get('title')?.valueChanges.subscribe((value: string) => this.adCardPreview.title = value);
     this.editAdForm.get('description')?.valueChanges.subscribe((value: string) => this.adCardPreview.description = value);
     this.editAdForm.get('price')?.valueChanges.subscribe((value: number) => this.adCardPreview.price = value);
-    this.editAdForm.get('category')?.valueChanges.subscribe((value: number) => this.adCardPreview.category = this.categories[value-1]);
-    this.editAdForm.get('condition')?.valueChanges.subscribe((value: number) => this.adCardPreview.condition = this.conditions[value-1]);
+    this.editAdForm.get('category')?.valueChanges.subscribe((value: number) => this.adCardPreview.category = this.categories[value - 1]);
+    this.editAdForm.get('condition')?.valueChanges.subscribe((value: number) => this.adCardPreview.condition = this.conditions[value - 1]);
   }
 
-  initEditForm():void {
+  initEditForm(): void {
     this.editAdForm = this.formBuilder.group({
       title: [this.ad.title, [Validators.required, Validators.minLength(8)]],
       price: [this.ad.price, Validators.required],
@@ -95,7 +75,39 @@ export class EditAdComponent extends Unsubscribe implements OnInit {
       .subscribe(res => this.categories = res);
   }
 
-  getImg(event:any) {
+  getAd(): void {
+    const routeParams = this.route.snapshot.paramMap;
+    const adId = Number(routeParams.get('id'));
+
+    this.adService.getAd(adId)
+      .pipe(
+        switchMap(ad => this.userService.getLoggedInUserId().pipe(
+          tap(userId => {
+
+            if (userId != ad.user.id.toString()) this.router.navigate(['/']);
+
+            this.ad = ad;
+            this.adCardPreview = this.ad;
+
+            if (this.ad.photos && this.ad.photos.length > 0) {
+              this.ad.photos.forEach(p => {
+                if (p.isPrimary) this.adImagePreview = p.imageUrl;
+              });
+            }
+            this.editAdForm.get('title')?.setValue(this.ad.title);
+            this.editAdForm.get('description')?.setValue(this.ad.description);
+            this.editAdForm.get('price')?.setValue(this.ad.price);
+            this.editAdForm.get('category')?.setValue(this.ad.category.id);
+            this.editAdForm.get('condition')?.setValue(this.ad.condition.id);
+            }
+          )
+        )),
+        takeUntil(this.unsubscribe$)
+      )
+      .subscribe();
+  }
+
+  getImg(event: any) {
     let selectedFile = event.target.files[0];
     if (selectedFile) {
       this.ad.photos = [];
@@ -121,23 +133,27 @@ export class EditAdComponent extends Unsubscribe implements OnInit {
 
   onSubmit() {
     this.userSubmitted = true;
-    const alertDanger =  document.getElementById('form-invalid-alert');
+    const alertDanger = document.getElementById('form-invalid-alert');
+
     if (this.editAdForm.valid) {
-            let newAd = this.editAdFormToDto(this.editAdForm.value);
-            this.adService.updateAd(newAd)
-              .subscribe((res) => {
-                    if (this.imageToUpload) {
-                      let formData = new FormData();
-                      formData.append("file",this.imageToUpload, String(res.id));
-                      // this.adService.uploadImage(formData).pipe(takeUntil(this.unsubscribe$)).subscribe();
-                    }
-              });
-            this.editAdForm.reset();
-            alertDanger?.classList.add('hidden');
-            this.userSubmitted = false;
-            this.router.navigate(['/']);
-            window.setTimeout(() => {window.location.reload()}, 700)
-            this.toastr.success('Congratulations, your ad has been edited.', 'Thank you !');
+      let newAd = this.editAdFormToDto(this.editAdForm.value);
+
+      this.adService.updateAd(newAd)
+        .pipe(takeUntil(this.unsubscribe$))
+        .subscribe((res) => {
+          if (this.imageToUpload) {
+            let formData = new FormData();
+            formData.append("file", this.imageToUpload, String(res.id));
+            // this.adService.uploadImage(formData).pipe(takeUntil(this.unsubscribe$)).subscribe();
+          }
+        });
+
+      this.editAdForm.reset();
+      alertDanger?.classList.add('hidden');
+      this.userSubmitted = false;
+      this.router.navigate(['/']);
+      window.setTimeout(() => { window.location.reload() }, 700)
+      this.toastr.success('Congratulations, your ad has been edited.', 'Thank you !');
     } else {
       alertDanger?.classList.remove('hidden');
       alertDanger?.classList.add('show');

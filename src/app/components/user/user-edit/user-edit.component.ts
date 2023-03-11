@@ -30,6 +30,7 @@ export class UserEditComponent extends Unsubscribe implements OnInit, OnDestroy 
   ngOnInit(): void {
     const routeParams = this.route.snapshot.paramMap;
     const userId = Number(routeParams.get('id'));
+    this.checkUserId(userId);
 
     this.userService.getFullUser(userId)
       .pipe(takeUntil(this.unsubscribe$))
@@ -52,6 +53,16 @@ export class UserEditComponent extends Unsubscribe implements OnInit, OnDestroy 
       confirmPassword: [null, Validators.required]
     },
     {validators: this.passwordMatchingValidator});
+  }
+
+  checkUserId(userId: number) {
+    this.userService.getLoggedInUserId()
+    .pipe(takeUntil(this.unsubscribe$))
+    .subscribe( (loggedInUserId) => {
+      if (loggedInUserId != userId.toString()) {
+        this.router.navigate(['/']);
+      }
+    })
   }
 
   onSubmit() {

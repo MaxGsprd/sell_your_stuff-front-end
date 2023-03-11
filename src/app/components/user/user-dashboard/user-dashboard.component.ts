@@ -1,6 +1,6 @@
 import { ViewportScroller } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { takeUntil } from 'rxjs/internal/operators/takeUntil';
 import { IMessageResponse } from 'src/app/models/dtos/IMessageResponseDto';
 import { IUserResponseDto } from 'src/app/models/dtos/IUserResponseDto';
@@ -25,6 +25,7 @@ export class UserDashboardComponent extends Unsubscribe implements OnInit {
   readingMessage: IMessageResponse = {} as IMessageResponse;
 
   constructor(private route: ActivatedRoute, 
+              private router: Router,
               private userService: UserService, 
               private adService: AdService,
               private messageService: MessageService,
@@ -37,6 +38,8 @@ export class UserDashboardComponent extends Unsubscribe implements OnInit {
     const userId = Number(routeParams.get('id'));
 
     if (userId) {
+      this.checkUserId(userId);
+
       this.userService.getUser(userId)
         .pipe(takeUntil(this.unsubscribe$))
         .subscribe((res) => this.user = res);
@@ -53,6 +56,16 @@ export class UserDashboardComponent extends Unsubscribe implements OnInit {
         .pipe(takeUntil(this.unsubscribe$))
         .subscribe((res) => this.messagesSent = res);
     }
+  }
+
+  checkUserId(userId: number) {
+    this.userService.getLoggedInUserId()
+    .pipe(takeUntil(this.unsubscribe$))
+    .subscribe( (loggedInUserId) => {
+      if (loggedInUserId != userId.toString()) {
+        this.router.navigate(['/']);
+      }
+    })
   }
 
   onClick(elementId: string): void { 
