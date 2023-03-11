@@ -101,18 +101,29 @@
     border: none;
 }
 
-
-.photo-gallery {
-    padding: 10px;
-    display: flex;
-    background-color: rgb(228, 223, 216);
-}
-
-
 .primary-photo img {
     max-width: 200px;
 }
 
 .secondary-photos img {
     max-width: 200px;
+}
+
+.photo-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    padding: 0;
+}
+
+.photo-card {
+    background-color: #f3f3f3;
+    margin: 5px 5px;
+    padding: 10px;
+}
+
+.image-min {
+    max-width: 300px;
+    max-height: 600px;
 }
