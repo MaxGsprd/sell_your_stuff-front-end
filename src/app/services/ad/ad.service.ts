@@ -38,6 +38,14 @@ export class AdService {
     return this.http.delete<void>(`${environment.apiUrl}/${this.url}/${id}`);
   }
 
+  public setPrimaryPhoto(adId: number, publicId: string) : Observable<void> {
+    return this.http.post<void>(`${environment.apiUrl}/${this.url}/setPrimaryPhoto/${adId}/${publicId}`,{});
+  }
+
+  public deletePhoto(adId: number, publicId: string) : Observable<void> {
+    return this.http.delete<void>(`${environment.apiUrl}/${this.url}/deletePhoto/${adId}/${publicId}`);
+  }
+
   // public uploadImage(inputData: FormData) {
   //   return this.http.post<IAdRequestDto>(`${environment.apiUrl}/${this.url}/uploadImage`, inputData);
   // }

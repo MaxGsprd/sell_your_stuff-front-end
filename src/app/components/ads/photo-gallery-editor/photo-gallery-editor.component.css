@@ -28,3 +28,8 @@
 .trash-btn:hover {
    background-color: #ce5555;
 }
+
+.info-msg {
+    font-style: italic;
+    font-size: 0.9em;
+}

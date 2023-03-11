@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { takeUntil, tap } from 'rxjs';
 import { IAd } from 'src/app/models/IAd';
 import { AdService } from 'src/app/services/ad/ad.service';
@@ -18,7 +19,8 @@ export class PhotoGalleryEditorComponent extends Unsubscribe implements OnInit {
   constructor (private adService: AdService,
                private route: ActivatedRoute,
                private router: Router,
-               private userService: UserService) {
+               private userService: UserService,
+               private toastr: ToastrService) {
                  super()
               }
 
@@ -39,5 +41,16 @@ export class PhotoGalleryEditorComponent extends Unsubscribe implements OnInit {
         takeUntil(this.unsubscribe$)
       )
       .subscribe(ad => this.ad = ad);
+  }
+
+  setPrimaryPhoto(adId: number, photo: string) {
+    this.adService.setPrimaryPhoto(adId, photo).pipe(takeUntil(this.unsubscribe$)).subscribe();
+    window.location.reload();
+  }
+
+  deletePhoto(adId: number, photo: string) {
+    this.adService.deletePhoto(adId, photo).pipe(takeUntil(this.unsubscribe$)).subscribe();
+    window.setTimeout(() => { window.location.reload() }, 700)
+    this.toastr.success('Your photo has successfully been deleted');
   }
 }
