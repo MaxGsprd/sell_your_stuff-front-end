@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { IAdResponseDto } from '../../models/dtos/IAdResponseDto';
 import { IAdRequestDto } from '../../models/dtos/IAdRequestDto';
+import { IAd } from 'src/app/models/IAd';
 
 @Injectable({
   providedIn: 'root'
@@ -14,16 +14,16 @@ export class AdService {
 
   constructor(private http: HttpClient) { }
 
-  public getAllAds(): Observable<IAdResponseDto[]> {
-    return this.http.get<IAdResponseDto[]>(`${environment.apiUrl}/${this.url}`);
+  public getAllAds(): Observable<IAd[]> {
+    return this.http.get<IAd[]>(`${environment.apiUrl}/${this.url}`);
   }
 
-  public getAd(id: number): Observable<IAdResponseDto> {
-    return this.http.get<IAdResponseDto>(`${environment.apiUrl}/${this.url}/${id}`);
+  public getAd(id: number): Observable<IAd> {
+    return this.http.get<IAd>(`${environment.apiUrl}/${this.url}/${id}`);
   }
 
-  public getAdByUser(id: number) :Observable<IAdResponseDto[]> {
-    return this.http.get<IAdResponseDto[]>(`${environment.apiUrl}/${this.url}/byUser/${id}`);
+  public getAdByUser(id: number) :Observable<IAd[]> {
+    return this.http.get<IAd[]>(`${environment.apiUrl}/${this.url}/byUser/${id}`);
   }
 
   public postAd(ad: IAdRequestDto): Observable<IAdRequestDto> {
@@ -38,9 +38,9 @@ export class AdService {
     return this.http.delete<void>(`${environment.apiUrl}/${this.url}/${id}`);
   }
 
-  public uploadImage(inputData: FormData) {
-    return this.http.post<IAdRequestDto>(`${environment.apiUrl}/${this.url}/uploadImage`, inputData);
-  }
+  // public uploadImage(inputData: FormData) {
+  //   return this.http.post<IAdRequestDto>(`${environment.apiUrl}/${this.url}/uploadImage`, inputData);
+  // }
 }
 
 

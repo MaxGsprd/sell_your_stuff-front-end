@@ -3,9 +3,9 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { switchMap, takeUntil, tap } from 'rxjs';
-import { IAdResponseDto } from 'src/app/models/dtos/IAdResponseDto';
 import { IMessageRequest } from 'src/app/models/dtos/IMessageRequestDto';
 import { IUserResponseDto } from 'src/app/models/dtos/IUserResponseDto';
+import { IAd } from 'src/app/models/IAd';
 import { AdService } from 'src/app/services/ad/ad.service';
 import { MessageService } from 'src/app/services/message/message.service';
 import { TokenService } from 'src/app/services/token/token.service';
@@ -19,7 +19,7 @@ import { Unsubscribe } from 'src/app/_helpers/_unscubscribe/unsubscribe';
 })
 export class AdDetailComponent extends Unsubscribe implements OnInit {
 
-  ad: IAdResponseDto | undefined;
+  ad: IAd | undefined;
   messageForm!: FormGroup;
   userSubmitted!:boolean;
   currentUser: IUserResponseDto = {} as IUserResponseDto;
@@ -94,7 +94,7 @@ export class AdDetailComponent extends Unsubscribe implements OnInit {
     }
   }
 
-  getPrimaryPhoto(ad: IAdResponseDto): void {
+  getPrimaryPhoto(ad: IAd): void {
     if (ad?.photos?.length > 0) {
       ad.photos.forEach(p => {
         if (p.isPrimary) {

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IAdResponseDto } from 'src/app/models/dtos/IAdResponseDto';
+import { IAd } from 'src/app/models/IAd';
 
 @Component({
   selector: 'app-ad-card',
@@ -7,7 +7,7 @@ import { IAdResponseDto } from 'src/app/models/dtos/IAdResponseDto';
   styleUrls: ['./ad-card.component.css']
 })
 export class AdCardComponent implements OnInit {
-  @Input() ad!: IAdResponseDto;
+  @Input() ad!: IAd;
   @Input() adImagePreview!: Object;
   primaryPhotoUrl: string = "assets/images/placeholder_img.png" ;
 

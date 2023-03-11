@@ -1,4 +1,3 @@
-import { Address } from "../address";
 import { Role } from "../role";
 
 export interface IUserResponseDto {
@@ -8,6 +7,4 @@ export interface IUserResponseDto {
     phone?: string;
     role: Role;
     birthDate: Date
-    // address?: Address;
-
 }

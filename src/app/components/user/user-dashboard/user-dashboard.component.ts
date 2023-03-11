@@ -2,9 +2,9 @@ import { ViewportScroller } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { takeUntil } from 'rxjs/internal/operators/takeUntil';
-import { IAdResponseDto } from 'src/app/models/dtos/IAdResponseDto';
 import { IMessageResponse } from 'src/app/models/dtos/IMessageResponseDto';
 import { IUserResponseDto } from 'src/app/models/dtos/IUserResponseDto';
+import { IAd } from 'src/app/models/IAd';
 import { AdService } from 'src/app/services/ad/ad.service';
 import { MessageService } from 'src/app/services/message/message.service';
 import { UserService } from 'src/app/services/user/user.service';
@@ -18,7 +18,7 @@ import { Unsubscribe } from 'src/app/_helpers/_unscubscribe/unsubscribe';
 export class UserDashboardComponent extends Unsubscribe implements OnInit {
 
   user = {} as IUserResponseDto;
-  ads: IAdResponseDto[] = [];
+  ads: IAd[] = [];
   messagesReceived: IMessageResponse[] = [];
   messagesSent: IMessageResponse[] = [];
   selectedAdId: number = 0;

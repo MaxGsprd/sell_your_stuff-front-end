@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Ad } from 'src/app/models/ad';
+import { IAd } from 'src/app/models/IAd';
 
 @Component({
   selector: 'app-photo-gallery-editor',
@@ -7,5 +7,5 @@ import { Ad } from 'src/app/models/ad';
   styleUrls: ['./photo-gallery-editor.component.css']
 })
 export class PhotoGalleryEditorComponent {
-  @Input() ad?: Ad;
+  @Input() ad?: IAd;
 }

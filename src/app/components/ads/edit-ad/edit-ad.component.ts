@@ -6,7 +6,7 @@ import { takeUntil } from 'rxjs';
 import { Category } from 'src/app/models/category';
 import { Condition } from 'src/app/models/condition';
 import { IAdRequestDto } from 'src/app/models/dtos/IAdRequestDto';
-import { IAdResponseDto } from 'src/app/models/dtos/IAdResponseDto';
+import { IAd } from 'src/app/models/IAd';
 import { AdService } from 'src/app/services/ad/ad.service';
 import { CategoryService } from 'src/app/services/category/category.service';
 import { ConditionService } from 'src/app/services/condition/condition.service';
@@ -19,8 +19,8 @@ import { Unsubscribe } from 'src/app/_helpers/_unscubscribe/unsubscribe';
 })
 export class EditAdComponent extends Unsubscribe implements OnInit {
 
-  ad: IAdResponseDto = {} as IAdResponseDto;
-  adCardPreview = this.ad as IAdResponseDto;
+  ad: IAd = {} as IAd;
+  adCardPreview = this.ad as IAd;
   conditions: Condition[] = [];
   categories: Category[] = [];
   editAdForm!: FormGroup;
@@ -98,7 +98,7 @@ export class EditAdComponent extends Unsubscribe implements OnInit {
   getImg(event:any) {
     let selectedFile = event.target.files[0];
     if (selectedFile) {
-      this.ad.adImage = "";
+      this.ad.photos = [];
       const reader = new FileReader();
       reader.onload = (e: any) => {
         this.adImagePreview = e.target.result;
@@ -129,7 +129,7 @@ export class EditAdComponent extends Unsubscribe implements OnInit {
                     if (this.imageToUpload) {
                       let formData = new FormData();
                       formData.append("file",this.imageToUpload, String(res.id));
-                      this.adService.uploadImage(formData).pipe(takeUntil(this.unsubscribe$)).subscribe();
+                      // this.adService.uploadImage(formData).pipe(takeUntil(this.unsubscribe$)).subscribe();
                     }
               });
             this.editAdForm.reset();

@@ -80,7 +80,7 @@ export class PostAdComponent extends Unsubscribe implements OnInit {
                 if (this.imageToUpload) {
                   let formData = new FormData();
                   formData.append("file",this.imageToUpload, String(res.id));
-                  this.adService.uploadImage(formData).pipe(takeUntil(this.unsubscribe$)).subscribe();
+                  // this.adService.uploadImage(formData).pipe(takeUntil(this.unsubscribe$)).subscribe();
                 }
               }
             );
