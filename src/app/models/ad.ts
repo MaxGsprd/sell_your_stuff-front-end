@@ -3,12 +3,12 @@ import { IPhoto } from "./IPhoto";
 
 export class Ad {
     id!: number;
-    author!: number;
     title!: string;
     description!: string;
-    category!: Category;
-    price!: number;
     publicationDate!: Date;
+    price!: number;
+    author!: number;
+    category!: Category;
     condition?: number | undefined;
     location?: number | undefined;
     Image?: Object[] | undefined;
