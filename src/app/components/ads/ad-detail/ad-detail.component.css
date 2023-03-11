@@ -40,11 +40,17 @@
     font-size: 0.9em;
     padding: 10px;
     color: #333;
+    background-color: #e9e9e9;
 }
 
 .contact-author {
     margin: auto;
     width: 35%;
+}
+
+.author-info  {
+    font-style: italic;
+    text-decoration: underline;
 }
 
 .contact-author button {
@@ -53,6 +59,7 @@
 
 .description {
     color: #333;
+    padding: 10px;
 }
 
 .modal-body {
@@ -70,15 +77,35 @@
 }
 
 .photos-section {
-    background-color: antiquewhite;
-}
-
-.photos-section h3 {
     color: #333;
 }
 
-.photo-gallery {
+.photo-section-header {
     display: flex;
+    justify-content: space-between;
+    padding: 10px 10px;
+    align-items: center;
+}
+
+.photo-section-header a {
+    text-decoration: none;
+    border: #CCC solid 1px;
+    padding: 5px;
+    color: #333;
+    font-size: 0.8em;
+}
+
+.photo-section-header a:hover {
+    background-color: #0d6efd;
+    color: #fff;
+    border: none;
+}
+
+
+.photo-gallery {
+    padding: 10px;
+    display: flex;
+    background-color: rgb(228, 223, 216);
 }
 
 

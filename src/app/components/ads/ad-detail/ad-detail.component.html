@@ -18,11 +18,11 @@
                 <span *ngIf="ad?.condition?.name">Condition: {{ad?.condition?.name}}</span>
             </div>
         </div>
-        <div class="author-box shadow mt-2">
+        <div class="author-box shadow-sm mt-2">
             <span>If you're interested by this ad, send a message to it's author.</span>
             <div class="author-info mt-2">
                 <p>
-                    <span>author:</span>&nbsp;
+                    <span>Ad posted by:</span>&nbsp;
                     <span *ngIf="ad" class="author-name">{{ad.user.name}}</span>
                 </p>
             </div>
@@ -39,8 +39,11 @@
     <h3>Description:</h3>
     <p *ngIf="ad?.description">{{ad?.description}}</p>
 </section>
-<section class="photos-section mt-4 mb-5">
-    <h3>Photos gallery:</h3>
+<section class="photos-section mt-4 mb-5 shadow">
+    <div class="photo-section-header">
+        <h3>Photos gallery:</h3>
+        <a href="#" class="shadow-sm">Edit photo gallery</a>
+    </div>
     <div *ngIf="ad?.photos">
         <div class="photo-gallery">
             <div class="primary-photo">
