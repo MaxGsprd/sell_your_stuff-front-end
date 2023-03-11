@@ -24,6 +24,7 @@ import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { UserEditComponent } from './components/user/user-edit/user-edit.component';
 import { EditAdComponent } from './components/ads/edit-ad/edit-ad.component';
 import { FileUploadModule } from 'ng2-file-upload';
+import { PhotoGalleryEditorComponent } from './components/ads/photo-gallery-editor/photo-gallery-editor.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { FileUploadModule } from 'ng2-file-upload';
     UserDashboardComponent,
     TruncateTextPipe,
     UserEditComponent,
-    EditAdComponent
+    EditAdComponent,
+    PhotoGalleryEditorComponent
   ],
   imports: [
     BrowserModule,
