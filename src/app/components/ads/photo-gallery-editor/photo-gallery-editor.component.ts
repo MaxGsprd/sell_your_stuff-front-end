@@ -1,11 +1,13 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { FileUploader } from 'ng2-file-upload';
 import { ToastrService } from 'ngx-toastr';
 import { takeUntil, tap } from 'rxjs';
 import { IAd } from 'src/app/models/IAd';
 import { AdService } from 'src/app/services/ad/ad.service';
 import { UserService } from 'src/app/services/user/user.service';
 import { Unsubscribe } from 'src/app/_helpers/_unscubscribe/unsubscribe';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-photo-gallery-editor',
@@ -15,6 +17,9 @@ import { Unsubscribe } from 'src/app/_helpers/_unscubscribe/unsubscribe';
 export class PhotoGalleryEditorComponent extends Unsubscribe implements OnInit {
   ad?: IAd;
   loggedInUserId?: number;
+  fileUploader?: FileUploader;
+  maxAllowedFileSize: number = 10*1024*1024;
+  hasBaseDropZoneOver?: boolean;
 
   constructor (private adService: AdService,
                private route: ActivatedRoute,
@@ -30,7 +35,10 @@ export class PhotoGalleryEditorComponent extends Unsubscribe implements OnInit {
     
     this.userService.getLoggedInUserId()
     .pipe(takeUntil(this.unsubscribe$))
-    .subscribe(loggedInUserId => this.loggedInUserId = +loggedInUserId);
+    .subscribe((loggedInUserId) => {
+      this.loggedInUserId = +loggedInUserId;
+      this.initializeFileUploader(this.loggedInUserId);
+    });
 
     this.adService.getAd(adIdFromRoute)
       .pipe(
@@ -42,6 +50,32 @@ export class PhotoGalleryEditorComponent extends Unsubscribe implements OnInit {
       )
       .subscribe(ad => this.ad = ad);
   }
+
+  initializeFileUploader(userId: number) {
+    this.fileUploader = new FileUploader({
+      url: `${environment.apiUrl}/Ads/add/Photo/${userId}`,
+      authToken: `Bearer ${localStorage.getItem('authToken')}`,
+      isHTML5: true,
+      allowedFileType: ['image'],
+      removeAfterUpload: true,
+      autoUpload: true,
+      maxFileSize: this.maxAllowedFileSize
+    });
+
+    this.fileUploader.onAfterAddingFile = (file) => file.withCredentials = false;
+
+    this.fileUploader.onSuccessItem = (item, response, status, headers) => {
+      if (response) {
+        const photo = JSON.parse(response);
+        this.ad?.photos.push(photo);
+      }
+    };
+    this.fileUploader.onCompleteAll = () => { window.location.reload()}
+  }
+
+  public fileOverBase(e: any): void {
+    this.hasBaseDropZoneOver = e;
+  } 
 
   setPrimaryPhoto(adId: number, photo: string) {
     this.adService.setPrimaryPhoto(adId, photo).pipe(takeUntil(this.unsubscribe$)).subscribe();

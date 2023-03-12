@@ -9,6 +9,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    align-items: center;
     width: 100%;
 }
 
@@ -32,4 +33,26 @@
 .info-msg {
     font-style: italic;
     font-size: 0.9em;
+    color:#646464
+}
+
+input[type=file] {
+    color: transparent;
+}
+
+.nv-file-over {
+    background-color: #333;
+}
+
+.img-min {
+    width: 150px;
+    object-fit: contain;
+}
+
+.updload-progress-div {
+    text-align: center;
+    margin: 0 10%
+}
+.progress-bar {
+    background-color: #333;
 }

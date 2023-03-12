@@ -1,21 +1,39 @@
-
 <section class="photo-gallery-editor-section shadow p-2">
-    <h3>Edit your ad photo gallery :</h3>
-    <div *ngIf="ad?.photos?.length != 0" class="mb-3 mt-5 photo-gallery">
+    <h3 class="mb-4">Edit your ad photo gallery :</h3>
+    <p class="info-msg">* clicking the thumbnail button will select the photo for your ad thumbnail. The thumbnail
+        photo can't be deleted.</p>
+    <div *ngIf="ad?.photos?.length != 0" class="mb-3 mt-2 photo-gallery">
         <div *ngFor="let photo of ad?.photos" class="photo-card shadow-sm">
-            <img src="{{photo.imageUrl}}" alt="{{photo.imageUrl}}" class="img-thumbnail p-1">
+            <img src="{{photo.imageUrl}}" alt="{{photo.imageUrl}}" class="img-min p-1">
             <div class="photo-btns mt-2">
-                <button class="btn btn-sm thumnnail-btn" 
-                (click)="setPrimaryPhoto(ad!.id, photo.publicId)"
-                [disabled]="photo.isPrimary"
-                [ngClass]='photo.isPrimary ? "btn-primary active" : "btn-outline-primary"'>
-                Thumbnail 
-            </button>
-            <button class="btn btn-sm trash-btn" (click)="deletePhoto(ad!.id, photo.publicId)" [disabled]="photo.isPrimary">
-                <span class="material-symbols-outlined">delete</span>
-            </button>
+                <button class="btn btn-sm thumnnail-btn" (click)="setPrimaryPhoto(ad!.id, photo.publicId)"
+                    [disabled]="photo.isPrimary" [ngClass]='photo.isPrimary ? "btn-dark active" : "btn-outline-dark"'>
+                    Thumbnail
+                </button>
+                <button class="btn btn-sm trash-btn" (click)="deletePhoto(ad!.id, photo.publicId)"
+                    [disabled]="photo.isPrimary">
+                    <span class="material-symbols-outlined">delete</span>
+                </button>
+            </div>
+        </div>
+        <div ng2FileDrop [ngClass]="{'nv-file-over': hasBaseDropZoneOver}" (fileOver)="fileOverBase($event)"
+            [uploader]="fileUploader" class="card bg-faded p-3 text-center mb-3 drop-zone">
+            <span class="material-symbols-outlined">cloud_upload</span>
+            Drop photo(s) here or
+            <div class="mt-2">
+                <button (click)="fileInput.click()" class="btn btn-sm btn-outline-dark">Select photo(s) from here</button>
+            </div>
+        </div>
+        <div col-1>
+            <input #fileInput style="display:none" type="file" ng2FileSelect [uploader]="fileUploader" multiple /><br />
         </div>
     </div>
+    <div class="updload-progress-div mb-5">
+        <div *ngIf="fileUploader?.queue?.length != 0" >
+            File(s) upload queue : {{ fileUploader?.queue?.length }}
+            <div class="progress">
+                <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': fileUploader?.progress + '%'}"></div>
+            </div>
+        </div>
     </div>
-    <p class="info-msg">* clicking the thumbnail button will select the photo for your ad thumbnail. The thumbnail photo can't be deleted.</p>
 </section>
