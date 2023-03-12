@@ -37,7 +37,6 @@ export class PhotoGalleryEditorComponent extends Unsubscribe implements OnInit {
     .pipe(takeUntil(this.unsubscribe$))
     .subscribe((loggedInUserId) => {
       this.loggedInUserId = +loggedInUserId;
-      this.initializeFileUploader(this.loggedInUserId);
     });
 
     this.adService.getAd(adIdFromRoute)
@@ -48,12 +47,15 @@ export class PhotoGalleryEditorComponent extends Unsubscribe implements OnInit {
         ),
         takeUntil(this.unsubscribe$)
       )
-      .subscribe(ad => this.ad = ad);
+      .subscribe(ad => {
+        this.ad = ad;
+        this.initializeFileUploader(this.ad.id);
+      });
   }
 
-  initializeFileUploader(userId: number) {
+  initializeFileUploader(adId: number) {
     this.fileUploader = new FileUploader({
-      url: `${environment.apiUrl}/Ads/add/Photo/${userId}`,
+      url: `${environment.apiUrl}/Ads/add/Photo/${adId}`,
       authToken: `Bearer ${localStorage.getItem('authToken')}`,
       isHTML5: true,
       allowedFileType: ['image'],
