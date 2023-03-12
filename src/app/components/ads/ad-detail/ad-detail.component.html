@@ -42,7 +42,12 @@
 <section class="photos-section mt-4 mb-5 shadow">
     <div class="photo-section-header">
         <h3>Photos gallery:</h3>
-        <a *ngIf="currentUser.id == ad?.user?.id" [routerLink]="['/edit-photo-gallery', ad?.id]" class="shadow-sm">Edit photo gallery</a>
+        <div class="photo-gallery-link shadow-sm">
+            <a *ngIf="currentUser.id == ad?.user?.id" [routerLink]="['/edit-photo-gallery', ad?.id]">
+                <span class="material-symbols-outlined">photo_library</span>
+                <span>Edit photo gallery</span>
+            </a>
+        </div>
     </div>
     <div *ngIf="ad?.photos?.length != 0" class="mb-3 photo-gallery">
         <div *ngFor="let photo of ad?.photos" class="photo-card shadow-sm">
