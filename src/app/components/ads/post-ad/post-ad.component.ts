@@ -12,6 +12,7 @@ import { Condition } from 'src/app/models/condition';
 import { UserService } from 'src/app/services/user/user.service';
 import { Unsubscribe } from 'src/app/_helpers/_unscubscribe/unsubscribe';
 import { takeUntil } from 'rxjs';
+import { IAd } from 'src/app/models/IAd';
     
 @Component({
   selector: 'app-post-ad',
@@ -20,23 +21,22 @@ import { takeUntil } from 'rxjs';
 })
 export class PostAdComponent extends Unsubscribe implements OnInit {
   postAdForm!: FormGroup;
-  adCardPreview: any = 
+  adCardPreview: IAd = 
   {
     id: 0,
     user: {} as IUserResponseDto,
     title: "Ad preview title",
     description: "A description of the ad. The more precise the better !",
-    category: 0,
-    condition: 0,
+    category: {} as Category,
+    condition: {} as Condition,
     price: 0,
     publicationDate: new Date(),
-    images: []
+    photos: []
   };
   conditions: Condition[] = [];
   categories: Category[] = [];
   userSubmitted!:boolean;
   adImagePreview: any;
-  imageToUpload: any;
 
   constructor (private formBuilder: FormBuilder, 
                 private adService: AdService, 
@@ -73,22 +73,13 @@ export class PostAdComponent extends Unsubscribe implements OnInit {
     this.userSubmitted = true;
     const alertDanger =  document.getElementById('form-invalid-alert');
     if (this.postAdForm.valid) {
+
       let newAd = this.postAdFormToDto(this.postAdForm.value);
+
       this.adService.postAd(newAd)
-      .subscribe(
-        (res) => {
-          if (this.imageToUpload) {
-            let formData = new FormData();
-            formData.append("file",this.imageToUpload, String(res.id));
-            // this.adService.uploadImage(formData).pipe(takeUntil(this.unsubscribe$)).subscribe();
-          }
-        }
-      );
-      this.postAdForm.reset();
-      alertDanger?.classList.add('hidden');
-      this.userSubmitted = false;
-      this.router.navigate(['/']);
-      window.setTimeout(() => {window.location.reload()}, 1000)
+        .pipe(takeUntil(this.unsubscribe$))
+        .subscribe(res => this.router.navigate([`/edit-photo-gallery/${res.id}`]));
+
       this.toastr.success('Congratulations, your ad has been pusblished.', 'Thank you !');
     } else {
       alertDanger?.classList.remove('hidden');
@@ -108,18 +99,6 @@ export class PostAdComponent extends Unsubscribe implements OnInit {
       .subscribe(res => this.categories = res);
   }
 
-  getImg(event:any) {
-    let selectedFile = event.target.files[0];
-    if (selectedFile) {
-      const reader = new FileReader();
-      reader.onload = (e: any) => {
-        this.adImagePreview = e.target.result;
-      };
-      reader.readAsDataURL(selectedFile);
-      this.imageToUpload = event.target.files[0];
-    }
-  }
-
   postAdFormToDto(formValues: any): IAdRequestDto {
     let adDto = {} as IAdRequestDto;
     Object.assign(adDto, formValues);
@@ -128,7 +107,6 @@ export class PostAdComponent extends Unsubscribe implements OnInit {
     adDto.conditionId = parseInt(formValues.condition)
     adDto.publicationDate = new Date();
     adDto.userId = this.adCardPreview.user.id;
-    adDto.Image = this.adCardPreview.images; 
     return adDto;
   }
 
@@ -137,14 +115,12 @@ export class PostAdComponent extends Unsubscribe implements OnInit {
     const userId = Number(routeParams.get('id'));
     if (userId) {
       this.checkUserId(userId);
-
       this.userService.getUser(userId)
         .pipe(takeUntil(this.unsubscribe$))
         .subscribe( (res) => {
             this.adCardPreview.user.name = res.name
             this.adCardPreview.user.id = res.id
-          }
-        );
+        });
     }
   }
 
