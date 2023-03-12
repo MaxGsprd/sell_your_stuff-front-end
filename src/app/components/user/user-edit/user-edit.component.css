@@ -1,3 +1,13 @@
-.back-link:hover {
+.back-link {
+    display: flex;
+    justify-content: center;
     color: #333;
+    width: 200px;
+    padding: 0.3em;
+    border: solid 1px #CCC;
+}
+
+.back-link:hover {
+    background-color: #333;
+    color: #FFF;
 }

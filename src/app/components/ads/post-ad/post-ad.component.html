@@ -8,9 +8,10 @@
             <div class="card-header">
                 <h4>Post your ad</h4>
             </div>
-            <div class="card-body">
+            <div class="card-body mt-3 mb-3">
                 <form [formGroup]="postAdForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
                     <div class="form-group row">
+                        <h5 class="mb-4">First, let's fill out the ad information :</h5>
                         <label for="title" class="col-sm-3 col-form-label">Ad Title</label>
                         <div class="col">
                             <input type="text" class="form-control" formControlName="title"
@@ -78,14 +79,8 @@
                             </span>
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label for="images" class="col-sm-3 col-form-label">Photos</label>
-                        <div class="col-sm photo-control">
-                            <input name="images" type="file" class="form-control" (change)="getImg($event)">
-                        </div>
-                    </div>
                     <div class="confirmationModal">
-                        <button type="button" [disabled]="postAdForm.invalid" class="btn btn-primary mt-3"
+                        <button type="button" [disabled]="postAdForm.invalid" class="btn btn-dark mt-3"
                             data-bs-toggle="modal" data-bs-target="#customModal">
                             Post your ad
                         </button>
@@ -98,11 +93,12 @@
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        Are you ready to publish this ad ?
+                                        Are you ready to publish this ad ? <br>
+                                        You will then be able to edit its photos.
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                        <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Post ad</button>
+                                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                                        <button type="submit" class="btn btn-dark" data-bs-dismiss="modal">Post ad</button>
                                     </div>
                                 </div>
                             </div>

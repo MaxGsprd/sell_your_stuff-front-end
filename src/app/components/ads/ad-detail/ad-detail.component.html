@@ -1,10 +1,10 @@
-<div>
-    <a routerLink="/" class="back-link">
+<div class="nav-buttons">
+    <a [routerLink]="['/']" class="back-link shadow-sm">
         <span class="material-symbols-outlined">arrow_back</span>
         &nbsp;Back to list
     </a>
 </div>
-<section class="ad-infos mt-5 shadow">
+<section class="ad-infos mt-3 shadow">
     <div class="left">
         <div class="title-price">
             <h3 *ngIf="ad?.title" class="ad-title">{{ad?.title}}</h3>
@@ -27,7 +27,7 @@
                 </p>
             </div>
             <div class="contact-author">
-                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#customModal">I'm interested !</button>
+                <button class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#customModal">I'm interested !</button>
             </div>
         </div>
     </div>
@@ -50,7 +50,7 @@
         </div>
     </div>
     <div *ngIf="ad?.photos?.length != 0" class="mb-3 photo-gallery">
-        <div *ngFor="let photo of ad?.photos" class="photo-card shadow-sm">
+        <div *ngFor="let photo of ad?.photos" class="photo-card shadow-sm mb-5">
             <img src="{{photo.imageUrl}}" alt="{{photo.imageUrl}}" class="image-min">
         </div>
     </div>
@@ -89,7 +89,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button (click)="sendMessage()" type="submit" class="btn btn-primary" data-bs-dismiss="modal">Send Message</button>
+                    <button (click)="sendMessage()" type="submit" class="btn btn-dark" data-bs-dismiss="modal">Send Message</button>
                 </div>
             </div>
         </div>

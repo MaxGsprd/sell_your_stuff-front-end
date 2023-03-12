@@ -37,3 +37,8 @@ button {
 .dropdown-item:active {
     background-color: #1e2125;
 }
+
+.dropdown-item:hover{
+    background-color: #444;
+    color: #FFF;
+}

@@ -14,9 +14,12 @@
         <div class="infos-card card shadow-sm">
             <div class="card-header">
                 <span>My informations: </span>
-                <div class="card-header-edit-link">
-                    <a [routerLink]="['/user-edit', user.id]">Edit</a>
-                    <span class="material-symbols-outlined">edit</span>
+                <div>
+                    <a class="card-header-edit-link" [routerLink]="['/user-edit', user.id]">
+                        <span [routerLink]="['/user-edit', user.id]">Edit
+                        </span>
+                        <span class="material-symbols-outlined">edit</span>
+                    </a>
                 </div>
             </div>
             <div class="card-body">
@@ -87,7 +90,7 @@
                                     <span class="material-symbols-outlined photoGalleryBtn">photo_library</span>
                                 </a>
                                 <a (click)="confirmDelete(ad.id)" title="Delete ad" data-bs-toggle="modal" data-bs-target="#customModal">
-                                    <span class="material-symbols-outlined">delete</span>
+                                    <span class="material-symbols-outlined photoGalleryBtn">delete</span>
                                 </a>
                             </div>
                         </td>
@@ -110,8 +113,8 @@
                                 </span>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                <button (click)="deleteAd()" type="button" class="btn btn-primary"
+                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                                <button (click)="deleteAd()" type="button" class="btn btn-dark"
                                     data-bs-dismiss="modal">Delete</button>
                             </div>
                         </div>

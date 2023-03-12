@@ -4,6 +4,10 @@
     justify-content: space-around;
 }
 
+.title-price {
+    word-wrap: break-word;
+}
+
 .ad-title,
 .ad-price {
     font-size: 1.5em;
@@ -60,6 +64,7 @@
 .description {
     color: #333;
     padding: 10px;
+    word-wrap: break-word;
 }
 
 .modal-body {
@@ -103,21 +108,15 @@
 }
 
 .photo-gallery-link:hover {
-    background-color: #0d6efd;
+    background-color: #333;
     border: none;
+    color: #FFF;
 }
 
 .photo-gallery-link a:hover {
     color: #fff;
 }
 
-.primary-photo img {
-    max-width: 200px;
-}
-
-.secondary-photos img {
-    max-width: 200px;
-}
 
 .photo-gallery {
     display: flex;
@@ -134,7 +133,21 @@
 }
 
 .image-min {
-    max-width: 300px;
-    max-height: 600px;
+    background-color: #f3f3f3;
+    width: 200px;
+}
+
+.back-link {
+    display: flex;
+    justify-content: center;
+    color: #333;
+    width: 200px;
+    padding: 0.3em;
+    border: solid 1px #CCC;
+}
+
+.back-link:hover {
+    background-color: #333;
+    color: #FFF;
 }
 

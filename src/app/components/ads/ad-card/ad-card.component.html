@@ -14,7 +14,9 @@
       </p>
     </div>
     <div class="card-infos">
-      <p *ngIf="ad?.category?.name" class="card-text">Category : {{ad.category.name}}</p>
+      <div class="category-div">Category:
+        <p *ngIf="ad?.category?.name" class="card-text">&nbsp;{{ad.category.name}}</p>
+      </div>
       <p class="card-text">{{ad.price | currency:'CAD':'symbol-narrow'}}</p>
     </div>
     <div class="card-infos">
