@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/sell-your-suff",
+            "outputPath": "dist/sell-your-stuff",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
