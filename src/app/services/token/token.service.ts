@@ -21,7 +21,6 @@ export class TokenService {
 
   clearToken(): void {
     localStorage.removeItem("authToken");
-    // this.router.navigate(['/']);
     window.location.reload();
   }
 

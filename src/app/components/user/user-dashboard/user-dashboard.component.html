@@ -45,7 +45,7 @@
         </div>
         <img src="assets/images/sale.jpg" alt="Men concluding a sale image - Designed by Vectorjuice/Freepik" style="width: 200px;">
     </div>
-    <div class="myAds mt-5 mb-3 shadow-sm">
+    <div class="mt-5 mb-3 shadow-sm">
         <div class="card" id="myAdsCard">
             <button class="card-header btn btn-dropdown" data-bs-toggle="collapse" data-bs-target="#collapsMyAds">
                 My Ads
@@ -65,7 +65,7 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let ad of ads">
-                        <td [routerLink]="['/ad-detail', ad.id]">
+                        <td [routerLink]="['/clad-detail', ad.id]">
                             <div class="image-min">
                                 <img *ngIf="ad.photos.length == 0" src="assets/images/placeholder_img.png" class="card-img" alt="default_image">
                                 <div *ngIf="ad.photos.length > 0">
@@ -75,15 +75,15 @@
                                 </div>
                             </div>
                         </td>
-                        <td [routerLink]="['/ad-detail', ad.id]">{{ad.title | truncateText: 70}}</td>
-                        <td [routerLink]="['/ad-detail', ad.id]" [routerLink]="['/ad-detail', ad.id]">{{ad.price |
+                        <td [routerLink]="['/clad-detail', ad.id]">{{ad.title | truncateText: 70}}</td>
+                        <td [routerLink]="['/clad-detail', ad.id]" [routerLink]="['/ad-detail', ad.id]">{{ad.price |
                             currency:'CAD':'symbol-narrow'}}</td>
-                        <td [routerLink]="['/ad-detail', ad.id]">{{ad.category.name}}</td>
-                        <td [routerLink]="['/ad-detail', ad.id]">{{ad.condition.name}}</td>
-                        <td [routerLink]="['/ad-detail', ad.id]">{{ad.publicationDate | date:'short'}}</td>
+                        <td [routerLink]="['/clad-detail', ad.id]">{{ad.category.name}}</td>
+                        <td [routerLink]="['/clad-detail', ad.id]">{{ad.condition.name}}</td>
+                        <td [routerLink]="['/clad-detail', ad.id]">{{ad.publicationDate | date:'short'}}</td>
                         <td>
                             <div class="icons">
-                                <a [routerLink]="['/edit-ad', ad.id]" title="Edit ad">
+                                <a [routerLink]="['/edit-clad', ad.id]" title="Edit ad">
                                     <span class="material-symbols-outlined editBtn">edit</span>
                                 </a>
                                 <a [routerLink]="['/edit-photo-gallery', ad.id]" title="Edit photo gallery">
@@ -164,7 +164,7 @@
                             <a (click)="readMsg(msg)" title="read message" data-bs-toggle="modal"
                             data-bs-target="#messageModal">{{msg.author.name}}</a> 
                         </td>
-                        <td><a [routerLink]="['/ad-detail', msg.adId]">{{msg.adId}}</a></td>
+                        <td><a [routerLink]="['/clad-detail', msg.adId]">{{msg.adId}}</a></td>
                         <td>
                             <a (click)="readMsg(msg)" title="read message" data-bs-toggle="modal"
                             data-bs-target="#messageModal">{{msg.date | date:'short'}}</a> 
@@ -203,7 +203,7 @@
                         <a (click)="readMsg(msg)" title="read message" data-bs-toggle="modal"
                         data-bs-target="#messageModal">{{msg.recipient.name}}</a> 
                     </td>
-                    <td><a [routerLink]="['/ad-detail', msg.adId]">{{msg.adId}}</a></td>
+                    <td><a [routerLink]="['/clad-detail', msg.adId]">{{msg.adId}}</a></td>
                     <td>
                         <a (click)="readMsg(msg)" title="read message" data-bs-toggle="modal"
                         data-bs-target="#messageModal">{{msg.date | date:'short'}}</a> 

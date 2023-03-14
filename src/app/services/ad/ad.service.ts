@@ -10,7 +10,7 @@ import { IAd } from 'src/app/models/IAd';
 })
 export class AdService {
   
-  private url: string = "Ads";
+  private url: string = "Cl-Ad";
 
   constructor(private http: HttpClient) { }
 

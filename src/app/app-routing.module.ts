@@ -13,9 +13,9 @@ import { PhotoGalleryEditorComponent } from './components/ads/photo-gallery-edit
 
 const routes: Routes = [
   {path: '', component: AdsListComponent},
-  {path: 'post-ad/:id', component: PostAdComponent, canActivate:[AuthGuard]},
-  {path: 'ad-detail/:id', component: AdDetailComponent, canActivate:[AuthGuard]},
-  {path: 'edit-ad/:id', component: EditAdComponent, canActivate:[AuthGuard]},
+  {path: 'post-clad/:id', component: PostAdComponent, canActivate:[AuthGuard]},
+  {path: 'clad-detail/:id', component: AdDetailComponent, canActivate:[AuthGuard]},
+  {path: 'edit-clad/:id', component: EditAdComponent, canActivate:[AuthGuard]},
   {path: 'edit-photo-gallery/:id', component: PhotoGalleryEditorComponent, canActivate:[AuthGuard]},
   {path: 'signin', component: UserLoginComponent},
   {path: 'register', component: UserRegistrationComponent},

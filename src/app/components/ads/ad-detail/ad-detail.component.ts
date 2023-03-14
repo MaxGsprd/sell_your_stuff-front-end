@@ -19,7 +19,7 @@ import { Unsubscribe } from 'src/app/_helpers/_unscubscribe/unsubscribe';
 })
 export class AdDetailComponent extends Unsubscribe implements OnInit {
 
-  ad: IAd | undefined;
+  ad: IAd = {} as IAd;
   messageForm!: FormGroup;
   userSubmitted!:boolean;
   currentUser: IUserResponseDto = {} as IUserResponseDto;

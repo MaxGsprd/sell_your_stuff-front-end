@@ -7,15 +7,15 @@
 <section class="ad-infos mt-3 shadow">
     <div class="left">
         <div class="title-price">
-            <h3 *ngIf="ad?.title" class="ad-title">{{ad?.title}}</h3>
-            <h3 *ngIf="ad?.price" class="ad-price">{{ad?.price |currency:'CAD':'symbol-narrow'}}</h3>
+            <h3>{{ad.title}}</h3>
+            <h3 *ngIf="ad?.price" class="ad-price">{{ad.price |currency:'CAD':'symbol-narrow'}}</h3>
         </div>
         <div class="ad-details">
             <div class="ad-category">
-                <span *ngIf="ad?.category?.name">Category: {{ad?.category?.name}}</span>
+                <span *ngIf="ad?.category?.name">Category: {{ad.category.name}}</span>
             </div>
             <div class="ad-condition">
-                <span *ngIf="ad?.condition?.name">Condition: {{ad?.condition?.name}}</span>
+                <span *ngIf="ad?.condition?.name">Condition: {{ad.condition.name}}</span>
             </div>
         </div>
         <div class="author-box shadow-sm mt-2">
@@ -37,13 +37,13 @@
 </section>
 <section class="description mt-4">
     <h3>Description:</h3>
-    <p *ngIf="ad?.description">{{ad?.description}}</p>
+    <p *ngIf="ad?.description">{{ad.description}}</p>
 </section>
 <section class="photos-section mt-4 mb-5 shadow">
     <div class="photo-section-header">
         <h3>Photos gallery:</h3>
         <div class="photo-gallery-link shadow-sm">
-            <a *ngIf="currentUser.id == ad?.user?.id" [routerLink]="['/edit-photo-gallery', ad?.id]">
+            <a *ngIf="currentUser.id == ad.user.id" [routerLink]="['/edit-photo-gallery', ad.id]">
                 <span class="material-symbols-outlined">photo_library</span>
                 <span>Edit photo gallery</span>
             </a>
@@ -60,7 +60,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="customModalLabel">Message to : {{ad?.user?.name}}</h1>
+                    <h1 class="modal-title fs-5" id="customModalLabel">Message to : {{ad.user.name}}</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -68,7 +68,7 @@
                         <div class="form-group">
                             <label class="mb-2" for="title">Title:</label>
                             <input formControlName="title" type="text" class="form-control" id="form-title" name="title"
-                                placeholder="Hi {{ad?.user?.name}}, I'm really interested by your ad !">
+                                placeholder="Hi {{ad.user.name}}, I'm really interested by your ad !">
                             <span *ngIf="title?.invalid && (title?.dirty || title?.touched || userSubmitted)" class="alert-span alert-danger">
                                 <span *ngIf="title?.errors?.['required']">
                                     Title is required.
