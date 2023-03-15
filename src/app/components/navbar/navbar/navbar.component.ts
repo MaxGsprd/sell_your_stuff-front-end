@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { IUser } from 'src/app/models/IUser';
 import { TokenService } from 'src/app/services/token/token.service';
 import { Unsubscribe } from 'src/app/_helpers/_unscubscribe/unsubscribe';
 
@@ -9,8 +10,7 @@ import { Unsubscribe } from 'src/app/_helpers/_unscubscribe/unsubscribe';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent extends Unsubscribe implements OnInit {
-  userId?: string | undefined | null;
-  userName?: string | undefined | null;
+  user?: IUser = {} as IUser;
 
   constructor (private tokenService: TokenService,
                private router: Router) {
@@ -19,8 +19,7 @@ export class NavbarComponent extends Unsubscribe implements OnInit {
 
   ngOnInit(): void {
     if (this.tokenService.isLogged()) {
-      this.retreiveUserId();
-      this.retreiveUserName();
+      this.user = this.tokenService.getUserNameAndId();
     }
   }
 
@@ -29,17 +28,4 @@ export class NavbarComponent extends Unsubscribe implements OnInit {
     this.router.navigate(['/']);
   }
 
-  retreiveUserId(): void {
-    const localStorageUid = this.tokenService.getUserId();
-    if (localStorageUid != null && localStorageUid != undefined) {
-      this.userId = localStorageUid;
-    }
-  }
-
-  retreiveUserName(): void {
-    const localStorageUserName = this.tokenService.getUserName();
-    if (localStorageUserName != null && localStorageUserName != undefined) {
-      this.userName = localStorageUserName;
-    }
-  }
 }
