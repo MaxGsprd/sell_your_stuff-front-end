@@ -1,16 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TokenService {
 
-  constructor(private router: Router, private jwtHelper :JwtHelperService) { }
+  constructor(private router: Router) { }
 
-  saveToken(token: string) :void {
-    localStorage.setItem('authToken', token);
+  saveUserData(data: string) :void {
+    const userData = JSON.parse(data);
+    localStorage.setItem('authToken', userData.token);
+    localStorage.setItem('uId', userData.id);
+    localStorage.setItem('username', userData.username);
     this.router.navigate(['/']);
   }
 
@@ -19,13 +21,23 @@ export class TokenService {
     return !! token; // return true if token != false
   }
 
-  clearToken(): void {
+ clearUserData(): void {
     localStorage.removeItem("authToken");
+    localStorage.removeItem('uId');
+    localStorage.removeItem('username');
     window.location.reload();
   }
 
   getToken(): string | null {
     return localStorage.getItem("authToken");
+  }
+
+  getUserId(): string | null {
+    return localStorage.getItem("uId");
+  }
+
+  getUserName(): string | null {
+    return localStorage.getItem("username");
   }
 
 }
