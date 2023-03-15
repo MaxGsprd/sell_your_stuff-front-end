@@ -37,11 +37,7 @@ export class UserService {
       responseType:  'text'
     });
   }
-
-  public getLoggedInUserId(): Observable<string> {
-    return this.http.get<string>(`${environment.apiUrl}/${this.url}/loggedIn`);
-  }
-
+  
   public updateUser(user: IUserRequestDto) :Observable<IUserRequestDto> {
     return this.http.put<IUserRequestDto>(`${environment.apiUrl}/${this.url}/${user.id}`, user);
   }
