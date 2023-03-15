@@ -1,5 +1,3 @@
-import { Address } from "../address";
-
 export interface IUserRequestDto {
     id: number;
     name: string;
@@ -9,6 +7,4 @@ export interface IUserRequestDto {
     confirmPassword?: string,
     phone?: string;
     roleId?: number;
-    // address?: Address;
-
 }
