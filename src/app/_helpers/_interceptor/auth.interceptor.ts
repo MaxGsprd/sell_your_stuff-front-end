@@ -20,7 +20,7 @@ export class AuthInterceptor implements HttpInterceptor {
         return next.handle(request).pipe(
             catchError( (error) => {
                 if(error.status === 401) {
-                    this.tokenService.clearToken();
+                    this.tokenService.clearUserData();
                 }
                 return throwError(() => new Error('Session expired'))
             })
