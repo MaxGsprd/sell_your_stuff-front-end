@@ -6,13 +6,12 @@ import { CategoryService } from 'src/app/services/category/category.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { IAdRequestDto } from 'src/app/models/dtos/IAdRequestDto';
-import { IUserResponseDto } from 'src/app/models/dtos/IUserResponseDto';
 import { Category } from 'src/app/models/category';
 import { Condition } from 'src/app/models/condition';
-import { UserService } from 'src/app/services/user/user.service';
 import { Unsubscribe } from 'src/app/_helpers/_unscubscribe/unsubscribe';
 import { takeUntil } from 'rxjs';
-import { IAd } from 'src/app/models/IAd';
+import { TokenService } from 'src/app/services/token/token.service';
+import { IUser } from 'src/app/models/IUser';
     
 @Component({
   selector: 'app-post-ad',
@@ -21,10 +20,10 @@ import { IAd } from 'src/app/models/IAd';
 })
 export class PostAdComponent extends Unsubscribe implements OnInit {
   postAdForm!: FormGroup;
-  adCardPreview: IAd = 
+  adCardPreview: any = 
   {
     id: 0,
-    user: {} as IUserResponseDto,
+    user: {} as IUser,
     title: "Ad preview title",
     description: "A description of the ad. The more precise the better !",
     category: {} as Category,
@@ -41,9 +40,9 @@ export class PostAdComponent extends Unsubscribe implements OnInit {
   constructor (private formBuilder: FormBuilder, 
                 private adService: AdService, 
                 private conditionService: ConditionService,
-                private userService: UserService,
                 private categoryService: CategoryService,
                 private router: Router,
+                private tokenService: TokenService,
                 private toastr: ToastrService,
                 private route: ActivatedRoute) { 
                   super();
@@ -106,7 +105,9 @@ export class PostAdComponent extends Unsubscribe implements OnInit {
     adDto.categoryId = parseInt(formValues.category)
     adDto.conditionId = parseInt(formValues.condition)
     adDto.publicationDate = new Date();
-    adDto.userId = this.adCardPreview.user.id;
+    if (this.adCardPreview.user.id) {
+      adDto.userId = this.adCardPreview.user.id;
+    }
     return adDto;
   }
 
@@ -114,22 +115,16 @@ export class PostAdComponent extends Unsubscribe implements OnInit {
     const routeParams = this.route.snapshot.paramMap;
     const userId = Number(routeParams.get('id'));
     if (userId) {
-      this.checkUserId(userId);
-      this.userService.getUser(userId)
-        .pipe(takeUntil(this.unsubscribe$))
-        .subscribe( (res) => {
-            this.adCardPreview.user.name = res.name
-            this.adCardPreview.user.id = res.id
-        });
+      if (this.tokenService.isLogged()) {
+        const userData = this.tokenService.getUserNameAndId();
+        if (userData.id != userId.toString()) {
+           this.router.navigate(['/'])
+        } else {
+          this.adCardPreview.user.name = userData.name;
+          this.adCardPreview.user.id = +userData.id;
+        }
+      }
     }
-  }
-
-  checkUserId(userId: number) {
-    this.userService.getLoggedInUserId()
-    .pipe(takeUntil(this.unsubscribe$))
-    .subscribe((loggedInUser) => {
-      if (loggedInUser != userId.toString()) this.router.navigate(['/'])
-    });
   }
 
   /**
