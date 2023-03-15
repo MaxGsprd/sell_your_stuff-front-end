@@ -46,9 +46,6 @@ export class AdService {
     return this.http.delete<void>(`${environment.apiUrl}/${this.url}/deletePhoto/${adId}/${publicId}`);
   }
 
-  // public uploadImage(inputData: FormData) {
-  //   return this.http.post<IAdRequestDto>(`${environment.apiUrl}/${this.url}/uploadImage`, inputData);
-  // }
 }
 
 
