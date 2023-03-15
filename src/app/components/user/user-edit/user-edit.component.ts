@@ -4,7 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { takeUntil } from 'rxjs';
 import { IUserRequestDto } from 'src/app/models/dtos/IUserRequestDto';
-import { IUser } from 'src/app/models/IUser.interface';
+import { User } from 'src/app/models/user';
+import { TokenService } from 'src/app/services/token/token.service';
 import { UserService } from 'src/app/services/user/user.service';
 import { Unsubscribe } from 'src/app/_helpers/_unscubscribe/unsubscribe';
 
@@ -15,14 +16,15 @@ import { Unsubscribe } from 'src/app/_helpers/_unscubscribe/unsubscribe';
 })
 export class UserEditComponent extends Unsubscribe implements OnInit, OnDestroy {
 
-  user: IUser = {} as IUser;
+  user: User = {} as User;
   userEditionForm!: FormGroup;
   userSubmitted!:boolean;
 
   constructor(private route: ActivatedRoute, 
               private userService: UserService,
               private formBuilder: FormBuilder,
-              private toastr: ToastrService, 
+              private toastr: ToastrService,
+              private tokenService: TokenService,
               private router: Router) {
                 super();
                }
@@ -56,13 +58,12 @@ export class UserEditComponent extends Unsubscribe implements OnInit, OnDestroy 
   }
 
   checkUserId(userId: number) {
-    this.userService.getLoggedInUserId()
-    .pipe(takeUntil(this.unsubscribe$))
-    .subscribe( (loggedInUserId) => {
-      if (loggedInUserId != userId.toString()) {
-        this.router.navigate(['/']);
+    if (this.tokenService.isLogged()) {
+      const userData = this.tokenService.getUserNameAndId();
+      if (userData.id != userId.toString()) {
+         this.router.navigate(['/']);
       }
-    })
+   }
   }
 
   onSubmit() {

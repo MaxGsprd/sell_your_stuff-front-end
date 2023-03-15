@@ -7,6 +7,7 @@ import { IUserResponseDto } from 'src/app/models/dtos/IUserResponseDto';
 import { IAd } from 'src/app/models/IAd';
 import { AdService } from 'src/app/services/ad/ad.service';
 import { MessageService } from 'src/app/services/message/message.service';
+import { TokenService } from 'src/app/services/token/token.service';
 import { UserService } from 'src/app/services/user/user.service';
 import { Unsubscribe } from 'src/app/_helpers/_unscubscribe/unsubscribe';
 
@@ -29,6 +30,7 @@ export class UserDashboardComponent extends Unsubscribe implements OnInit {
               private userService: UserService, 
               private adService: AdService,
               private messageService: MessageService,
+              private tokenService: TokenService,
               private viewportScroller: ViewportScroller) {
                 super();
               }
@@ -38,7 +40,7 @@ export class UserDashboardComponent extends Unsubscribe implements OnInit {
     const userId = Number(routeParams.get('id'));
 
     if (userId) {
-      this.checkUserId(userId);
+      this.checkUserId(userId.toString());
 
       this.userService.getUser(userId)
         .pipe(takeUntil(this.unsubscribe$))
@@ -50,22 +52,19 @@ export class UserDashboardComponent extends Unsubscribe implements OnInit {
 
       this.messageService.getMessagesReceivedByUser(userId)
         .pipe(takeUntil(this.unsubscribe$))
-        .subscribe((res) => this.messagesReceived = res);
+        .subscribe((res) => this.messagesReceived = res.reverse());
 
       this.messageService.getMessagesSentByUser(userId)
         .pipe(takeUntil(this.unsubscribe$))
-        .subscribe((res) => this.messagesSent = res);
+        .subscribe((res) => this.messagesSent = res.reverse());
     }
   }
 
-  checkUserId(userId: number) {
-    this.userService.getLoggedInUserId()
-    .pipe(takeUntil(this.unsubscribe$))
-    .subscribe( (loggedInUserId) => {
-      if (loggedInUserId != userId.toString()) {
-        this.router.navigate(['/']);
-      }
-    })
+  checkUserId(userId: string) {
+    if (this.tokenService.isLogged()) {
+      const userData = this.tokenService.getUserNameAndId();
+      if (userData.id != userId) this.router.navigate(['/']);
+    }
   }
 
   onClick(elementId: string): void { 
