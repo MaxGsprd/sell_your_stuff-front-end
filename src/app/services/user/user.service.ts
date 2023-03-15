@@ -5,7 +5,7 @@ import { environment } from '../../../environments/environment';
 import { IUserResponseDto } from '../../models/dtos/IUserResponseDto';
 import { IUserRequestDto } from '../../models/dtos/IUserRequestDto';
 import { IUserLoginDto } from '../../models/dtos/IUserLoginDto';
-import { IUser } from '../../models/IUser.interface';
+import { User } from '../../models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -24,8 +24,8 @@ export class UserService {
     return this.http.get<IUserResponseDto>(`${environment.apiUrl}/${this.url}/${id}`);
   }
 
-  public getFullUser(id: number): Observable<IUser> {
-    return this.http.get<IUser>(`${environment.apiUrl}/${this.url}/fullUser/${id}`);
+  public getFullUser(id: number): Observable<User> {
+    return this.http.get<User>(`${environment.apiUrl}/${this.url}/fullUser/${id}`);
   }
 
   public registerUser(userDto: IUserRequestDto): Observable<IUserResponseDto> {
