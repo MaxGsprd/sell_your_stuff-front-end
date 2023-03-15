@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { takeUntil, tap } from 'rxjs';
 import { IAd } from 'src/app/models/IAd';
 import { AdService } from 'src/app/services/ad/ad.service';
+import { TokenService } from 'src/app/services/token/token.service';
 import { UserService } from 'src/app/services/user/user.service';
 import { Unsubscribe } from 'src/app/_helpers/_unscubscribe/unsubscribe';
 import { environment } from '../../../../environments/environment';
@@ -16,7 +17,7 @@ import { environment } from '../../../../environments/environment';
 })
 export class PhotoGalleryEditorComponent extends Unsubscribe implements OnInit {
   ad?: IAd;
-  loggedInUserId?: number;
+  loggedInUserId?: string | null;
   fileUploader?: FileUploader;
   maxAllowedFileSize: number = 10*1024*1024;
   hasBaseDropZoneOver?: boolean;
@@ -24,7 +25,7 @@ export class PhotoGalleryEditorComponent extends Unsubscribe implements OnInit {
   constructor (private adService: AdService,
                private route: ActivatedRoute,
                private router: Router,
-               private userService: UserService,
+               private tokenService: TokenService,
                private toastr: ToastrService) {
                  super()
               }
@@ -32,13 +33,7 @@ export class PhotoGalleryEditorComponent extends Unsubscribe implements OnInit {
   ngOnInit(): void {
     const routeParams = this.route.snapshot.paramMap;
     const adIdFromRoute = Number(routeParams.get('id'));
-    
-    this.userService.getLoggedInUserId()
-    .pipe(takeUntil(this.unsubscribe$))
-    .subscribe((loggedInUserId) => {
-      this.loggedInUserId = +loggedInUserId;
-    });
-
+    this.getCurrentUser();
     this.adService.getAd(adIdFromRoute)
       .pipe(
         tap( ad => { 
@@ -55,7 +50,7 @@ export class PhotoGalleryEditorComponent extends Unsubscribe implements OnInit {
 
   initializeFileUploader(adId: number) {
     this.fileUploader = new FileUploader({
-      url: `${environment.apiUrl}/Ads/add/Photo/${adId}`,
+      url: `${environment.apiUrl}/Cl-Ad/add/Photo/${adId}`,
       authToken: `Bearer ${localStorage.getItem('authToken')}`,
       isHTML5: true,
       allowedFileType: ['image'],
@@ -77,7 +72,14 @@ export class PhotoGalleryEditorComponent extends Unsubscribe implements OnInit {
 
   public fileOverBase(e: any): void {
     this.hasBaseDropZoneOver = e;
-  } 
+  }
+
+  getCurrentUser() {
+    if (this.tokenService.isLogged()) {
+      const user = this.tokenService.getUserNameAndId();
+      this.loggedInUserId = user.id;
+    }
+  }
 
   setPrimaryPhoto(adId: number, photo: string) {
     this.adService.setPrimaryPhoto(adId, photo).pipe(takeUntil(this.unsubscribe$)).subscribe();

@@ -14,7 +14,7 @@
         photo can't be deleted.</p>
         <div class="mb-3 mt-2 photo-gallery">
         <div *ngFor="let photo of ad?.photos" class="photo-card shadow-sm">
-            <img src="{{photo.imageUrl}}" alt="{{photo.imageUrl}}" class="img-min p-1">
+            <img src="{{photo.imageUrl}}" alt="photo" class="img-min p-1">
             <div class="photo-btns mt-2">
                 <button class="btn btn-sm thumnnail-btn" (click)="setPrimaryPhoto(ad!.id, photo.publicId)"
                     [disabled]="photo.isPrimary" [ngClass]='photo.isPrimary ? "btn-dark active" : "btn-outline-dark"'>
