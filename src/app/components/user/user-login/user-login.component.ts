@@ -41,8 +41,8 @@ export class UserLoginComponent extends Unsubscribe implements OnInit {
       this.userService.userLogin(loginValues)
         .pipe(takeUntil(this.unsubscribe$))
         .subscribe({
-          next: (token) => {
-              this.tokenService.saveToken(token);
+          next: (res) => {
+              this.tokenService.saveUserData(res);
               window.location.reload();
           },
           error: () => {
