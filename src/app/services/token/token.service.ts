@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { IUser } from 'src/app/models/IUser';
 
 @Injectable({
   providedIn: 'root'
@@ -32,12 +33,14 @@ export class TokenService {
     return localStorage.getItem("authToken");
   }
 
-  getUserId(): string | null {
-    return localStorage.getItem("uId");
+  getUserNameAndId(): IUser {
+    let userData = {} as IUser;
+    if (localStorage.getItem("username") != null && localStorage.getItem("username") != undefined) {
+      userData.name = localStorage.getItem("username");
+    }
+    if ( localStorage.getItem("uId") != null && localStorage.getItem("uId") != undefined) {
+      userData.id = localStorage.getItem("uId");
+    }
+    return userData; 
   }
-
-  getUserName(): string | null {
-    return localStorage.getItem("username");
-  }
-
 }
