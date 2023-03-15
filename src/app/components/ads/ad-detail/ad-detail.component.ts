@@ -2,14 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { switchMap, takeUntil, tap } from 'rxjs';
+import { takeUntil } from 'rxjs';
 import { IMessageRequest } from 'src/app/models/dtos/IMessageRequestDto';
-import { IUserResponseDto } from 'src/app/models/dtos/IUserResponseDto';
 import { IAd } from 'src/app/models/IAd';
+import { IUser } from 'src/app/models/IUser';
 import { AdService } from 'src/app/services/ad/ad.service';
 import { MessageService } from 'src/app/services/message/message.service';
 import { TokenService } from 'src/app/services/token/token.service';
-import { UserService } from 'src/app/services/user/user.service';
 import { Unsubscribe } from 'src/app/_helpers/_unscubscribe/unsubscribe';
 
 @Component({
@@ -19,25 +18,25 @@ import { Unsubscribe } from 'src/app/_helpers/_unscubscribe/unsubscribe';
 })
 export class AdDetailComponent extends Unsubscribe implements OnInit {
 
-  ad: IAd = {} as IAd;
+  ad!: IAd;
   messageForm!: FormGroup;
   userSubmitted!:boolean;
-  currentUser: IUserResponseDto = {} as IUserResponseDto;
+  currentUser!: IUser;
   primaryPhotoUrl!: string;
+  isUserAdAuthor!: boolean;
 
   constructor(private route: ActivatedRoute, 
               private adService: AdService,
               private toastr: ToastrService,
               private tokenService: TokenService,
-              private userService: UserService,
               private messageService: MessageService,
               private router: Router) { 
                 super(); 
               }
 
   ngOnInit(): void{
-    this.getAd();
     this.getCurrentUser();
+    this.getAd();
     this.messageForm = new FormGroup({
       title: new FormControl('', [Validators.required]),
       body: new FormControl('', [Validators.required])
@@ -51,8 +50,11 @@ export class AdDetailComponent extends Unsubscribe implements OnInit {
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
           next: (response) => {
-            this.ad = response
-            this.getPrimaryPhoto(this.ad)
+            this.ad = response;
+            if (this.currentUser.id) {
+              this.isUserAdAuthor = this.ad.user.id == +this.currentUser.id
+            }
+            this.getPrimaryPhoto(this.ad);
           },
           error: () =>  this.router.navigate(['/'])
       });
@@ -73,7 +75,9 @@ export class AdDetailComponent extends Unsubscribe implements OnInit {
     let message = {} as IMessageRequest;
     message.title = formValues.title;
     message.body = formValues.body;
-    message.authorId = this.currentUser.id;
+    if (this.currentUser.id) {
+      message.authorId = +this.currentUser.id;
+    }
     message.recipientId = this.ad?.user.id;
     message.adId = this.ad?.id;
     message.isRead = false;
@@ -83,23 +87,14 @@ export class AdDetailComponent extends Unsubscribe implements OnInit {
 
   getCurrentUser() {
     if (this.tokenService.isLogged()) {
-      this.userService.getLoggedInUserId()
-      .pipe(
-        switchMap( userId => this.userService.getUser(parseInt(userId)).pipe(
-          tap(data => this.currentUser = data))
-        ),
-        takeUntil(this.unsubscribe$)
-      )
-      .subscribe();
+      this.currentUser = this.tokenService.getUserNameAndId();
     }
   }
 
   getPrimaryPhoto(ad: IAd): void {
     if (ad?.photos?.length > 0) {
       ad.photos.forEach(p => {
-        if (p.isPrimary) {
-          this.primaryPhotoUrl = p.imageUrl;
-        }
+        if (p.isPrimary) this.primaryPhotoUrl = p.imageUrl;
       });
     } else {
       this.primaryPhotoUrl = "assets/images/placeholder_img.png";

@@ -7,7 +7,7 @@
 <section class="ad-infos mt-3 shadow">
     <div class="left">
         <div class="title-price">
-            <h3>{{ad.title}}</h3>
+            <h3 *ngIf="ad?.title" >{{ad.title}}</h3>
             <h3 *ngIf="ad?.price" class="ad-price">{{ad.price |currency:'CAD':'symbol-narrow'}}</h3>
         </div>
         <div class="ad-details">
@@ -23,7 +23,7 @@
             <div class="author-info mt-2">
                 <p>
                     <span>Ad posted by:</span>&nbsp;
-                    <span *ngIf="ad" class="author-name">{{ad.user.name}}</span>
+                    <span *ngIf="ad?.user" class="author-name">{{ad.user.name}}</span>
                 </p>
             </div>
             <div class="contact-author">
@@ -43,7 +43,7 @@
     <div class="photo-section-header">
         <h3>Photos gallery:</h3>
         <div class="photo-gallery-link shadow-sm">
-            <a *ngIf="currentUser.id == ad.user.id" [routerLink]="['/edit-photo-gallery', ad.id]">
+            <a *ngIf="isUserAdAuthor" [routerLink]="['/edit-photo-gallery', ad.id]">
                 <span class="material-symbols-outlined">photo_library</span>
                 <span>Edit photo gallery</span>
             </a>
@@ -51,7 +51,7 @@
     </div>
     <div *ngIf="ad?.photos?.length != 0" class="mb-3 photo-gallery">
         <div *ngFor="let photo of ad?.photos" class="photo-card shadow-sm mb-5">
-            <img src="{{photo.imageUrl}}" alt="{{photo.imageUrl}}" class="image-min">
+            <img src="{{photo.imageUrl}}" alt="image of the ad" class="image-min">
         </div>
     </div>
 </section>
@@ -60,21 +60,21 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="customModalLabel">Message to : {{ad.user.name}}</h1>
+                    <h1 *ngIf="ad?.user?.name" class="modal-title fs-5" id="customModalLabel">Message to : {{ad.user.name}}</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form [formGroup]="messageForm" (ngSubmit)="sendMessage()">
+                    <form [formGroup]="messageForm">
                         <div class="form-group">
                             <label class="mb-2" for="title">Title:</label>
                             <input formControlName="title" type="text" class="form-control" id="form-title" name="title"
-                                placeholder="Hi {{ad.user.name}}, I'm really interested by your ad !">
+                                placeholder="Hi, I'm really interested by your ad !">
                             <span *ngIf="title?.invalid && (title?.dirty || title?.touched || userSubmitted)" class="alert-span alert-danger">
                                 <span *ngIf="title?.errors?.['required']">
                                     Title is required.
                                 </span>
                             </span>
-                        </div>
+                        </div> 
                         <div class="form-group mt-3">
                             <label class="mb-2" for="body">Message:</label>
                             <textarea formControlName="body" rows="10" cols="30" class="form-control" id="form-body"
