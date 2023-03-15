@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { switchMap, takeUntil, tap } from 'rxjs';
-import { IUserResponseDto } from 'src/app/models/dtos/IUserResponseDto';
 import { TokenService } from 'src/app/services/token/token.service';
-import { UserService } from 'src/app/services/user/user.service';
 import { Unsubscribe } from 'src/app/_helpers/_unscubscribe/unsubscribe';
 
 @Component({
@@ -12,29 +9,37 @@ import { Unsubscribe } from 'src/app/_helpers/_unscubscribe/unsubscribe';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent extends Unsubscribe implements OnInit {
-  user = {} as IUserResponseDto
+  userId?: string | undefined | null;
+  userName?: string | undefined | null;
 
   constructor (private tokenService: TokenService,
-              private userService: UserService,
-              private router: Router) {
+               private router: Router) {
                 super();
               }
 
   ngOnInit(): void {
     if (this.tokenService.isLogged()) {
-      this.userService.getLoggedInUserId()
-        .pipe(
-          switchMap( userId => this.userService.getUser(parseInt(userId)).pipe(
-            tap(data => this.user = data))
-          ),
-          takeUntil(this.unsubscribe$)
-        )
-        .subscribe();
+      this.retreiveUserId();
+      this.retreiveUserName();
     }
   }
 
   signOut(): void {
-    this.tokenService.clearToken();
+    this.tokenService.clearUserData();
     this.router.navigate(['/']);
+  }
+
+  retreiveUserId(): void {
+    const localStorageUid = this.tokenService.getUserId();
+    if (localStorageUid != null && localStorageUid != undefined) {
+      this.userId = localStorageUid;
+    }
+  }
+
+  retreiveUserName(): void {
+    const localStorageUserName = this.tokenService.getUserName();
+    if (localStorageUserName != null && localStorageUserName != undefined) {
+      this.userName = localStorageUserName;
+    }
   }
 }
