@@ -83,7 +83,7 @@ export class PhotoGalleryEditorComponent extends Unsubscribe implements OnInit {
 
   setPrimaryPhoto(adId: number, photo: string) {
     this.adService.setPrimaryPhoto(adId, photo).pipe(takeUntil(this.unsubscribe$)).subscribe();
-    window.location.reload();
+    window.setTimeout(() => { window.location.reload() }, 700)
   }
 
   deletePhoto(adId: number, photo: string) {
