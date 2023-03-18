@@ -130,6 +130,7 @@ export class EditAdComponent extends Unsubscribe implements OnInit {
     adDto.categoryId = parseInt(formValues.category)
     adDto.conditionId = parseInt(formValues.condition)
     adDto.publicationDate = new Date();
+    adDto.addressId = 0;
 
     if (this.adCardPreview.user.id) {
       adDto.userId = this.adCardPreview.user.id;
@@ -147,18 +148,11 @@ export class EditAdComponent extends Unsubscribe implements OnInit {
 
       this.adService.updateAd(newAd)
         .pipe(takeUntil(this.unsubscribe$))
-        .subscribe((res) => {
-          if (this.imageToUpload) {
-            let formData = new FormData();
-            formData.append("file", this.imageToUpload, String(res.id));
-            // this.adService.uploadImage(formData).pipe(takeUntil(this.unsubscribe$)).subscribe();
-          }
-        });
+        .subscribe();
 
       this.editAdForm.reset();
       alertDanger?.classList.add('hidden');
       this.userSubmitted = false;
-      this.router.navigate(['/']);
       window.setTimeout(() => { window.location.reload() }, 700)
       this.toastr.success('Congratulations, your ad has been edited.', 'Thank you !');
     } else {

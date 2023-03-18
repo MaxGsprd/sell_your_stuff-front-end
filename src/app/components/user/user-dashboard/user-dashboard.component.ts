@@ -80,7 +80,7 @@ export class UserDashboardComponent extends Unsubscribe implements OnInit {
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe();
     this.selectedAdId = 0;
-    window.location.reload();
+    window.setTimeout(() => { window.location.reload() }, 1000)
   }
 
   readMsg(msg: IMessageResponse): void {
