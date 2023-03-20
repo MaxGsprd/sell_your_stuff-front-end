@@ -34,7 +34,7 @@
                     <div class="form-group row">
                         <label for="price" class="col-sm-3 col-form-label">Price ($)</label>
                         <div class="col-sm-4">
-                            <input *ngIf="ad?.price" type="number" class="form-control" min="1" id="inputPrice" formControlName="price" value={{ad.price}}>
+                            <input type="number" class="form-control" min="1" id="inputPrice" formControlName="price" value={{ad.price}}>
                             <span id="priceError" *ngIf="price?.invalid && (price?.dirty || price?.touched || userSubmitted)" class="alert-span alert-danger">
                                 Price should be at least 1
                             </span>

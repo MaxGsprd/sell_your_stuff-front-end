@@ -63,7 +63,7 @@ export class PostAdComponent extends Unsubscribe implements OnInit {
 
     this.postAdForm.get('title')?.valueChanges.subscribe((value: string) => this.adCardPreview.title = value);
     this.postAdForm.get('description')?.valueChanges.subscribe((value: string) => this.adCardPreview.description = value);
-    this.postAdForm.get('price')?.valueChanges.subscribe((value: number) => this.adCardPreview.price = value);
+    this.postAdForm.get('price')?.valueChanges.subscribe((value: number) => this.adCardPreview.price = Math.round(value));
     this.postAdForm.get('category')?.valueChanges.subscribe((value: number) => this.adCardPreview.category = this.categories[value-1]);
     this.postAdForm.get('condition')?.valueChanges.subscribe((value: number) => this.adCardPreview.condition = this.conditions[value-1]);
   }
@@ -72,7 +72,6 @@ export class PostAdComponent extends Unsubscribe implements OnInit {
     this.userSubmitted = true;
     const alertDanger =  document.getElementById('form-invalid-alert');
     if (this.postAdForm.valid) {
-
       let newAd = this.postAdFormToDto(this.postAdForm.value);
 
       this.adService.postAd(newAd)
@@ -105,6 +104,7 @@ export class PostAdComponent extends Unsubscribe implements OnInit {
     adDto.categoryId = parseInt(formValues.category)
     adDto.conditionId = parseInt(formValues.condition)
     adDto.publicationDate = new Date();
+    adDto.price = Math.round(formValues.price);
     if (this.adCardPreview.user.id) {
       adDto.userId = this.adCardPreview.user.id;
     }

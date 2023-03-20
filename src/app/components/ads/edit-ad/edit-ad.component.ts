@@ -48,7 +48,7 @@ export class EditAdComponent extends Unsubscribe implements OnInit {
 
     this.editAdForm.get('title')?.valueChanges.subscribe((value: string) => this.adCardPreview.title = value);
     this.editAdForm.get('description')?.valueChanges.subscribe((value: string) => this.adCardPreview.description = value);
-    this.editAdForm.get('price')?.valueChanges.subscribe((value: number) => this.adCardPreview.price = value);
+    this.editAdForm.get('price')?.valueChanges.subscribe((value: number) => this.adCardPreview.price = Math.round(value));
     this.editAdForm.get('category')?.valueChanges.subscribe((value: number) => this.adCardPreview.category = this.categories[value - 1]);
     this.editAdForm.get('condition')?.valueChanges.subscribe((value: number) => this.adCardPreview.condition = this.conditions[value - 1]);
   }
@@ -131,7 +131,7 @@ export class EditAdComponent extends Unsubscribe implements OnInit {
     adDto.conditionId = parseInt(formValues.condition)
     adDto.publicationDate = new Date();
     adDto.addressId = 0;
-
+    adDto.price = Math.round(formValues.price);
     if (this.adCardPreview.user.id) {
       adDto.userId = this.adCardPreview.user.id;
 
