@@ -34,3 +34,48 @@
 .col {
     min-width: 18rem;
 }
+
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+
+    .welcome-msg {
+        font-size: 1.1em;
+        text-align: center;
+    }
+
+    .search-section {
+        width: 80%;
+    }
+
+    select {
+        margin-bottom: 1.2em;
+    }
+
+    #removeFilterBtnDiv {
+        display: flex;
+        justify-content: center;
+    }
+
+    #removeFilterBtn {
+        margin: 1.2em;
+    }
+
+    .categoryFormGroup {
+        background-color: blue;
+    }
+
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+/* @media only screen and (min-width: 600px) {...} */
+
+/* Medium devices (landscape tablets, 768px and up) */
+/* @media only screen and (min-width: 768px) {...} */
+
+/* Large devices (laptops/desktops, 992px and up) */
+/* @media only screen and (min-width: 992px) {...} */
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+/* @media only screen and (min-width: 1200px) {...} */
+
